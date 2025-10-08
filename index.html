@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+  <meta charset="UTF-8">
+  <title>Service Add Karein | Service by Local</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    body { background: #f8fafc; font-family: 'Poppins', sans-serif; color: #334155; }
+    .container { max-width: 520px; margin: 36px auto; background: #fff; border-radius: 20px; box-shadow: 0 8px 32px rgba(110, 211, 180, .14); padding: 34px 30px; }
+    .title { font-size: 1.65rem; font-weight: 600; text-align: center; background: linear-gradient(135deg,#0a5c36, #0a7e4e); color: #fff; padding: 18px; border-radius: 10px; margin-bottom: 22px;}
+    label { display: block; font-weight: 500; margin-bottom: 7px; }
+    select, input, textarea { width: 100%; padding: 9px 10px; font-size: 1rem; border: 1px solid #e2e8f0; border-radius: 10px; margin-bottom: 15px; }
+    input[type="submit"] { background: linear-gradient(135deg,#059669, #10b981); color: #fff; font-weight: 600; border: none; border-radius: 10px; padding: 12px 0; font-size: 1.14rem; cursor: pointer; }
+    input[type="submit"]:hover { background: linear-gradient(135deg,#047857, #059669);}
+    .price-row { display: flex; gap: 15px; }
+    .price-row input { width: 50%; }
+    .icon { font-size: 2rem; color: #059669; position: absolute; right: 38px; top: 32px; }
+    .services-list { margin-top: 38px; font-size: 1rem; border-top: 1px solid #e2e8f0; padding-top: 18px;}
+    .service-item { background: #f0fdf4; padding: 10px 18px; border-radius: 10px; margin-bottom: 10px; display: flex; align-items: center; gap: 18px;}
+    .service-item .fa { font-size: 1.5rem; color: #059669; }
+    .sub-label { font-size:0.93rem; color:#64748b; margin-bottom:2px;}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="title">नई सर्विस जोड़ें</div>
+    <form>
+      <label for="category">कैटेगरी चुने</label>
+      <select id="category" name="category" required>
+        <option value="">कैटेगरी चुने</option>
+        <option>Appliance Repair</option>
+        <option>Home Services</option>
+        <option>Construction</option>
+        <option>Rental Vehicle</option>
+        <option>Event Services</option>
+        <option>Beauty Grooming</option>
+        <option>Pest Control</option>
+        <option>E-Riksha</option>
+        <option>Tank Cleaning</option>
+        <option>Rent Share</option>
+        <option>Daily Needs</option>
+        <option>Photo Videography</option>
+        <option>Education Tuition</option>
+      </select>
+      <label for="subcategory">सबकैटेगरी</label>
+      <select id="subcategory" name="subcategory" required>
+        <option value="">सबकैटेगरी चुने</option>
+        <!-- JS se Update hoga -->
+      </select>
+      <label for="skill">Skill/Service चुने</label>
+      <select id="skill" name="skill" required>
+        <option value="">Skill/Service चुने</option>
+        <!-- JS se Update hoga -->
+      </select>
+      <div class="price-row">
+        <div>
+          <label for="price">Start at Price ₹</label>
+          <input type="number" id="price" name="price" placeholder="eg. 199" min="50" required>
+        </div>
+        <div>
+          <label for="discount">Discount (%)</label>
+          <input type="number" id="discount" name="discount" placeholder="eg. 10">
+        </div>
+      </div>
+      <label for="desc">Service Description</label>
+      <textarea id="desc" name="desc" rows="3" placeholder="Service ke details likhe..." required></textarea>
+      <label for="duration">Avg. Duration (min)</label>
+      <input type="number" id="duration" name="duration" placeholder="eg. 60">
+      <label for="image">Upload Image (optional)</label>
+      <input type="file" id="image" name="image" accept="image/*">
+      <input type="submit" value="Service Add Karein">
+    </form>
+    <div class="services-list">
+      <div class="sub-label">Aapki Added Services</div>
+      <!-- Services list dynamically yaha dikhegi -->
+      <div class="service-item"><i class="fa fa-cog"></i> Pipe Installation - ₹849 <span> Plumbing, Bathroom</span></div>
+      <div class="service-item"><i class="fa fa-faucet"></i> Tap Repair - ₹199 <span> Tap, Kitchen</span></div>
+    </div>
+  </div>
+  <script>
+    // Sample mapping for category => subcategory => skills (actual data file:1 se le sakte hain)
+    const data = {
+      "Appliance Repair": {
+        "AC Repair": ["AC Installation", "AC Service", "AC Repair", "AC Shifting", "Deep Cleaning"],
+        "Washing Machine": ["Repair", "Service", "Installation", "Drum Cleaning", "Motor Repair"],
+        "Fridge": ["Gas Refill", "Repair", "Service", "Freezer & Thermostat Repair"]
+        // add more...
+      },
+      "Home Services": {
+        "Plumbing": ["Bath Fittings", "Basin Sink", "Grouting", "Drainage", "Motor, Pipes"],
+        "Electrical": ["Switch", "Socket", "Fan", "Light", "Wiring"]
+        // add more...
+      }
+      // add all categories/subcategories/skills from file:1
+    };
+    const category = document.getElementById('category');
+    const subcategory = document.getElementById('subcategory');
+    const skill = document.getElementById('skill');
+    category.addEventListener('change', function(){
+      subcategory.innerHTML = '<option value="">सबकैटेगरी चुने</option>';
+      skill.innerHTML = '<option value="">Skill/Service चुने</option>';
+      if(this.value && data[this.value]){
+        Object.keys(data[this.value]).forEach(sub=>{
+          subcategory.innerHTML += `<option value="${sub}">${sub}</option>`;
+        });
+      }
+    });
+    subcategory.addEventListener('change', function(){
+      skill.innerHTML = '<option value="">Skill/Service चुने</option>';
+      if(category.value && data[category.value] && data[category.value][this.value]){
+        data[category.value][this.value].forEach(sk=>{
+          skill.innerHTML += `<option value="${sk}">${sk}</option>`;
+        });
+      }
+    });
+  </script>
+</body>
+</html>

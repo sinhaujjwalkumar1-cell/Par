@@ -1,0 +1,1453 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Your Provider Profile | Service by Local</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        body {
+            background: #f8fafc;
+            color: #334155;
+            line-height: 1.6;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .container {
+            max-width: 100%;
+            margin: 0 auto;
+            background: white;
+        }
+        
+        /* Header Section */
+        .setup-header {
+            background: linear-gradient(135deg, #0a5c36 0%, #0a7e4e 100%);
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        
+        .setup-header h1 {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+        }
+        
+        .setup-header p {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+        
+        /* Profile Header - Editable */
+        .profile-header {
+            background: linear-gradient(135deg, #f0fdf4 0%, #e2e8f0 100%);
+            color: #334155;
+            padding: 30px 20px 30px 20px;
+            position: relative;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        
+        .profile-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 0 auto;
+        }
+        
+        .profile-image-upload {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            border: 4px solid white;
+            margin-bottom: 20px;
+            overflow: hidden;
+            background: #e2e8f0;
+            cursor: pointer;
+            position: relative;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .profile-image-upload img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .upload-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .profile-image-upload:hover .upload-overlay {
+            opacity: 1;
+        }
+        
+        .profile-name-editable {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 5px;
+            color: #059669;
+            cursor: pointer;
+            padding: 5px 10px;
+            border-radius: 8px;
+            transition: background 0.3s ease;
+        }
+        
+        .profile-name-editable:hover {
+            background: rgba(5, 150, 105, 0.1);
+        }
+        
+        .profile-tag-editable {
+            display: inline-block;
+            background: #059669;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+        
+        .profile-tag-editable:hover {
+            transform: scale(1.05);
+        }
+        
+        /* Editable Fields */
+        .editable-field {
+            background: white;
+            border: 2px dashed #059669;
+            border-radius: 10px;
+            padding: 12px 15px;
+            margin: 10px 0;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+        
+        .editable-field:hover {
+            background: #f0fdf4;
+            border-style: solid;
+        }
+        
+        .field-placeholder {
+            color: #64748b;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        
+        .field-value {
+            color: #059669;
+            font-weight: 500;
+        }
+        
+        /* Statistics Grid - Editable */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            margin: 20px 0;
+            width: 100%;
+        }
+        
+        .stat-item-editable {
+            text-align: center;
+            padding: 12px 8px;
+            background: white;
+            border-radius: 10px;
+            border: 2px dashed #e2e8f0;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .stat-item-editable:hover {
+            border-color: #059669;
+            background: #f8fafc;
+        }
+        
+        .stat-number {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #059669;
+        }
+        
+        .stat-label {
+            font-size: 0.7rem;
+            color: #64748b;
+            margin-top: 5px;
+        }
+        
+        /* Service Guarantees - Editable */
+        .service-guarantees {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+            margin: 20px 0;
+        }
+        
+        .guarantee-card-editable {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            padding: 12px 8px;
+            background: white;
+            border: 2px dashed #e2e8f0;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .guarantee-card-editable:hover {
+            border-color: #059669;
+            transform: translateY(-2px);
+        }
+        
+        .guarantee-card-editable i {
+            font-size: 1.3rem;
+            color: #64748b;
+            margin-bottom: 5px;
+        }
+        
+        .guarantee-card-editable span {
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+        
+        /* Profile Details - Editable */
+        .profile-details {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            width: 100%;
+            margin-top: 15px;
+        }
+        
+        .detail-item-editable {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.9rem;
+            padding: 8px 12px;
+            background: white;
+            border-radius: 8px;
+            border: 2px dashed #e2e8f0;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .detail-item-editable:hover {
+            border-color: #059669;
+            background: #f8fafc;
+        }
+        
+        .detail-item-editable i {
+            color: #059669;
+            width: 20px;
+        }
+        
+        /* Main Content */
+        .profile-content {
+            padding: 20px;
+        }
+        
+        .content-card {
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .section-title {
+            font-size: 1.3rem;
+            color: #059669;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #e2e8f0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        .add-more-btn {
+            background: #059669;
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .add-more-btn:hover {
+            background: #047857;
+            transform: scale(1.05);
+        }
+        
+        /* Category Selection */
+        .category-section {
+            margin: 20px 0;
+        }
+        
+        .category-tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .category-tab {
+            background: white;
+            border: 2px solid #e2e8f0;
+            border-radius: 25px;
+            padding: 10px 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+        
+        .category-tab:hover {
+            border-color: #059669;
+        }
+        
+        .category-tab.active {
+            background: #059669;
+            color: white;
+            border-color: #059669;
+        }
+        
+        .add-category-btn {
+            background: transparent;
+            border: 2px dashed #059669;
+            color: #059669;
+            border-radius: 25px;
+            padding: 10px 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+        
+        .add-category-btn:hover {
+            background: #f0fdf4;
+        }
+        
+        /* Subcategory Selection */
+        .subcategory-section {
+            margin: 20px 0;
+        }
+        
+        .subcategory-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+        }
+        
+        .subcategory-card {
+            background: white;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 15px 10px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .subcategory-card:hover {
+            border-color: #059669;
+            transform: translateY(-2px);
+        }
+        
+        .subcategory-card.selected {
+            border-color: #059669;
+            background: #f0fdf4;
+        }
+        
+        .subcategory-icon {
+            font-size: 1.8rem;
+            color: #059669;
+            margin-bottom: 8px;
+        }
+        
+        .subcategory-name {
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+        
+        /* Services Selection */
+        .services-section {
+            margin: 20px 0;
+        }
+        
+        .services-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 12px;
+        }
+        
+        .service-card-editable {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 15px;
+            background: #f8fafc;
+            border-radius: 12px;
+            border-left: 4px solid #059669;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .service-card-editable:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .service-image {
+            width: 50px;
+            height: 50px;
+            border-radius: 8px;
+            overflow: hidden;
+            flex-shrink: 0;
+            background: #e2e8f0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .service-image i {
+            font-size: 1.5rem;
+            color: #059669;
+        }
+        
+        .service-content {
+            flex: 1;
+        }
+        
+        .service-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 5px;
+        }
+        
+        .service-name {
+            font-weight: 600;
+            font-size: 1rem;
+            color: #059669;
+        }
+        
+        .service-price-input {
+            font-weight: 700;
+            color: #059669;
+            font-size: 1.1rem;
+            background: transparent;
+            border: 2px dashed #059669;
+            border-radius: 6px;
+            padding: 4px 8px;
+            width: 80px;
+            text-align: center;
+        }
+        
+        .service-desc {
+            font-size: 0.85rem;
+            color: #64748b;
+            margin-bottom: 5px;
+            line-height: 1.4;
+        }
+        
+        /* Editable Cards */
+        .editable-card {
+            background: white;
+            border: 2px dashed #e2e8f0;
+            border-radius: 12px;
+            padding: 15px;
+            margin: 15px 0;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .editable-card:hover {
+            border-color: #059669;
+            background: #f8fafc;
+        }
+        
+        .card-placeholder {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            color: #64748b;
+        }
+        
+        .card-content {
+            display: none;
+        }
+        
+        /* Portfolio Section */
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            margin: 15px 0;
+        }
+        
+        .portfolio-item-add {
+            border-radius: 12px;
+            overflow: hidden;
+            aspect-ratio: 1;
+            background: #f1f5f9;
+            position: relative;
+            transition: transform 0.3s ease;
+            border: 2px dashed #cbd5e1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #64748b;
+            cursor: pointer;
+        }
+        
+        .portfolio-item-add:hover {
+            border-color: #059669;
+            color: #059669;
+        }
+        
+        /* Action Buttons */
+        .action-buttons {
+            display: flex;
+            gap: 12px;
+            margin: 25px 0 15px;
+        }
+        
+        .btn {
+            flex: 1;
+            padding: 15px;
+            border: none;
+            border-radius: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        
+        .btn-primary {
+            background: #059669;
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background: #047857;
+            transform: translateY(-2px);
+        }
+        
+        .btn-secondary {
+            background: #f1f5f9;
+            color: #64748b;
+            border: 2px solid #e2e8f0;
+        }
+        
+        .btn-secondary:hover {
+            background: #e2e8f0;
+        }
+        
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.5);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        
+        .modal-content {
+            background: white;
+            border-radius: 16px;
+            padding: 25px;
+            width: 100%;
+            max-width: 500px;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+        
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .modal-title {
+            font-size: 1.3rem;
+            color: #059669;
+            font-weight: 600;
+        }
+        
+        .close-modal {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: #64748b;
+            cursor: pointer;
+        }
+        
+        .category-modal-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+        }
+        
+        .category-modal-option {
+            background: white;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 15px 10px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .category-modal-option:hover {
+            border-color: #059669;
+        }
+        
+        .category-modal-option.selected {
+            border-color: #059669;
+            background: #f0fdf4;
+        }
+        
+        .category-modal-icon {
+            font-size: 1.8rem;
+            color: #059669;
+            margin-bottom: 8px;
+        }
+        
+        .category-modal-name {
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+        
+        /* Responsive */
+        @media (max-width: 480px) {
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .service-guarantees {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .profile-details {
+                grid-template-columns: 1fr;
+            }
+            
+            .subcategory-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .category-modal-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Setup Header -->
+        <div class="setup-header">
+            <h1>Create Your Provider Profile</h1>
+            <p>Tap on any section to edit and create your professional profile</p>
+        </div>
+        
+        <!-- Editable Profile Header -->
+        <div class="profile-header">
+            <div class="profile-container">
+                <div class="profile-image-upload" id="profileImageUpload">
+                    <div class="upload-overlay">
+                        <i class="fas fa-camera"></i>
+                        <span>Add Photo</span>
+                    </div>
+                </div>
+                
+                <div class="profile-name-editable" id="profileNameEditable">
+                    Tap to Add Your Name
+                </div>
+                
+                <div class="profile-tag-editable" id="profileTagEditable">
+                    Add Your Profession
+                </div>
+                
+                <!-- Statistics Grid -->
+                <div class="stats-grid">
+                    <div class="stat-item-editable" id="successRateStat">
+                        <div class="stat-number">0%</div>
+                        <div class="stat-label">Success Rate</div>
+                    </div>
+                    <div class="stat-item-editable" id="jobsDoneStat">
+                        <div class="stat-number">0</div>
+                        <div class="stat-label">Jobs Done</div>
+                    </div>
+                    <div class="stat-item-editable" id="repeatClientsStat">
+                        <div class="stat-number">0</div>
+                        <div class="stat-label">Repeat Clients</div>
+                    </div>
+                    <div class="stat-item-editable" id="responseTimeStat">
+                        <div class="stat-number">0h</div>
+                        <div class="stat-label">Avg. Response</div>
+                    </div>
+                </div>
+                
+                <!-- Service Guarantees -->
+                <div class="service-guarantees">
+                    <div class="guarantee-card-editable" data-guarantee="best-price">
+                        <i class="fas fa-rupee-sign"></i>
+                        <span>Best Price</span>
+                    </div>
+                    <div class="guarantee-card-editable" data-guarantee="on-time">
+                        <i class="fas fa-clock"></i>
+                        <span>On-time</span>
+                    </div>
+                    <div class="guarantee-card-editable" data-guarantee="warranty">
+                        <i class="fas fa-tools"></i>
+                        <span>90 Days Warranty</span>
+                    </div>
+                </div>
+                
+                <!-- Profile Details -->
+                <div class="profile-details">
+                    <div class="detail-item-editable" id="experienceDetail">
+                        <i class="fas fa-briefcase"></i>
+                        <span>Add Experience</span>
+                    </div>
+                    <div class="detail-item-editable" id="locationDetail">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>Add Location</span>
+                    </div>
+                    <div class="detail-item-editable" id="availabilityDetail">
+                        <i class="fas fa-clock"></i>
+                        <span>Add Availability</span>
+                    </div>
+                    <div class="detail-item-editable" id="verificationDetail">
+                        <i class="fas fa-check-circle"></i>
+                        <span>Add Verification</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Main Content -->
+        <div class="profile-content">
+            <!-- Services & Categories -->
+            <div class="content-card">
+                <div class="section-title">
+                    <span><i class="fas fa-cogs"></i> My Services & Pricing</span>
+                    <button class="add-more-btn" id="addCategoryBtn">
+                        <i class="fas fa-plus"></i> Add Category
+                    </button>
+                </div>
+                
+                <!-- Category Tabs -->
+                <div class="category-tabs" id="categoryTabs">
+                    <!-- Categories will be added here dynamically -->
+                </div>
+                
+                <!-- Selected Category Content -->
+                <div id="selectedCategoryContent">
+                    <div style="text-align: center; padding: 40px 20px; color: #64748b;">
+                        <i class="fas fa-layer-group" style="font-size: 3rem; margin-bottom: 15px; color: #e2e8f0;"></i>
+                        <h3>No Category Selected</h3>
+                        <p>Tap "Add Category" to start adding your services</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Portfolio Section -->
+            <div class="content-card">
+                <h2 class="section-title"><i class="fas fa-camera"></i> Portfolio</h2>
+                <div class="portfolio-grid">
+                    <div class="portfolio-item-add" id="addPortfolioItem1">
+                        <i class="fas fa-plus"></i>
+                        <span>Add Photo</span>
+                    </div>
+                    <div class="portfolio-item-add" id="addPortfolioItem2">
+                        <i class="fas fa-plus"></i>
+                        <span>Add Photo</span>
+                    </div>
+                    <div class="portfolio-item-add" id="addPortfolioItem3">
+                        <i class="fas fa-plus"></i>
+                        <span>Add Photo</span>
+                    </div>
+                    <div class="portfolio-item-add" id="addPortfolioItem4">
+                        <i class="fas fa-plus"></i>
+                        <span>Add Photo</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Contact Information -->
+            <div class="content-card">
+                <h2 class="section-title"><i class="fas fa-address-book"></i> Contact Information</h2>
+                
+                <div class="editable-card" id="phoneCard">
+                    <div class="card-placeholder">
+                        <i class="fas fa-phone"></i>
+                        <span>Tap to add your phone number</span>
+                    </div>
+                </div>
+                
+                <div class="editable-card" id="whatsappCard">
+                    <div class="card-placeholder">
+                        <i class="fab fa-whatsapp"></i>
+                        <span>Tap to add WhatsApp number</span>
+                    </div>
+                </div>
+                
+                <div class="editable-card" id="addressCard">
+                    <div class="card-placeholder">
+                        <i class="fas fa-map-marked-alt"></i>
+                        <span>Tap to add your full address</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Action Buttons -->
+            <div class="action-buttons">
+                <button class="btn btn-secondary">
+                    <i class="fas fa-save"></i> Save Draft
+                </button>
+                <button class="btn btn-primary" id="completeProfileBtn">
+                    <i class="fas fa-check-circle"></i> Complete Profile
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Category Selection Modal -->
+    <div class="modal" id="categoryModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Select Service Category</h3>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div class="category-modal-grid" id="categoryModalGrid">
+                <!-- Categories will be populated by JavaScript -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Complete Categories Data (from home page)
+        const categories = [
+            {
+                id: 1,
+                name: "Appliance Repair",
+                icon: "fas fa-tools",
+                description: "Expert repair for all home appliances",
+                subcategories: [
+                    { 
+                        id: 1, 
+                        name: "AC Repair", 
+                        hindiName: "एसी रिपेयर",
+                        icon: "fas fa-snowflake", 
+                        popular: true,
+                        skills: [
+                            { name: "AC Installation & Uninstallation", hindiName: "एसी इंस्टालेशन और अनइंस्टालेशन" },
+                            { name: "AC Service & Gas Refill", hindiName: "एसी सर्विस और गैस रिफिल" },
+                            { name: "AC Repair & Maintenance", hindiName: "एसी रिपेयर और मेंटेनेंस" }
+                        ]
+                    },
+                    { 
+                        id: 2, 
+                        name: "Washing Machine", 
+                        hindiName: "वाशिंग मशीन",
+                        icon: "fas fa-soap", 
+                        popular: true,
+                        skills: [
+                            { name: "Washing Machine Repair", hindiName: "वाशिंग मशीन रिपेयर" },
+                            { name: "Washing Machine Service", hindiName: "वाशिंग मशीन सर्विस" }
+                        ]
+                    }
+                ]
+            },
+            {
+                id: 2,
+                name: "Home Services",
+                icon: "fas fa-home",
+                description: "Complete home maintenance solutions",
+                subcategories: [
+                    { 
+                        id: 1, 
+                        name: "Plumbing", 
+                        hindiName: "प्लंबिंग",
+                        icon: "fas fa-faucet", 
+                        popular: true,
+                        skills: [
+                            { name: "Tap Repair", hindiName: "नल रिपेयर" },
+                            { name: "Pipe Installation", hindiName: "पाइप इंस्टालेशन" },
+                            { name: "Leakage Fix", hindiName: "लीकेज फिक्स" }
+                        ]
+                    },
+                    { 
+                        id: 2, 
+                        name: "Electrical", 
+                        hindiName: "इलेक्ट्रिकल",
+                        icon: "fas fa-bolt", 
+                        popular: true,
+                        skills: [
+                            { name: "Switch & Socket", hindiName: "स्विच और सॉकेट" },
+                            { name: "Fan Repair", hindiName: "पंखा रिपेयर" }
+                        ]
+                    }
+                ]
+            },
+            {
+                id: 3,
+                name: "Construction",
+                icon: "fas fa-hard-hat",
+                description: "Construction materials and services",
+                subcategories: [
+                    { 
+                        id: 1, 
+                        name: "Mason Work", 
+                        hindiName: "मिस्त्री का काम",
+                        icon: "fas fa-trowel",
+                        skills: [
+                            { name: "Wall Construction", hindiName: "दीवार निर्माण" },
+                            { name: "Plaster Work", hindiName: "पलस्तर का काम" }
+                        ]
+                    }
+                ]
+            }
+        ];
+
+        // Store user profile data
+        let userProfile = {
+            name: "",
+            tagline: "",
+            profileImage: "",
+            stats: {
+                successRate: 0,
+                jobsDone: 0,
+                repeatClients: 0,
+                responseTime: 0
+            },
+            guarantees: [],
+            details: {
+                experience: "",
+                location: "",
+                availability: "",
+                verification: ""
+            },
+            selectedCategories: [],
+            services: {},
+            contact: {
+                phone: "",
+                whatsapp: "",
+                address: ""
+            },
+            portfolio: []
+        };
+
+        let currentSelectedCategory = null;
+
+        // DOM Elements
+        const profileImageUpload = document.getElementById('profileImageUpload');
+        const profileNameEditable = document.getElementById('profileNameEditable');
+        const profileTagEditable = document.getElementById('profileTagEditable');
+        const categoryTabs = document.getElementById('categoryTabs');
+        const selectedCategoryContent = document.getElementById('selectedCategoryContent');
+        const addCategoryBtn = document.getElementById('addCategoryBtn');
+        const categoryModal = document.getElementById('categoryModal');
+        const categoryModalGrid = document.getElementById('categoryModalGrid');
+        const completeProfileBtn = document.getElementById('completeProfileBtn');
+
+        // Initialize the page
+        document.addEventListener('DOMContentLoaded', function() {
+            setupEventListeners();
+            populateCategoryModal();
+        });
+
+        // Setup Event Listeners
+        function setupEventListeners() {
+            // Profile image upload
+            profileImageUpload.addEventListener('click', function() {
+                alert('In real app, this would open image picker/camera');
+                // Simulate image upload
+                this.innerHTML = `
+                    <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=200&q=80" alt="Profile">
+                    <div class="upload-overlay">
+                        <i class="fas fa-camera"></i>
+                        <span>Change Photo</span>
+                    </div>
+                `;
+                userProfile.profileImage = "uploaded_image_url";
+            });
+
+            // Profile name editing
+            profileNameEditable.addEventListener('click', function() {
+                const name = prompt('Enter your name:');
+                if (name) {
+                    this.textContent = name;
+                    userProfile.name = name;
+                }
+            });
+
+            // Profile tagline editing
+            profileTagEditable.addEventListener('click', function() {
+                const tagline = prompt('Enter your profession/tagline:');
+                if (tagline) {
+                    this.textContent = tagline;
+                    userProfile.tagline = tagline;
+                }
+            });
+
+            // Statistics editing
+            document.getElementById('successRateStat').addEventListener('click', function() {
+                const rate = prompt('Enter your success rate (%):', '98');
+                if (rate) {
+                    this.querySelector('.stat-number').textContent = rate + '%';
+                    userProfile.stats.successRate = parseInt(rate);
+                }
+            });
+
+            document.getElementById('jobsDoneStat').addEventListener('click', function() {
+                const jobs = prompt('Enter number of jobs done:', '247');
+                if (jobs) {
+                    this.querySelector('.stat-number').textContent = jobs;
+                    userProfile.stats.jobsDone = parseInt(jobs);
+                }
+            });
+
+            document.getElementById('repeatClientsStat').addEventListener('click', function() {
+                const clients = prompt('Enter number of repeat clients:', '45');
+                if (clients) {
+                    this.querySelector('.stat-number').textContent = clients;
+                    userProfile.stats.repeatClients = parseInt(clients);
+                }
+            });
+
+            document.getElementById('responseTimeStat').addEventListener('click', function() {
+                const time = prompt('Enter average response time (hours):', '2');
+                if (time) {
+                    this.querySelector('.stat-number').textContent = time + 'h';
+                    userProfile.stats.responseTime = parseInt(time);
+                }
+            });
+
+            // Guarantees selection
+            document.querySelectorAll('.guarantee-card-editable').forEach(card => {
+                card.addEventListener('click', function() {
+                    this.classList.toggle('selected');
+                    const guarantee = this.getAttribute('data-guarantee');
+                    
+                    if (this.classList.contains('selected')) {
+                        this.style.border = '2px solid #059669';
+                        this.style.background = '#f0fdf4';
+                        this.querySelector('i').style.color = '#059669';
+                        if (!userProfile.guarantees.includes(guarantee)) {
+                            userProfile.guarantees.push(guarantee);
+                        }
+                    } else {
+                        this.style.border = '2px dashed #e2e8f0';
+                        this.style.background = 'white';
+                        this.querySelector('i').style.color = '#64748b';
+                        userProfile.guarantees = userProfile.guarantees.filter(g => g !== guarantee);
+                    }
+                });
+            });
+
+            // Details editing
+            document.getElementById('experienceDetail').addEventListener('click', function() {
+                const experience = prompt('Enter your experience:', '8 Years Experience');
+                if (experience) {
+                    this.innerHTML = `
+                        <i class="fas fa-briefcase"></i>
+                        <span>${experience}</span>
+                    `;
+                    userProfile.details.experience = experience;
+                }
+            });
+
+            document.getElementById('locationDetail').addEventListener('click', function() {
+                const location = prompt('Enter your location:', 'Sector 15, Noida');
+                if (location) {
+                    this.innerHTML = `
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>${location}</span>
+                    `;
+                    userProfile.details.location = location;
+                }
+            });
+
+            document.getElementById('availabilityDetail').addEventListener('click', function() {
+                const availability = prompt('Enter your availability:', 'Available Today');
+                if (availability) {
+                    this.innerHTML = `
+                        <i class="fas fa-clock"></i>
+                        <span>${availability}</span>
+                    `;
+                    userProfile.details.availability = availability;
+                }
+            });
+
+            document.getElementById('verificationDetail').addEventListener('click', function() {
+                const verification = prompt('Enter verification status:', 'Verified Provider');
+                if (verification) {
+                    this.innerHTML = `
+                        <i class="fas fa-check-circle"></i>
+                        <span>${verification}</span>
+                    `;
+                    userProfile.details.verification = verification;
+                }
+            });
+
+            // Add category button
+            addCategoryBtn.addEventListener('click', function() {
+                categoryModal.style.display = 'flex';
+            });
+
+            // Close modal
+            document.querySelector('.close-modal').addEventListener('click', function() {
+                categoryModal.style.display = 'none';
+            });
+
+            // Portfolio items
+            document.querySelectorAll('.portfolio-item-add').forEach(item => {
+                item.addEventListener('click', function() {
+                    alert('In real app, this would open image picker for portfolio');
+                    // Simulate adding portfolio image
+                    this.innerHTML = `
+                        <img src="https://images.unsplash.com/photo-1621905252507-b35492cc74b4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80" style="width:100%;height:100%;object-fit:cover;">
+                    `;
+                    this.style.border = 'none';
+                    userProfile.portfolio.push('portfolio_image_url');
+                });
+            });
+
+            // Contact information
+            document.getElementById('phoneCard').addEventListener('click', function() {
+                const phone = prompt('Enter your phone number:');
+                if (phone) {
+                    this.innerHTML = `
+                        <div class="card-content">
+                            <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 10px;">
+                                <i class="fas fa-phone" style="color: #059669;"></i>
+                                <span style="font-weight: 500;">Phone Number</span>
+                            </div>
+                            <div>${phone}</div>
+                        </div>
+                    `;
+                    userProfile.contact.phone = phone;
+                }
+            });
+
+            document.getElementById('whatsappCard').addEventListener('click', function() {
+                const whatsapp = prompt('Enter your WhatsApp number:');
+                if (whatsapp) {
+                    this.innerHTML = `
+                        <div class="card-content">
+                            <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 10px;">
+                                <i class="fab fa-whatsapp" style="color: #059669;"></i>
+                                <span style="font-weight: 500;">WhatsApp Number</span>
+                            </div>
+                            <div>${whatsapp}</div>
+                        </div>
+                    `;
+                    userProfile.contact.whatsapp = whatsapp;
+                }
+            });
+
+            document.getElementById('addressCard').addEventListener('click', function() {
+                const address = prompt('Enter your full address:');
+                if (address) {
+                    this.innerHTML = `
+                        <div class="card-content">
+                            <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 10px;">
+                                <i class="fas fa-map-marked-alt" style="color: #059669;"></i>
+                                <span style="font-weight: 500;">Address</span>
+                            </div>
+                            <div>${address}</div>
+                        </div>
+                    `;
+                    userProfile.contact.address = address;
+                }
+            });
+
+            // Complete profile button
+            completeProfileBtn.addEventListener('click', function() {
+                if (validateProfile()) {
+                    alert('Profile completed successfully! Your provider profile is now live.');
+                    console.log('Final User Profile:', userProfile);
+                    // In real app, submit to backend
+                } else {
+                    alert('Please complete all required fields: Name, Profession, and at least one category with services.');
+                }
+            });
+        }
+
+        // Populate Category Modal
+        function populateCategoryModal() {
+            categoryModalGrid.innerHTML = '';
+            categories.forEach(category => {
+                const categoryElement = document.createElement('div');
+                categoryElement.className = 'category-modal-option';
+                categoryElement.setAttribute('data-category-id', category.id);
+                
+                categoryElement.innerHTML = `
+                    <div class="category-modal-icon">
+                        <i class="${category.icon}"></i>
+                    </div>
+                    <div class="category-modal-name">${category.name}</div>
+                `;
+                
+                categoryElement.addEventListener('click', function() {
+                    selectCategoryForProfile(category.id);
+                });
+                
+                categoryModalGrid.appendChild(categoryElement);
+            });
+        }
+
+        // Select Category for Profile
+        function selectCategoryForProfile(categoryId) {
+            const category = categories.find(cat => cat.id == categoryId);
+            
+            // Add to user profile if not already added
+            if (!userProfile.selectedCategories.find(cat => cat.id == categoryId)) {
+                userProfile.selectedCategories.push({
+                    id: category.id,
+                    name: category.name,
+                    icon: category.icon,
+                    subcategories: []
+                });
+            }
+            
+            // Add category tab
+            addCategoryTab(category);
+            
+            // Show category content
+            showCategoryContent(category);
+            
+            // Close modal
+            categoryModal.style.display = 'none';
+            
+            // Set as current selected category
+            currentSelectedCategory = categoryId;
+        }
+
+        // Add Category Tab
+        function addCategoryTab(category) {
+            // Check if tab already exists
+            const existingTab = document.querySelector(`[data-category-tab="${category.id}"]`);
+            if (existingTab) {
+                existingTab.classList.add('active');
+                return;
+            }
+            
+            const tabElement = document.createElement('div');
+            tabElement.className = 'category-tab active';
+            tabElement.setAttribute('data-category-tab', category.id);
+            tabElement.innerHTML = `
+                <i class="${category.icon}"></i>
+                ${category.name}
+            `;
+            
+            tabElement.addEventListener('click', function() {
+                // Remove active class from all tabs
+                document.querySelectorAll('.category-tab').forEach(tab => {
+                    tab.classList.remove('active');
+                });
+                
+                // Add active class to clicked tab
+                this.classList.add('active');
+                
+                // Show category content
+                showCategoryContent(categories.find(cat => cat.id == category.id));
+                currentSelectedCategory = category.id;
+            });
+            
+            categoryTabs.appendChild(tabElement);
+        }
+
+        // Show Category Content
+        function showCategoryContent(category) {
+            selectedCategoryContent.innerHTML = `
+                <div class="category-section">
+                    <h3 style="margin-bottom: 15px; color: #374151;">Select Subcategories for ${category.name}</h3>
+                    <div class="subcategory-grid" id="subcategoryGrid-${category.id}">
+                        ${category.subcategories.map(subcategory => `
+                            <div class="subcategory-card" data-subcategory-id="${subcategory.id}">
+                                <div class="subcategory-icon">
+                                    <i class="${subcategory.icon}"></i>
+                                </div>
+                                <div class="subcategory-name">${subcategory.name}</div>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+                
+                <div class="services-section" id="servicesSection-${category.id}" style="display: none; margin-top: 25px;">
+                    <h3 style="margin-bottom: 15px; color: #374151;">Set Prices for Your Services</h3>
+                    <div class="services-grid" id="servicesGrid-${category.id}">
+                        <!-- Services will be populated when subcategory is selected -->
+                    </div>
+                </div>
+            `;
+            
+            // Add event listeners to subcategory cards
+            setTimeout(() => {
+                document.querySelectorAll(`#subcategoryGrid-${category.id} .subcategory-card`).forEach(card => {
+                    card.addEventListener('click', function() {
+                        const subcategoryId = this.getAttribute('data-subcategory-id');
+                        const subcategory = category.subcategories.find(sub => sub.id == subcategoryId);
+                        
+                        // Toggle selection
+                        this.classList.toggle('selected');
+                        
+                        // Add/remove from user profile
+                        const userCategory = userProfile.selectedCategories.find(cat => cat.id == category.id);
+                        if (this.classList.contains('selected')) {
+                            if (!userCategory.subcategories.find(sub => sub.id == subcategoryId)) {
+                                userCategory.subcategories.push({
+                                    id: subcategory.id,
+                                    name: subcategory.name,
+                                    services: []
+                                });
+                            }
+                        } else {
+                            userCategory.subcategories = userCategory.subcategories.filter(sub => sub.id != subcategoryId);
+                        }
+                        
+                        // Show services for selected subcategories
+                        showServicesForCategory(category.id);
+                    });
+                });
+            }, 100);
+        }
+
+        // Show Services for Selected Subcategories
+        function showServicesForCategory(categoryId) {
+            const category = categories.find(cat => cat.id == categoryId);
+            const userCategory = userProfile.selectedCategories.find(cat => cat.id == categoryId);
+            
+            if (userCategory.subcategories.length === 0) {
+                document.getElementById(`servicesSection-${categoryId}`).style.display = 'none';
+                return;
+            }
+            
+            document.getElementById(`servicesSection-${categoryId}`).style.display = 'block';
+            
+            let servicesHTML = '';
+            
+            userCategory.subcategories.forEach(userSubcategory => {
+                const subcategory = category.subcategories.find(sub => sub.id == userSubcategory.id);
+                
+                servicesHTML += `
+                    <div style="margin-bottom: 20px;">
+                        <h4 style="color: #059669; margin-bottom: 10px; border-bottom: 1px solid #e2e8f0; padding-bottom: 5px;">
+                            ${subcategory.name}
+                        </h4>
+                        ${subcategory.skills.map(service => {
+                            const userService = userSubcategory.services.find(s => s.name === service.name);
+                            const price = userService ? userService.price : '';
+                            
+                            return `
+                                <div class="service-card-editable" data-service-name="${service.name}">
+                                    <div class="service-image">
+                                        <i class="${subcategory.icon}"></i>
+                                    </div>
+                                    <div class="service-content">
+                                        <div class="service-header">
+                                            <div class="service-name">${service.name}</div>
+                                            <input type="number" class="service-price-input" placeholder="₹ Price" 
+                                                   value="${price}" data-service-name="${service.name}"
+                                                   data-subcategory-id="${subcategory.id}">
+                                        </div>
+                                        <div class="service-desc">${service.hindiName}</div>
+                                    </div>
+                                </div>
+                            `;
+                        }).join('')}
+                    </div>
+                `;
+            });
+            
+            document.getElementById(`servicesGrid-${categoryId}`).innerHTML = servicesHTML;
+            
+            // Add event listeners to price inputs
+            setTimeout(() => {
+                document.querySelectorAll(`#servicesGrid-${categoryId} .service-price-input`).forEach(input => {
+                    input.addEventListener('input', function() {
+                        const serviceName = this.getAttribute('data-service-name');
+                        const subcategoryId = this.getAttribute('data-subcategory-id');
+                        const price = this.value;
+                        
+                        // Update user profile
+                        const userCategory = userProfile.selectedCategories.find(cat => cat.id == categoryId);
+                        const userSubcategory = userCategory.subcategories.find(sub => sub.id == subcategoryId);
+                        const existingService = userSubcategory.services.find(s => s.name === serviceName);
+                        
+                        if (existingService) {
+                            existingService.price = price;
+                        } else {
+                            userSubcategory.services.push({
+                                name: serviceName,
+                                price: price
+                            });
+                        }
+                    });
+                });
+            }, 100);
+        }
+
+        // Validate Profile
+        function validateProfile() {
+            if (!userProfile.name || !userProfile.tagline || userProfile.selectedCategories.length === 0) {
+                return false;
+            }
+            
+            // Check if at least one service has price
+            let hasServices = false;
+            userProfile.selectedCategories.forEach(category => {
+                category.subcategories.forEach(subcategory => {
+                    if (subcategory.services.length > 0) {
+                        hasServices = true;
+                    }
+                });
+            });
+            
+            return hasServices;
+        }
+    </script>
+</body>
+</html>

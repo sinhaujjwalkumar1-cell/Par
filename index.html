@@ -1,0 +1,1919 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Your Services | Service by Local</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        body {
+            background: #f8fafc;
+            color: #334155;
+            line-height: 1.6;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .container {
+            max-width: 100%;
+            margin: 0 auto;
+            background: white;
+            min-height: 100vh;
+        }
+        
+        /* Header */
+        .setup-header {
+            background: linear-gradient(135deg, #0a5c36 0%, #0a7e4e 100%);
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        
+        .setup-header h1 {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+        }
+        
+        .setup-header p {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+        
+        /* Progress Steps */
+        .progress-steps {
+            display: flex;
+            justify-content: center;
+            padding: 15px 20px;
+            background: white;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        
+        .step {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            flex: 1;
+            max-width: 100px;
+        }
+        
+        .step-number {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background: #e2e8f0;
+            color: #64748b;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+        
+        .step-number.active {
+            background: #059669;
+            color: white;
+        }
+        
+        .step-label {
+            font-size: 0.7rem;
+            color: #64748b;
+            text-align: center;
+        }
+        
+        .step-label.active {
+            color: #059669;
+            font-weight: 500;
+        }
+        
+        /* Main Content */
+        .setup-content {
+            padding: 20px;
+        }
+        
+        .content-card {
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .section-title {
+            font-size: 1.3rem;
+            color: #059669;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #e2e8f0;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        /* Category Selection */
+        .categories-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            margin-top: 15px;
+        }
+        
+        .category-card {
+            background: white;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 15px 10px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .category-card:hover {
+            border-color: #059669;
+            transform: translateY(-2px);
+        }
+        
+        .category-card.selected {
+            border-color: #059669;
+            background: #f0fdf4;
+        }
+        
+        .category-icon {
+            font-size: 1.8rem;
+            color: #059669;
+            margin-bottom: 8px;
+        }
+        
+        .category-name {
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+        
+        /* Subcategory Selection */
+        .subcategories-container {
+            margin-top: 15px;
+        }
+        
+        .subcategories-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+        }
+        
+        .subcategory-card {
+            background: white;
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            padding: 12px 8px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .subcategory-card:hover {
+            border-color: #059669;
+        }
+        
+        .subcategory-card.selected {
+            border-color: #059669;
+            background: #f0fdf4;
+        }
+        
+        .subcategory-name {
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+        
+        /* Skills Selection */
+        .skills-container {
+            margin-top: 15px;
+        }
+        
+        .skills-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        
+        .skill-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px;
+            background: #f8fafc;
+            border-radius: 10px;
+            border: 1px solid #e2e8f0;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .skill-item:hover {
+            border-color: #059669;
+        }
+        
+        .skill-item.selected {
+            border-color: #059669;
+            background: #f0fdf4;
+        }
+        
+        .skill-checkbox {
+            width: 20px;
+            height: 20px;
+            border: 2px solid #cbd5e1;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .skill-checkbox.selected {
+            background: #059669;
+            border-color: #059669;
+            color: white;
+        }
+        
+        .skill-info {
+            flex: 1;
+        }
+        
+        .skill-name {
+            font-weight: 500;
+            font-size: 0.9rem;
+        }
+        
+        .skill-desc {
+            font-size: 0.75rem;
+            color: #64748b;
+        }
+        
+        .price-input {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 8px;
+        }
+        
+        .price-input input {
+            flex: 1;
+            padding: 6px 10px;
+            border: 1px solid #cbd5e1;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            width: 100px;
+        }
+        
+        /* Profile Setup */
+        .profile-setup-container {
+            margin-top: 15px;
+        }
+        
+        .profile-image-upload {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            border: 4px solid white;
+            margin: 0 auto 20px;
+            overflow: hidden;
+            background: #e2e8f0;
+            position: relative;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .profile-image-upload img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .upload-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .profile-image-upload:hover .upload-overlay {
+            opacity: 1;
+        }
+        
+        .form-group {
+            margin-bottom: 15px;
+        }
+        
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: #374151;
+        }
+        
+        .form-input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+        
+        .form-input:focus {
+            outline: none;
+            border-color: #059669;
+        }
+        
+        .privacy-options {
+            display: flex;
+            gap: 15px;
+            margin-top: 10px;
+        }
+        
+        .privacy-option {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .privacy-option input {
+            width: 18px;
+            height: 18px;
+        }
+        
+        /* Action Buttons */
+        .action-buttons {
+            display: flex;
+            gap: 12px;
+            margin: 25px 0 15px;
+        }
+        
+        .btn {
+            flex: 1;
+            padding: 15px;
+            border: none;
+            border-radius: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        
+        .btn-primary {
+            background: #059669;
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background: #047857;
+            transform: translateY(-2px);
+        }
+        
+        .btn-secondary {
+            background: #f1f5f9;
+            color: #64748b;
+            border: 2px solid #e2e8f0;
+        }
+        
+        .btn-secondary:hover {
+            background: #e2e8f0;
+        }
+        
+        /* Step Containers */
+        .step-container {
+            display: none;
+        }
+        
+        .step-container.active {
+            display: block;
+        }
+        
+        /* Responsive */
+        @media (max-width: 480px) {
+            .categories-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .subcategories-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Setup Header -->
+        <div class="setup-header">
+            <h1>Add Your Services</h1>
+            <p>Complete these steps to become a service provider</p>
+        </div>
+        
+        <!-- Progress Steps -->
+        <div class="progress-steps">
+            <div class="step">
+                <div class="step-number active">1</div>
+                <div class="step-label active">Category</div>
+            </div>
+            <div class="step">
+                <div class="step-number">2</div>
+                <div class="step-label">Subcategory</div>
+            </div>
+            <div class="step">
+                <div class="step-number">3</div>
+                <div class="step-label">Skills</div>
+            </div>
+            <div class="step">
+                <div class="step-number">4</div>
+                <div class="step-label">Profile</div>
+            </div>
+        </div>
+        
+        <!-- Setup Content -->
+        <div class="setup-content">
+            <!-- Step 1: Category Selection -->
+            <div class="step-container active" id="step1">
+                <div class="content-card">
+                    <h2 class="section-title"><i class="fas fa-layer-group"></i> Select Category</h2>
+                    <p>Choose the main category for your services</p>
+                    
+                    <div class="categories-grid" id="categoriesGrid">
+                        <!-- Categories will be populated by JavaScript -->
+                    </div>
+                </div>
+                
+                <div class="action-buttons">
+                    <button class="btn btn-secondary" disabled>Previous</button>
+                    <button class="btn btn-primary" id="nextToStep2">Next</button>
+                </div>
+            </div>
+            
+            <!-- Step 2: Subcategory Selection -->
+            <div class="step-container" id="step2">
+                <div class="content-card">
+                    <h2 class="section-title"><i class="fas fa-th-list"></i> Select Subcategory</h2>
+                    <p>Choose the specific subcategories for <span id="selectedCategoryName"></span></p>
+                    
+                    <div class="subcategories-container">
+                        <div class="subcategories-grid" id="subcategoriesGrid">
+                            <!-- Subcategories will be populated by JavaScript -->
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="action-buttons">
+                    <button class="btn btn-secondary" id="backToStep1">Previous</button>
+                    <button class="btn btn-primary" id="nextToStep3">Next</button>
+                </div>
+            </div>
+            
+            <!-- Step 3: Skills Selection -->
+            <div class="step-container" id="step3">
+                <div class="content-card">
+                    <h2 class="section-title"><i class="fas fa-cogs"></i> Select Your Skills</h2>
+                    <p>Choose the specific skills you provide in <span id="selectedSubcategoryName"></span></p>
+                    
+                    <div class="skills-container">
+                        <div class="skills-list" id="skillsList">
+                            <!-- Skills will be populated by JavaScript -->
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="action-buttons">
+                    <button class="btn btn-secondary" id="backToStep2">Previous</button>
+                    <button class="btn btn-primary" id="nextToStep4">Next</button>
+                </div>
+            </div>
+            
+            <!-- Step 4: Profile Setup -->
+            <div class="step-container" id="step4">
+                <div class="content-card">
+                    <h2 class="section-title"><i class="fas fa-user-edit"></i> Complete Your Profile</h2>
+                    <p>Add your personal details to complete your provider profile</p>
+                    
+                    <div class="profile-setup-container">
+                        <div class="profile-image-upload" id="profileImageUpload">
+                            <div class="upload-overlay">
+                                <i class="fas fa-camera"></i>
+                                <span>Add Photo</span>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">Full Name</label>
+                            <input type="text" class="form-input" id="providerName" placeholder="Enter your full name">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">Mobile Number</label>
+                            <input type="tel" class="form-input" id="providerMobile" placeholder="Enter your mobile number">
+                            <div class="privacy-options">
+                                <div class="privacy-option">
+                                    <input type="checkbox" id="hideMobile">
+                                    <label for="hideMobile">Hide from public</label>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">WhatsApp Number</label>
+                            <input type="tel" class="form-input" id="providerWhatsApp" placeholder="Enter your WhatsApp number">
+                            <div class="privacy-options">
+                                <div class="privacy-option">
+                                    <input type="checkbox" id="hideWhatsApp">
+                                    <label for="hideWhatsApp">Hide from public</label>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">Address</label>
+                            <input type="text" class="form-input" id="providerAddress" placeholder="Enter your complete address">
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="action-buttons">
+                    <button class="btn btn-secondary" id="backToStep3">Previous</button>
+                    <button class="btn btn-primary" id="completeProfile">Complete Profile</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Complete Categories Data from your homepage
+        const categories = [
+            {
+                id: 1,
+                name: "Appliance Repair",
+                icon: "fas fa-tools",
+                subcategories: [
+                    { 
+                        id: 1, 
+                        name: "AC Repair", 
+                        skills: [
+                            { name: "AC Installation & Uninstallation" },
+                            { name: "AC Service & Gas Refill" },
+                            { name: "AC Repair & Maintenance" },
+                            { name: "AC Shifting" },
+                            { name: "AC Deep Cleaning" }
+                        ]
+                    },
+                    { 
+                        id: 2, 
+                        name: "Washing Machine", 
+                        skills: [
+                            { name: "Washing Machine Repair" },
+                            { name: "Washing Machine Service" },
+                            { name: "Installation & Setup" },
+                            { name: "Drum Cleaning" },
+                            { name: "Motor Repair" }
+                        ]
+                    },
+                    { 
+                        id: 3, 
+                        name: "Fridge", 
+                        skills: [
+                            { name: "Fridge Gas Refill" },
+                            { name: "Fridge Repair" },
+                            { name: "Fridge Service" },
+                            { name: "Freezer Repair" },
+                            { name: "Thermostat Repair" }
+                        ]
+                    },
+                    { 
+                        id: 4, 
+                        name: "Microwave", 
+                        skills: [
+                            { name: "Microwave Repair" },
+                            { name: "Microwave Service" },
+                            { name: "Magnetron Replacement" },
+                            { name: "Door Seal Replacement" }
+                        ]
+                    },
+                    { 
+                        id: 5, 
+                        name: "Geyser", 
+                        skills: [
+                            { name: "Geyser Repair" },
+                            { name: "Geyser Installation" },
+                            { name: "Geyser Service" },
+                            { name: "Element Replacement" },
+                            { name: "Thermostat Repair" }
+                        ]
+                    },
+                    { 
+                        id: 6, 
+                        name: "Laptop", 
+                        skills: [
+                            { name: "Screen Repair" },
+                            { name: "Software Issue" },
+                            { name: "Hardware Repair" },
+                            { name: "Battery Replacement" },
+                            { name: "Keyboard Repair" }
+                        ]
+                    },
+                    { 
+                        id: 7, 
+                        name: "TV", 
+                        skills: [
+                            { name: "TV Screen Repair" },
+                            { name: "TV Installation" },
+                            { name: "TV Service" },
+                            { name: "Sound Repair" },
+                            { name: "Remote Repair" }
+                        ]
+                    },
+                    { 
+                        id: 8, 
+                        name: "Small Appliance", 
+                        skills: [
+                            { name: "Small Appliance Repair" },
+                            { name: "Small Appliance Service" },
+                            { name: "Mixer Repair" },
+                            { name: "Toaster Repair" },
+                            { name: "Iron Repair" }
+                        ]
+                    }
+                ]
+            },
+            {
+                id: 2,
+                name: "Home Services",
+                icon: "fas fa-home",
+                subcategories: [
+                    { 
+                        id: 1, 
+                        name: "Plumbing", 
+                        skills: [
+                            { name: "Bath Fittings" },
+                            { name: "Basin & Sink" },
+                            { name: "Grouting" },
+                            { name: "Water Filter" },
+                            { name: "Drainage" },
+                            { name: "Toilet" },
+                            { name: "Tap & Mixer" },
+                            { name: "Water Tank" },
+                            { name: "Motor" },
+                            { name: "Water Pipes" }
+                        ]
+                    },
+                    { 
+                        id: 2, 
+                        name: "Electrical", 
+                        skills: [
+                            { name: "Switch & Socket" },
+                            { name: "Fan" },
+                            { name: "Wall/Ceiling Light" },
+                            { name: "Wiring" },
+                            { name: "Doorbell" },
+                            { name: "MCB & Submeter" },
+                            { name: "Inverter & Stabiliser" },
+                            { name: "Appliance" },
+                            { name: "Power Backup" },
+                            { name: "Circuit Repair" }
+                        ]
+                    },
+                    { 
+                        id: 3, 
+                        name: "Carpentry", 
+                        skills: [
+                            { name: "Furniture Repair" },
+                            { name: "Cabinet Making" },
+                            { name: "Door Repair" },
+                            { name: "Window Repair" },
+                            { name: "Wood Polishing" },
+                            { name: "Furniture Assembly" },
+                            { name: "Shelf Installation" }
+                        ]
+                    },
+                    { 
+                        id: 4, 
+                        name: "Painting", 
+                        skills: [
+                            { name: "Wall Painting" },
+                            { name: "Furniture Painting" },
+                            { name: "Wallpaper Installation" },
+                            { name: "Texture Painting" },
+                            { name: "Waterproofing" },
+                            { name: "Polish Work" }
+                        ]
+                    },
+                    { 
+                        id: 5, 
+                        name: "Cleaning", 
+                        skills: [
+                            { name: "Home Cleaning" },
+                            { name: "Office Cleaning" },
+                            { name: "Carpet Cleaning" },
+                            { name: "Sofa Cleaning" },
+                            { name: "Kitchen Cleaning" },
+                            { name: "Bathroom Cleaning" },
+                            { name: "Post Construction Cleaning" }
+                        ]
+                    }
+                ]
+            },
+            {
+                id: 3,
+                name: "Construction",
+                icon: "fas fa-hard-hat",
+                subcategories: [
+                    { 
+                        id: 1, 
+                        name: "Bricks", 
+                        skills: [
+                            { name: "Red Bricks Supply" },
+                            { name: "Fly Ash Bricks" },
+                            { name: "Hollow Bricks" },
+                            { name: "Brick Laying Work" },
+                            { name: "Brick Cutting" }
+                        ]
+                    },
+                    { 
+                        id: 2, 
+                        name: "Gravel", 
+                        skills: [
+                            { name: "Gravel Supply - Small Size" },
+                            { name: "Gravel Supply - Medium Size" },
+                            { name: "Gravel Supply - Large Size" },
+                            { name: "Gravel Supply - Mixed Size" },
+                            { name: "Gravel Laying Work" }
+                        ]
+                    },
+                    { 
+                        id: 3, 
+                        name: "Sand", 
+                        skills: [
+                            { name: "River Sand Supply" },
+                            { name: "Pit Sand Supply" },
+                            { name: "Construction Sand" },
+                            { name: "Fine Sand" },
+                            { name: "Coarse Sand" },
+                            { name: "Sand Laying Work" }
+                        ]
+                    },
+                    { 
+                        id: 4, 
+                        name: "Soil", 
+                        skills: [
+                            { name: "Filling Soil" },
+                            { name: "Gardening Soil" },
+                            { name: "Fertile Soil" },
+                            { name: "Construction Soil" },
+                            { name: "Red Soil" },
+                            { name: "Black Soil" },
+                            { name: "Soil Leveling Work" }
+                        ]
+                    },
+                    { 
+                        id: 5, 
+                        name: "Mason Work", 
+                        skills: [
+                            { name: "Masonry Work" },
+                            { name: "Wall Construction" },
+                            { name: "Plaster Work" },
+                            { name: "Flooring Work" },
+                            { name: "Cement Work" },
+                            { name: "Tiling Work" }
+                        ]
+                    },
+                    { 
+                        id: 6, 
+                        name: "Labour", 
+                        skills: [
+                            { name: "Construction Labour" },
+                            { name: "Loading/Unloading" },
+                            { name: "Material Handling" },
+                            { name: "Site Cleaning" },
+                            { name: "Helper Work" }
+                        ]
+                    },
+                    { 
+                        id: 7, 
+                        name: "Tiles & Marble", 
+                        skills: [
+                            { name: "Tile Installation" },
+                            { name: "Marble Installation" },
+                            { name: "Granite Installation" },
+                            { name: "Tile Polish" },
+                            { name: "Marble Polish" },
+                            { name: "Tile Grouting" }
+                        ]
+                    },
+                    { 
+                        id: 8, 
+                        name: "Contractor", 
+                        skills: [
+                            { name: "Construction Supervision" },
+                            { name: "Project Management" },
+                            { name: "Site Inspection" },
+                            { name: "Construction Planning" },
+                            { name: "Quality Control" }
+                        ]
+                    },
+                    { 
+                        id: 9, 
+                        name: "Gate & Grill", 
+                        skills: [
+                            { name: "Gate Installation" },
+                            { name: "Grill Installation" },
+                            { name: "Gate Repair" },
+                            { name: "Grill Repair" },
+                            { name: "Gate Painting" },
+                            { name: "Grill Painting" }
+                        ]
+                    }
+                ]
+            },
+            {
+                id: 4,
+                name: "Rental Vehicle",
+                icon: "fas fa-car",
+                subcategories: [
+                    { 
+                        id: 1, 
+                        name: "Car", 
+                        skills: [
+                            { name: "Car Rental - Sedan" },
+                            { name: "Car Rental - SUV" },
+                            { name: "Car Rental - Luxury" },
+                            { name: "Car Rental - Hatchback" },
+                            { name: "Car Rental - With Driver" }
+                        ]
+                    },
+                    { 
+                        id: 2, 
+                        name: "Truck", 
+                        skills: [
+                            { name: "Truck Rental - Small" },
+                            { name: "Truck Rental - Medium" },
+                            { name: "Truck Rental - Large" },
+                            { name: "Truck Rental - Container" },
+                            { name: "Truck Rental - With Driver" }
+                        ]
+                    },
+                    { 
+                        id: 3, 
+                        name: "Pickup", 
+                        skills: [
+                            { name: "Pickup Rental - Small" },
+                            { name: "Pickup Rental - Large" },
+                            { name: "Pickup Rental - With Driver" },
+                            { name: "Pickup Rental - Goods Transport" }
+                        ]
+                    },
+                    { 
+                        id: 4, 
+                        name: "Auto", 
+                        skills: [
+                            { name: "Auto Rental - Passenger" },
+                            { name: "Auto Rental - Goods" },
+                            { name: "Auto Rental - Local" },
+                            { name: "Auto Rental - Outstation" }
+                        ]
+                    },
+                    { 
+                        id: 5, 
+                        name: "JCB", 
+                        skills: [
+                            { name: "JCB Rental - Normal" },
+                            { name: "JCB Rental - With Operator" },
+                            { name: "JCB Rental - Excavator" },
+                            { name: "JCB Rental - Loader" }
+                        ]
+                    },
+                    { 
+                        id: 6, 
+                        name: "Tractor", 
+                        skills: [
+                            { name: "Tractor Rental - Normal" },
+                            { name: "Tractor Rental - With Driver" },
+                            { name: "Tractor Rental - Trailer" },
+                            { name: "Tractor Rental - Farming" }
+                        ]
+                    },
+                    { 
+                        id: 7, 
+                        name: "Haiva", 
+                        skills: [
+                            { name: "Haiva Rental - Normal" },
+                            { name: "Haiva Rental - With Driver" },
+                            { name: "Haiva Rental - Earth Moving" },
+                            { name: "Haiva Rental - Construction" }
+                        ]
+                    }
+                ]
+            },
+            {
+                id: 5,
+                name: "Event Services",
+                icon: "fas fa-calendar-alt",
+                subcategories: [
+                    { 
+                        id: 1, 
+                        name: "DJ & Sound System", 
+                        skills: [
+                            { name: "DJ Service" },
+                            { name: "Sound System Rental" },
+                            { name: "Music System Setup" },
+                            { name: "Lighting Setup" },
+                            { name: "Complete DJ Package" }
+                        ]
+                    },
+                    { 
+                        id: 2, 
+                        name: "Stage Setup", 
+                        skills: [
+                            { name: "Stage Construction" },
+                            { name: "Stage Decoration" },
+                            { name: "Backdrop Setup" },
+                            { name: "Sound Stage Setup" },
+                            { name: "Complete Stage Package" }
+                        ]
+                    },
+                    { 
+                        id: 3, 
+                        name: "Pandal (Marquee)", 
+                        skills: [
+                            { name: "Pandal Setup - Small" },
+                            { name: "Pandal Setup - Medium" },
+                            { name: "Pandal Setup - Large" },
+                            { name: "Pandal Decoration" },
+                            { name: "Complete Pandal Package" }
+                        ]
+                    },
+                    { 
+                        id: 4, 
+                        name: "Catering", 
+                        skills: [
+                            { name: "Veg Catering - Per Plate" },
+                            { name: "Non-Veg Catering - Per Plate" },
+                            { name: "Complete Catering Service" },
+                            { name: "Food Stall Setup" },
+                            { name: "Beverage Service" }
+                        ]
+                    },
+                    { 
+                        id: 5, 
+                        name: "Singer & Dancer", 
+                        skills: [
+                            { name: "Singer Performance" },
+                            { name: "Dancer Performance" },
+                            { name: "Band Performance" },
+                            { name: "Orchestra" },
+                            { name: "Complete Cultural Program" }
+                        ]
+                    },
+                    { 
+                        id: 6, 
+                        name: "Decoration", 
+                        skills: [
+                            { name: "Flower Decoration" },
+                            { name: "Balloon Decoration" },
+                            { name: "Theme Decoration" },
+                            { name: "Light Decoration" },
+                            { name: "Complete Decoration Package" }
+                        ]
+                    }
+                ]
+            },
+            {
+                id: 6,
+                name: "Beauty & Grooming",
+                icon: "fas fa-spa",
+                subcategories: [
+                    { 
+                        id: 1, 
+                        name: "Home Salon (Women)", 
+                        skills: [
+                            { name: "Hair Cut & Styling" },
+                            { name: "Hair Wash & Blow Dry" },
+                            { name: "Hair Spa Treatment" },
+                            { name: "Hair Color" },
+                            { name: "Facial & Cleanup" },
+                            { name: "Manicure & Pedicure" },
+                            { name: "Waxing" },
+                            { name: "Threading" },
+                            { name: "Makeup - Party" },
+                            { name: "Makeup - Bridal" }
+                        ]
+                    },
+                    { 
+                        id: 2, 
+                        name: "Home Salon (Men)", 
+                        skills: [
+                            { name: "Hair Cut & Styling" },
+                            { name: "Beard Styling" },
+                            { name: "Hair Color" },
+                            { name: "Facial" },
+                            { name: "Head Massage" },
+                            { name: "Hair Spa" }
+                        ]
+                    },
+                    { 
+                        id: 3, 
+                        name: "Tattoo at Home", 
+                        skills: [
+                            { name: "Small Tattoo" },
+                            { name: "Medium Tattoo" },
+                            { name: "Large Tattoo" },
+                            { name: "Henna Tattoo" },
+                            { name: "Temporary Tattoo" }
+                        ]
+                    },
+                    { 
+                        id: 4, 
+                        name: "Bridal Makeup & Hair", 
+                        skills: [
+                            { name: "Bridal Makeup - Basic" },
+                            { name: "Bridal Makeup - Premium" },
+                            { name: "Bridal Hairstyle" },
+                            { name: "Complete Bridal Package" },
+                            { name: "Trial Makeup" }
+                        ]
+                    },
+                    { 
+                        id: 5, 
+                        name: "Skin & Facial", 
+                        skills: [
+                            { name: "Basic Facial" },
+                            { name: "Gold Facial" },
+                            { name: "Diamond Facial" },
+                            { name: "Fruit Facial" },
+                            { name: "Anti-Ageing Facial" },
+                            { name: "Skin Treatment" }
+                        ]
+                    },
+                    { 
+                        id: 6, 
+                        name: "Mehndi Artist", 
+                        skills: [
+                            { name: "Simple Mehndi" },
+                            { name: "Arabic Mehndi" },
+                            { name: "Bridal Mehndi" },
+                            { name: "Designer Mehndi" },
+                            { name: "Mehndi for Functions" }
+                        ]
+                    },
+                    { 
+                        id: 7, 
+                        name: "Nail Art & Pedicure", 
+                        skills: [
+                            { name: "Basic Manicure" },
+                            { name: "Basic Pedicure" },
+                            { name: "Nail Art - Simple" },
+                            { name: "Nail Art - Designer" },
+                            { name: "Gel Nails" },
+                            { name: "Nail Extension" }
+                        ]
+                    },
+                    { 
+                        id: 8, 
+                        name: "Hair Color & Treatment", 
+                        skills: [
+                            { name: "Hair Color - Global" },
+                            { name: "Hair Color - Highlights" },
+                            { name: "Hair Treatment" },
+                            { name: "Dandruff Treatment" },
+                            { name: "Hair Fall Treatment" },
+                            { name: "Keratin Treatment" }
+                        ]
+                    }
+                ]
+            },
+            {
+                id: 7,
+                name: "Pest Control",
+                icon: "fas fa-bug",
+                subcategories: [
+                    { 
+                        id: 1, 
+                        name: "General Pest Control", 
+                        skills: [
+                            { name: "General Pest Control - 1BHK" },
+                            { name: "General Pest Control - 2BHK" },
+                            { name: "General Pest Control - 3BHK" },
+                            { name: "Office Pest Control" },
+                            { name: "Commercial Pest Control" }
+                        ]
+                    },
+                    { 
+                        id: 2, 
+                        name: "Cockroach & Ant Control", 
+                        skills: [
+                            { name: "Cockroach Control" },
+                            { name: "Ant Control" },
+                            { name: "Cockroach & Ant Combo" },
+                            { name: "Gel Treatment" },
+                            { name: "Spray Treatment" }
+                        ]
+                    },
+                    { 
+                        id: 3, 
+                        name: "Rodent Control", 
+                        skills: [
+                            { name: "Rat Control" },
+                            { name: "Mouse Control" },
+                            { name: "Rodent Proofing" },
+                            { name: "Rodent Inspection" },
+                            { name: "Complete Rodent Control" }
+                        ]
+                    },
+                    { 
+                        id: 4, 
+                        name: "Mosquito & Fly Control", 
+                        skills: [
+                            { name: "Mosquito Control" },
+                            { name: "Fly Control" },
+                            { name: "Fogging Treatment" },
+                            { name: "Larvicide Treatment" },
+                            { name: "Mosquito & Fly Combo" }
+                        ]
+                    },
+                    { 
+                        id: 5, 
+                        name: "Reptile Rescue", 
+                        skills: [
+                            { name: "Snake Rescue" },
+                            { name: "Lizard Removal" },
+                            { name: "Reptile Inspection" },
+                            { name: "Reptile Proofing" },
+                            { name: "Emergency Reptile Rescue" }
+                        ]
+                    }
+                ]
+            },
+            {
+                id: 8,
+                name: "E-Riksha",
+                icon: "fas fa-rickshaw",
+                subcategories: [
+                    { 
+                        id: 1, 
+                        name: "Passenger", 
+                        skills: [
+                            { name: "Local Ride" },
+                            { name: "Airport Drop" },
+                            { name: "Railway Station Drop" },
+                            { name: "School Drop" },
+                            { name: "Office Commute" },
+                            { name: "City Tour" }
+                        ]
+                    },
+                    { 
+                        id: 2, 
+                        name: "Goods Carrier", 
+                        skills: [
+                            { name: "Small Goods Transport" },
+                            { name: "Medium Goods Transport" },
+                            { name: "Large Goods Transport" },
+                            { name: "Furniture Transport" },
+                            { name: "Daily Goods Supply" }
+                        ]
+                    },
+                    { 
+                        id: 3, 
+                        name: "Rental", 
+                        skills: [
+                            { name: "Hourly Rental" },
+                            { name: "Daily Rental" },
+                            { name: "Weekly Rental" },
+                            { name: "Monthly Rental" },
+                            { name: "Event Rental" }
+                        ]
+                    },
+                    { 
+                        id: 4, 
+                        name: "School Pickup", 
+                        skills: [
+                            { name: "School Pickup - One Way" },
+                            { name: "School Pickup - Both Ways" },
+                            { name: "Monthly School Package" },
+                            { name: "Emergency School Pickup" },
+                            { name: "Group School Transport" }
+                        ]
+                    },
+                    { 
+                        id: 5, 
+                        name: "Local Transport", 
+                        skills: [
+                            { name: "Local Commute" },
+                            { name: "Market Visit" },
+                            { name: "Hospital Visit" },
+                            { name: "Shopping Transport" },
+                            { name: "Local Tour" }
+                        ]
+                    }
+                ]
+            },
+            {
+                id: 9,
+                name: "Tank Cleaning",
+                icon: "fas fa-water",
+                subcategories: [
+                    { 
+                        id: 1, 
+                        name: "Water Tank Cleaning", 
+                        skills: [
+                            { name: "Overhead Tank Cleaning" },
+                            { name: "Underground Tank Cleaning" },
+                            { name: "Water Tank Disinfection" },
+                            { name: "Tank Inspection" },
+                            { name: "Complete Tank Cleaning" }
+                        ]
+                    },
+                    { 
+                        id: 2, 
+                        name: "Septic Tank Cleaning", 
+                        skills: [
+                            { name: "Septic Tank Cleaning - Small" },
+                            { name: "Septic Tank Cleaning - Medium" },
+                            { name: "Septic Tank Cleaning - Large" },
+                            { name: "Septic Tank Inspection" },
+                            { name: "Septic Tank Repair" }
+                        ]
+                    },
+                    { 
+                        id: 3, 
+                        name: "Overhead Tank Cleaning", 
+                        skills: [
+                            { name: "Residential Overhead Tank" },
+                            { name: "Commercial Overhead Tank" },
+                            { name: "Society Overhead Tank" },
+                            { name: "Regular Maintenance" },
+                            { name: "Emergency Cleaning" }
+                        ]
+                    },
+                    { 
+                        id: 4, 
+                        name: "Underground Tank Cleaning", 
+                        skills: [
+                            { name: "Residential Underground Tank" },
+                            { name: "Commercial Underground Tank" },
+                            { name: "Industrial Underground Tank" },
+                            { name: "Tank Water Testing" },
+                            { name: "Tank Water Purification" }
+                        ]
+                    }
+                ]
+            },
+            {
+                id: 10,
+                name: "Rent & Share",
+                icon: "fas fa-handshake",
+                subcategories: [
+                    { 
+                        id: 1, 
+                        name: "Party & Event Items", 
+                        skills: [
+                            { name: "Chair Rental" },
+                            { name: "Table Rental" },
+                            { name: "Tent Rental" },
+                            { name: "Decoration Items" },
+                            { name: "Sound System Rental" },
+                            { name: "Complete Party Package" }
+                        ]
+                    },
+                    { 
+                        id: 2, 
+                        name: "Construction Equipment", 
+                        skills: [
+                            { name: "Concrete Mixer Rental" },
+                            { name: "Vibrator Rental" },
+                            { name: "Jack Hammer Rental" },
+                            { name: "Drilling Machine Rental" },
+                            { name: "Construction Tool Kit" }
+                        ]
+                    },
+                    { 
+                        id: 3, 
+                        name: "Furniture & Appliances", 
+                        skills: [
+                            { name: "Sofa Set Rental" },
+                            { name: "Bed Rental" },
+                            { name: "Dining Table Rental" },
+                            { name: "AC Rental" },
+                            { name: "Refrigerator Rental" },
+                            { name: "Washing Machine Rental" }
+                        ]
+                    },
+                    { 
+                        id: 4, 
+                        name: "Books & Study Material", 
+                        skills: [
+                            { name: "Academic Books Rental" },
+                            { name: "Competitive Exam Books" },
+                            { name: "Story Books Rental" },
+                            { name: "Study Material Sharing" },
+                            { name: "Reference Books" }
+                        ]
+                    },
+                    { 
+                        id: 5, 
+                        name: "Sports Equipment", 
+                        skills: [
+                            { name: "Cricket Kit Rental" },
+                            { name: "Football Rental" },
+                            { name: "Badminton Set" },
+                            { name: "Gym Equipment" },
+                            { name: "Yoga Mat Rental" }
+                        ]
+                    },
+                    { 
+                        id: 6, 
+                        name: "Costume & Dress", 
+                        skills: [
+                            { name: "Traditional Dress Rental" },
+                            { name: "Western Dress Rental" },
+                            { name: "Costume Rental" },
+                            { name: "Bridal Dress Rental" },
+                            { name: "Accessories Rental" }
+                        ]
+                    }
+                ]
+            },
+            {
+                id: 11,
+                name: "Photo & Videography",
+                icon: "fas fa-camera",
+                subcategories: [
+                    { 
+                        id: 1, 
+                        name: "Wedding Photography", 
+                        skills: [
+                            { name: "Pre-Wedding Shoot" },
+                            { name: "Wedding Day Photography" },
+                            { name: "Candid Photography" },
+                            { name: "Traditional Photography" },
+                            { name: "Complete Wedding Package" }
+                        ]
+                    },
+                    { 
+                        id: 2, 
+                        name: "Portrait & Family", 
+                        skills: [
+                            { name: "Family Portrait" },
+                            { name: "Individual Portrait" },
+                            { name: "Baby Photography" },
+                            { name: "Couple Photography" },
+                            { name: "Outdoor Portrait" }
+                        ]
+                    },
+                    { 
+                        id: 3, 
+                        name: "Product & Commercial", 
+                        skills: [
+                            { name: "Product Photography" },
+                            { name: "E-commerce Photography" },
+                            { name: "Commercial Photography" },
+                            { name: "Food Photography" },
+                            { name: "Jewelry Photography" }
+                        ]
+                    },
+                    { 
+                        id: 4, 
+                        name: "Event & Ceremony", 
+                        skills: [
+                            { name: "Birthday Party" },
+                            { name: "Anniversary Celebration" },
+                            { name: "Corporate Event" },
+                            { name: "Cultural Event" },
+                            { name: "Religious Ceremony" }
+                        ]
+                    },
+                    { 
+                        id: 5, 
+                        name: "Drone Photography", 
+                        skills: [
+                            { name: "Aerial Photography" },
+                            { name: "Property Drone Shoot" },
+                            { name: "Event Drone Coverage" },
+                            { name: "Land Survey Drone" },
+                            { name: "Commercial Drone Shoot" }
+                        ]
+                    },
+                    { 
+                        id: 6, 
+                        name: "Video Editing", 
+                        skills: [
+                            { name: "Basic Video Editing" },
+                            { name: "Professional Video Editing" },
+                            { name: "Wedding Video Editing" },
+                            { name: "Corporate Video Editing" },
+                            { name: "Animation Video" }
+                        ]
+                    },
+                    { 
+                        id: 7, 
+                        name: "Real Estate Photography", 
+                        skills: [
+                            { name: "Property Photography" },
+                            { name: "360 Virtual Tour" },
+                            { name: "Architectural Photography" },
+                            { name: "Interior Photography" },
+                            { name: "Commercial Property" }
+                        ]
+                    }
+                ]
+            },
+            {
+                id: 12,
+                name: "Daily Needs",
+                icon: "fas fa-shopping-basket",
+                subcategories: [
+                    { 
+                        id: 1, 
+                        name: "Milkman", 
+                        skills: [
+                            { name: "Cow Milk Delivery" },
+                            { name: "Buffalo Milk Delivery" },
+                            { name: "Toned Milk Delivery" },
+                            { name: "Flavored Milk" },
+                            { name: "Monthly Milk Subscription" }
+                        ]
+                    },
+                    { 
+                        id: 2, 
+                        name: "Water Supply", 
+                        skills: [
+                            { name: "Bisleri Water Can" },
+                            { name: "Local Water Can" },
+                            { name: "Mineral Water Supply" },
+                            { name: "Monthly Water Subscription" },
+                            { name: "Emergency Water Supply" }
+                        ]
+                    },
+                    { 
+                        id: 3, 
+                        name: "Maid", 
+                        skills: [
+                            { name: "Cooking Maid" },
+                            { name: "Cleaning Maid" },
+                            { name: "Full Time Maid" },
+                            { name: "Part Time Maid" },
+                            { name: "Baby Care Maid" }
+                        ]
+                    },
+                    { 
+                        id: 4, 
+                        name: "Child Care (Nanny)", 
+                        skills: [
+                            { name: "Day Care Service" },
+                            { name: "Night Care Service" },
+                            { name: "Full Time Nanny" },
+                            { name: "Emergency Child Care" },
+                            { name: "Newborn Care" }
+                        ]
+                    },
+                    { 
+                        id: 5, 
+                        name: "Elder Care", 
+                        skills: [
+                            { name: "Elder Companion" },
+                            { name: "Medical Assistance" },
+                            { name: "Daily Care Service" },
+                            { name: "Night Care Service" },
+                            { name: "Emergency Elder Care" }
+                        ]
+                    }
+                ]
+            },
+            {
+                id: 13,
+                name: "Education & Tuition",
+                icon: "fas fa-graduation-cap",
+                subcategories: [
+                    { 
+                        id: 1, 
+                        name: "School Subject Tuition", 
+                        skills: [
+                            { name: "Mathematics Tuition" },
+                            { name: "Science Tuition" },
+                            { name: "English Tuition" },
+                            { name: "Social Studies" },
+                            { name: "Hindi Tuition" },
+                            { name: "Computer Tuition" }
+                        ]
+                    },
+                    { 
+                        id: 2, 
+                        name: "College Level Coaching", 
+                        skills: [
+                            { name: "Engineering Subjects" },
+                            { name: "Medical Subjects" },
+                            { name: "Commerce Subjects" },
+                            { name: "Arts Subjects" },
+                            { name: "Science Subjects" }
+                        ]
+                    },
+                    { 
+                        id: 3, 
+                        name: "Competitive Exam Prep", 
+                        skills: [
+                            { name: "UPSC Preparation" },
+                            { name: "SSC Preparation" },
+                            { name: "Banking Exam" },
+                            { name: "Railway Exam" },
+                            { name: "Defense Exam" }
+                        ]
+                    },
+                    { 
+                        id: 4, 
+                        name: "Language Learning", 
+                        skills: [
+                            { name: "English Speaking" },
+                            { name: "French Language" },
+                            { name: "German Language" },
+                            { name: "Spanish Language" },
+                            { name: "Japanese Language" }
+                        ]
+                    },
+                    { 
+                        id: 5, 
+                        name: "Driving Instructor", 
+                        skills: [
+                            { name: "Car Driving Lessons" },
+                            { name: "Bike Driving Lessons" },
+                            { name: "Heavy Vehicle Training" },
+                            { name: "Defensive Driving" },
+                            { name: "Road Test Preparation" }
+                        ]
+                    },
+                    { 
+                        id: 6, 
+                        name: "Music Classes", 
+                        skills: [
+                            { name: "Guitar Classes" },
+                            { name: "Piano Classes" },
+                            { name: "Violin Classes" },
+                            { name: "Tabla Classes" },
+                            { name: "Vocal Training" }
+                        ]
+                    },
+                    { 
+                        id: 7, 
+                        name: "Dance Classes", 
+                        skills: [
+                            { name: "Bollywood Dance" },
+                            { name: "Classical Dance" },
+                            { name: "Hip Hop Dance" },
+                            { name: "Western Dance" },
+                            { name: "Zumba Classes" }
+                        ]
+                    },
+                    { 
+                        id: 8, 
+                        name: "Computer Classes", 
+                        skills: [
+                            { name: "Basic Computer Course" },
+                            { name: "Programming Classes" },
+                            { name: "Web Development" },
+                            { name: "Graphic Design" },
+                            { name: "Digital Marketing" }
+                        ]
+                    }
+                ]
+            }
+        ];
+
+        // Store user data
+        let userProfile = {
+            selectedCategory: null,
+            selectedSubcategories: [],
+            selectedSkills: [],
+            profile: {
+                name: "",
+                mobile: "",
+                whatsapp: "",
+                address: "",
+                hideMobile: false,
+                hideWhatsapp: false
+            }
+        };
+
+        // DOM Elements
+        const categoriesGrid = document.getElementById('categoriesGrid');
+        const subcategoriesGrid = document.getElementById('subcategoriesGrid');
+        const skillsList = document.getElementById('skillsList');
+        const selectedCategoryName = document.getElementById('selectedCategoryName');
+        const selectedSubcategoryName = document.getElementById('selectedSubcategoryName');
+        const profileImageUpload = document.getElementById('profileImageUpload');
+
+        // Step navigation elements
+        const step1 = document.getElementById('step1');
+        const step2 = document.getElementById('step2');
+        const step3 = document.getElementById('step3');
+        const step4 = document.getElementById('step4');
+        
+        const nextToStep2 = document.getElementById('nextToStep2');
+        const nextToStep3 = document.getElementById('nextToStep3');
+        const nextToStep4 = document.getElementById('nextToStep4');
+        
+        const backToStep1 = document.getElementById('backToStep1');
+        const backToStep2 = document.getElementById('backToStep2');
+        const backToStep3 = document.getElementById('backToStep3');
+        
+        const completeProfile = document.getElementById('completeProfile');
+
+        // Initialize the page
+        document.addEventListener('DOMContentLoaded', function() {
+            populateCategories();
+            setupEventListeners();
+        });
+
+        // Populate Categories
+        function populateCategories() {
+            categoriesGrid.innerHTML = '';
+            categories.forEach(category => {
+                const categoryElement = document.createElement('div');
+                categoryElement.className = 'category-card';
+                categoryElement.setAttribute('data-category-id', category.id);
+                
+                categoryElement.innerHTML = `
+                    <div class="category-icon">
+                        <i class="${category.icon}"></i>
+                    </div>
+                    <div class="category-name">${category.name}</div>
+                `;
+                
+                categoryElement.addEventListener('click', function() {
+                    selectCategory(category.id);
+                });
+                
+                categoriesGrid.appendChild(categoryElement);
+            });
+        }
+
+        // Select Category
+        function selectCategory(categoryId) {
+            // Remove selected class from all categories
+            document.querySelectorAll('.category-card').forEach(card => {
+                card.classList.remove('selected');
+            });
+            
+            // Add selected class to clicked category
+            const selectedCategory = document.querySelector(`[data-category-id="${categoryId}"]`);
+            selectedCategory.classList.add('selected');
+            
+            // Store selected category
+            userProfile.selectedCategory = categoryId;
+            
+            // Enable next button
+            nextToStep2.disabled = false;
+        }
+
+        // Populate Subcategories
+        function populateSubcategories() {
+            const category = categories.find(cat => cat.id == userProfile.selectedCategory);
+            selectedCategoryName.textContent = category.name;
+            
+            subcategoriesGrid.innerHTML = '';
+            category.subcategories.forEach(subcategory => {
+                const subcategoryElement = document.createElement('div');
+                subcategoryElement.className = 'subcategory-card';
+                subcategoryElement.setAttribute('data-subcategory-id', subcategory.id);
+                
+                subcategoryElement.innerHTML = `
+                    <div class="subcategory-name">${subcategory.name}</div>
+                `;
+                
+                subcategoryElement.addEventListener('click', function() {
+                    toggleSubcategory(subcategory.id);
+                });
+                
+                subcategoriesGrid.appendChild(subcategoryElement);
+            });
+        }
+
+        // Toggle Subcategory Selection
+        function toggleSubcategory(subcategoryId) {
+            const subcategoryElement = document.querySelector(`[data-subcategory-id="${subcategoryId}"]`);
+            
+            if (subcategoryElement.classList.contains('selected')) {
+                subcategoryElement.classList.remove('selected');
+                userProfile.selectedSubcategories = userProfile.selectedSubcategories.filter(id => id != subcategoryId);
+            } else {
+                subcategoryElement.classList.add('selected');
+                userProfile.selectedSubcategories.push(subcategoryId);
+            }
+            
+            // Enable next button if at least one subcategory is selected
+            nextToStep3.disabled = userProfile.selectedSubcategories.length === 0;
+        }
+
+        // Populate Skills
+        function populateSkills() {
+            const category = categories.find(cat => cat.id == userProfile.selectedCategory);
+            
+            // Get selected subcategories
+            const selectedSubcategories = category.subcategories.filter(sub => 
+                userProfile.selectedSubcategories.includes(sub.id)
+            );
+            
+            // Update the selected subcategory name (show first one or count)
+            if (selectedSubcategories.length === 1) {
+                selectedSubcategoryName.textContent = selectedSubcategories[0].name;
+            } else {
+                selectedSubcategoryName.textContent = `${selectedSubcategories.length} selected subcategories`;
+            }
+            
+            skillsList.innerHTML = '';
+            
+            selectedSubcategories.forEach(subcategory => {
+                // Add subcategory header
+                const header = document.createElement('div');
+                header.style.fontWeight = '600';
+                header.style.marginTop = '15px';
+                header.style.color = '#059669';
+                header.textContent = subcategory.name;
+                skillsList.appendChild(header);
+                
+                // Add skills
+                subcategory.skills.forEach(skill => {
+                    const skillElement = document.createElement('div');
+                    skillElement.className = 'skill-item';
+                    skillElement.setAttribute('data-skill-name', skill.name);
+                    
+                    skillElement.innerHTML = `
+                        <div class="skill-checkbox">
+                            <i class="fas fa-check" style="display: none; font-size: 12px;"></i>
+                        </div>
+                        <div class="skill-info">
+                            <div class="skill-name">${skill.name}</div>
+                            <div class="price-input">
+                                <span style="font-size: 0.8rem; color: #64748b;">Price starts at: ₹</span>
+                                <input type="number" placeholder="Optional" class="skill-price-input">
+                            </div>
+                        </div>
+                    `;
+                    
+                    skillElement.addEventListener('click', function() {
+                        toggleSkill(skill.name, this);
+                    });
+                    
+                    skillsList.appendChild(skillElement);
+                });
+            });
+        }
+
+        // Toggle Skill Selection
+        function toggleSkill(skillName, element) {
+            const checkbox = element.querySelector('.skill-checkbox');
+            const priceInput = element.querySelector('.skill-price-input');
+            
+            if (checkbox.classList.contains('selected')) {
+                // Deselect
+                checkbox.classList.remove('selected');
+                checkbox.querySelector('i').style.display = 'none';
+                priceInput.disabled = true;
+                
+                // Remove from user profile
+                userProfile.selectedSkills = userProfile.selectedSkills.filter(s => s.name !== skillName);
+            } else {
+                // Select
+                checkbox.classList.add('selected');
+                checkbox.querySelector('i').style.display = 'block';
+                priceInput.disabled = false;
+                
+                // Add to user profile
+                userProfile.selectedSkills.push({
+                    name: skillName,
+                    price: 0
+                });
+                
+                // Add price change listener
+                priceInput.addEventListener('input', function() {
+                    const skill = userProfile.selectedSkills.find(s => s.name === skillName);
+                    if (skill) {
+                        skill.price = parseInt(this.value) || 0;
+                    }
+                });
+            }
+            
+            // Enable next button if at least one skill is selected
+            nextToStep4.disabled = userProfile.selectedSkills.length === 0;
+        }
+
+        // Setup Event Listeners
+        function setupEventListeners() {
+            // Step navigation
+            nextToStep2.addEventListener('click', function() {
+                if (userProfile.selectedCategory) {
+                    populateSubcategories();
+                    step1.classList.remove('active');
+                    step2.classList.add('active');
+                    updateProgress(2);
+                }
+            });
+            
+            nextToStep3.addEventListener('click', function() {
+                if (userProfile.selectedSubcategories.length > 0) {
+                    populateSkills();
+                    step2.classList.remove('active');
+                    step3.classList.add('active');
+                    updateProgress(3);
+                }
+            });
+            
+            nextToStep4.addEventListener('click', function() {
+                if (userProfile.selectedSkills.length > 0) {
+                    step3.classList.remove('active');
+                    step4.classList.add('active');
+                    updateProgress(4);
+                }
+            });
+            
+            backToStep1.addEventListener('click', function() {
+                step2.classList.remove('active');
+                step1.classList.add('active');
+                updateProgress(1);
+            });
+            
+            backToStep2.addEventListener('click', function() {
+                step3.classList.remove('active');
+                step2.classList.add('active');
+                updateProgress(2);
+            });
+            
+            backToStep3.addEventListener('click', function() {
+                step4.classList.remove('active');
+                step3.classList.add('active');
+                updateProgress(3);
+            });
+            
+            // Profile image upload
+            profileImageUpload.addEventListener('click', function() {
+                alert('In real app, this would open image picker/camera');
+                // Simulate image upload
+                this.innerHTML = `
+                    <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=200&q=80" alt="Profile">
+                    <div class="upload-overlay">
+                        <i class="fas fa-camera"></i>
+                        <span>Change Photo</span>
+                    </div>
+                `;
+            });
+            
+            // Complete profile
+            completeProfile.addEventListener('click', function() {
+                // Save profile data
+                userProfile.profile.name = document.getElementById('providerName').value;
+                userProfile.profile.mobile = document.getElementById('providerMobile').value;
+                userProfile.profile.whatsapp = document.getElementById('providerWhatsApp').value;
+                userProfile.profile.address = document.getElementById('providerAddress').value;
+                userProfile.profile.hideMobile = document.getElementById('hideMobile').checked;
+                userProfile.profile.hideWhatsapp = document.getElementById('hideWhatsApp').checked;
+                
+                // Validate
+                if (!userProfile.profile.name || !userProfile.profile.mobile || !userProfile.profile.address) {
+                    alert('Please fill in all required fields: Name, Mobile, and Address');
+                    return;
+                }
+                
+                // In real app, you would submit this data to backend
+                alert('Profile completed successfully! Your provider profile is now live.');
+                console.log('Final User Profile:', userProfile);
+            });
+        }
+
+        // Update Progress Steps
+        function updateProgress(stepNumber) {
+            // Update step numbers
+            document.querySelectorAll('.step-number').forEach((step, index) => {
+                if (index + 1 <= stepNumber) {
+                    step.classList.add('active');
+                } else {
+                    step.classList.remove('active');
+                }
+            });
+            
+            // Update step labels
+            document.querySelectorAll('.step-label').forEach((label, index) => {
+                if (index + 1 <= stepNumber) {
+                    label.classList.add('active');
+                } else {
+                    label.classList.remove('active');
+                }
+            });
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,717 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Service by Local - 100% Trusted Services</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        body {
+            background: #f8fafc;
+            color: #334155;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 100%;
+            margin: 0 auto;
+            background: white;
+            min-height: 100vh;
+        }
+        
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, #0a5c36 0%, #0a7e4e 100%);
+            color: white;
+            padding: 15px 15px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        
+        .header-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .logo {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: white;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .logo-icon {
+            background: white;
+            color: #0a5c36;
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .location-selector {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 8px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .location-selector:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+        
+        .search-container {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 5px;
+        }
+        
+        .search-bar {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            background: white;
+            border-radius: 25px;
+            padding: 0 15px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .search-bar:focus-within {
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+            transform: translateY(-2px);
+        }
+        
+        .search-bar input {
+            flex: 1;
+            border: none;
+            outline: none;
+            padding: 12px 8px;
+            font-size: 0.95rem;
+            background: transparent;
+        }
+        
+        .search-bar i {
+            color: #64748b;
+        }
+        
+        /* Trust Banner */
+        .trust-banner {
+            background: linear-gradient(135deg, #d1fae5, #a7f3d0);
+            padding: 10px 15px;
+            text-align: center;
+            border-bottom: 1px solid #10b981;
+        }
+        
+        .trust-banner-content {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #065f46;
+        }
+        
+        .trust-banner i {
+            color: #10b981;
+        }
+        
+        /* Services Near You Section */
+        .services-near-you {
+            padding: 15px 12px;
+        }
+        
+        .section-title {
+            font-size: 1.2rem;
+            color: #065f46;
+            margin-bottom: 12px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .section-title i {
+            background: linear-gradient(135deg, #10b981, #047857);
+            color: white;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.9rem;
+        }
+        
+        /* 2x2 Grid Layout */
+        .providers-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+        
+        /* Service Provider Card - MODERN REDESIGN */
+        .provider-card {
+            background: white;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+            border: 1px solid #e2e8f0;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            height: 100%;
+        }
+        
+        .provider-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+            border-color: #10b981;
+        }
+        
+        .service-image {
+            width: 100%;
+            height: 160px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .service-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        /* UPDATED: Verified Badge - Now fully visible with proper positioning */
+        .verified-badge {
+            position: absolute;
+            top: 145px; /* Positioned to be 80% on image, 20% below */
+            left: 12px;
+            background: linear-gradient(135deg, #10b981, #047857);
+            color: white;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            z-index: 2;
+            box-shadow: 0 3px 10px rgba(16, 185, 129, 0.3);
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+        
+        .verified-badge i {
+            font-size: 0.6rem;
+        }
+        
+        .favorite-icon {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            background: rgba(255, 255, 255, 0.95);
+            color: #64748b;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 2;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        .favorite-icon:hover {
+            background: white;
+            color: #ef4444;
+            transform: scale(1.1);
+        }
+        
+        .favorite-icon.active {
+            background: white;
+            color: #ef4444;
+        }
+        
+        /* UPDATED: Profile picture - Now fully visible */
+        .profile-picture {
+            position: absolute;
+            bottom: -10px; /* Adjusted to ensure full visibility */
+            right: 12px;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            border: 3px solid white;
+            overflow: hidden;
+            background: #e2e8f0;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            z-index: 2;
+        }
+        
+        .profile-picture img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .provider-info {
+            padding: 18px 12px 12px; /* Adjusted for badge visibility */
+        }
+        
+        .service-title {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: #065f46;
+            margin-bottom: 6px;
+            line-height: 1.3;
+        }
+        
+        .provider-name {
+            font-size: 0.8rem;
+            color: #475569;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+        
+        .rating-trust {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 10px;
+        }
+        
+        .rating {
+            display: flex;
+            align-items: center;
+            gap: 3px;
+            background: #fffbeb;
+            padding: 4px 8px;
+            border-radius: 10px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            color: #d97706;
+        }
+        
+        .rating i {
+            color: #f59e0b;
+            font-size: 0.6rem;
+        }
+        
+        .experience {
+            background: #eff6ff;
+            color: #1e40af;
+            padding: 4px 8px;
+            border-radius: 10px;
+            font-size: 0.7rem;
+            font-weight: 600;
+        }
+        
+        .info-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+            gap: 10px;
+        }
+        
+        .distance {
+            font-size: 0.75rem;
+            color: #10b981;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            white-space: nowrap;
+        }
+        
+        .small-call-btn {
+            background: #10b981;
+            color: white;
+            border: none;
+            border-radius: 12px;
+            padding: 6px 10px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            box-shadow: 0 2px 6px rgba(16, 185, 129, 0.3);
+            white-space: nowrap;
+        }
+        
+        .small-call-btn:hover {
+            background: #047857;
+            transform: scale(1.05);
+        }
+        
+        /* UPDATED: Location with smaller font and distance integrated */
+        .location {
+            font-size: 0.65rem; /* Further reduced font size */
+            color: #64748b;
+            margin-bottom: 0;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+        
+        /* Bottom Navigation */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: white;
+            display: flex;
+            justify-content: space-around;
+            padding: 12px 0;
+            box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.1);
+            z-index: 50;
+        }
+        
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            background: none;
+            border: none;
+            color: #64748b;
+            font-size: 0.75rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .nav-item.active {
+            color: #10b981;
+        }
+        
+        .nav-item.active::before {
+            content: '';
+            position: absolute;
+            top: -12px;
+            width: 25px;
+            height: 2px;
+            background: #10b981;
+            border-radius: 2px;
+        }
+        
+        .nav-item i {
+            font-size: 1.2rem;
+        }
+        
+        /* Add padding to main content for bottom nav */
+        .main-content {
+            padding-bottom: 70px;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 480px) {
+            .providers-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 10px;
+            }
+            
+            .service-image {
+                height: 150px;
+            }
+            
+            .verified-badge {
+                top: 135px; /* Adjusted for mobile */
+            }
+            
+            .provider-info {
+                padding: 16px 10px 10px;
+            }
+        }
+        
+        @media (max-width: 360px) {
+            .providers-grid {
+                grid-template-columns: 1fr;
+                gap: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header Section -->
+        <div class="header">
+            <div class="header-top">
+                <div class="logo">
+                    <div class="logo-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    Service by Local
+                </div>
+                <div class="location-selector">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span>Mumbai, India</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+            </div>
+            
+            <div class="search-container">
+                <div class="search-bar">
+                    <i class="fas fa-search"></i>
+                    <input type="text" placeholder="Find 100% trusted service providers...">
+                </div>
+            </div>
+        </div>
+        
+        <!-- Trust Banner -->
+        <div class="trust-banner">
+            <div class="trust-banner-content">
+                <i class="fas fa-shield-check"></i>
+                <span>100% Verified Providers • Background Checked • Quality Guaranteed</span>
+            </div>
+        </div>
+        
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Services Near You Section -->
+            <div class="services-near-you">
+                <h2 class="section-title">
+                    <i class="fas fa-award"></i> 100% Trusted Services Near You
+                </h2>
+                
+                <div class="providers-grid">
+                    <!-- Provider 1 -->
+                    <div class="provider-card">
+                        <div class="service-image">
+                            <img src="https://images.unsplash.com/photo-1558618047-3c8c76ca7d13?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80" alt="AC Repair Service">
+                            <div class="verified-badge">
+                                <i class="fas fa-shield-alt"></i> Verified
+                            </div>
+                            <div class="favorite-icon">
+                                <i class="far fa-heart"></i>
+                            </div>
+                            <div class="profile-picture">
+                                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=100&q=80" alt="Rajesh Kumar">
+                            </div>
+                        </div>
+                        <div class="provider-info">
+                            <div class="service-title">Premium AC Repair & Service</div>
+                            <div class="provider-name">Rajesh Kumar</div>
+                            <div class="rating-trust">
+                                <div class="rating">
+                                    <i class="fas fa-star"></i> 4.9 (128)
+                                </div>
+                                <div class="experience">8+ Years</div>
+                            </div>
+                            <div class="info-row">
+                                <div class="distance">
+                                    <i class="fas fa-clock"></i> 5 min away
+                                </div>
+                                <button class="small-call-btn">
+                                    <i class="fas fa-phone"></i> Call
+                                </button>
+                            </div>
+                            <div class="location">
+                                <i class="fas fa-map-marker-alt"></i> Krishna Nagar • 0.6 km
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Provider 2 -->
+                    <div class="provider-card">
+                        <div class="service-image">
+                            <img src="https://images.unsplash.com/photo-1621905252507-b35492cc74b4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80" alt="Plumbing Service">
+                            <div class="verified-badge">
+                                <i class="fas fa-shield-alt"></i> Verified
+                            </div>
+                            <div class="favorite-icon">
+                                <i class="far fa-heart"></i>
+                            </div>
+                            <div class="profile-picture">
+                                <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=100&q=80" alt="Amit Sharma">
+                            </div>
+                        </div>
+                        <div class="provider-info">
+                            <div class="service-title">Expert Plumbing & Pipe Solutions</div>
+                            <div class="provider-name">Amit Sharma</div>
+                            <div class="rating-trust">
+                                <div class="rating">
+                                    <i class="fas fa-star"></i> 4.8 (96)
+                                </div>
+                                <div class="experience">6+ Years</div>
+                            </div>
+                            <div class="info-row">
+                                <div class="distance">
+                                    <i class="fas fa-clock"></i> 8 min away
+                                </div>
+                                <button class="small-call-btn">
+                                    <i class="fas fa-phone"></i> Call
+                                </button>
+                            </div>
+                            <div class="location">
+                                <i class="fas fa-map-marker-alt"></i> Shivaji Road • 1.2 km
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Provider 3 -->
+                    <div class="provider-card">
+                        <div class="service-image">
+                            <img src="https://images.unsplash.com/photo-1581094794329-c8112a89af12?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80" alt="Electrical Service">
+                            <div class="verified-badge">
+                                <i class="fas fa-shield-alt"></i> Verified
+                            </div>
+                            <div class="favorite-icon">
+                                <i class="far fa-heart"></i>
+                            </div>
+                            <div class="profile-picture">
+                                <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=100&q=80" alt="Vikram Singh">
+                            </div>
+                        </div>
+                        <div class="provider-info">
+                            <div class="service-title">Professional Electrical Services</div>
+                            <div class="provider-name">Vikram Singh</div>
+                            <div class="rating-trust">
+                                <div class="rating">
+                                    <i class="fas fa-star"></i> 4.9 (142)
+                                </div>
+                                <div class="experience">10+ Years</div>
+                            </div>
+                            <div class="info-row">
+                                <div class="distance">
+                                    <i class="fas fa-clock"></i> 10 min away
+                                </div>
+                                <button class="small-call-btn">
+                                    <i class="fas fa-phone"></i> Call
+                                </button>
+                            </div>
+                            <div class="location">
+                                <i class="fas fa-map-marker-alt"></i> Gandhi Chowk • 1.8 km
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Provider 4 -->
+                    <div class="provider-card">
+                        <div class="service-image">
+                            <img src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80" alt="Painting Service">
+                            <div class="verified-badge">
+                                <i class="fas fa-shield-alt"></i> Verified
+                            </div>
+                            <div class="favorite-icon">
+                                <i class="far fa-heart"></i>
+                            </div>
+                            <div class="profile-picture">
+                                <img src="https://images.unsplash.com/photo-1504593811423-6dd665756598?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=100&q=80" alt="Priya Verma">
+                            </div>
+                        </div>
+                        <div class="provider-info">
+                            <div class="service-title">Premium Home Painting Services</div>
+                            <div class="provider-name">Priya Verma</div>
+                            <div class="rating-trust">
+                                <div class="rating">
+                                    <i class="fas fa-star"></i> 4.7 (87)
+                                </div>
+                                <div class="experience">5+ Years</div>
+                            </div>
+                            <div class="info-row">
+                                <div class="distance">
+                                    <i class="fas fa-clock"></i> 15 min away
+                                </div>
+                                <button class="small-call-btn">
+                                    <i class="fas fa-phone"></i> Call
+                                </button>
+                            </div>
+                            <div class="location">
+                                <i class="fas fa-map-marker-alt"></i> Nehru Nagar • 2.5 km
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Bottom Navigation -->
+        <div class="bottom-nav">
+            <div class="nav-item active">
+                <i class="fas fa-home"></i>
+                <span>Home</span>
+            </div>
+            <div class="nav-item">
+                <i class="fas fa-search"></i>
+                <span>Search</span>
+            </div>
+            <div class="nav-item">
+                <i class="fas fa-shopping-cart"></i>
+                <span>Orders</span>
+            </div>
+            <div class="nav-item">
+                <i class="fas fa-user"></i>
+                <span>Profile</span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Favorite icon functionality
+            document.querySelectorAll('.favorite-icon').forEach(icon => {
+                icon.addEventListener('click', function(e) {
+                    e.stopPropagation(); // Prevent card click event
+                    const heartIcon = this.querySelector('i');
+                    
+                    if (heartIcon.classList.contains('far')) {
+                        heartIcon.classList.remove('far');
+                        heartIcon.classList.add('fas');
+                        this.classList.add('active');
+                    } else {
+                        heartIcon.classList.remove('fas');
+                        heartIcon.classList.add('far');
+                        this.classList.remove('active');
+                    }
+                });
+            });
+            
+            // Call button functionality
+            document.querySelectorAll('.small-call-btn').forEach(button => {
+                button.addEventListener('click', function(e) {
+                    e.stopPropagation(); // Prevent card click event
+                    const providerName = this.closest('.provider-card').querySelector('.provider-name').textContent;
+                    const serviceTitle = this.closest('.provider-card').querySelector('.service-title').textContent;
+                    alert(`Calling verified provider ${providerName} for ${serviceTitle}\n\nIn the real app, this would initiate a phone call.`);
+                });
+            });
+            
+            // Provider card click functionality
+            document.querySelectorAll('.provider-card').forEach(card => {
+                card.addEventListener('click', function() {
+                    const serviceTitle = this.querySelector('.service-title').textContent;
+                    const providerName = this.querySelector('.provider-name').textContent;
+                    alert(`Opening verified profile: ${providerName} - ${serviceTitle}\n\nAll our providers are:\n✅ Police Verified\n✅ ID Verified\n✅ Quality Certified\n✅ Background Checked\n✅ Customer Rated`);
+                });
+            });
+        });
+    </script>
+</body>
+</html>

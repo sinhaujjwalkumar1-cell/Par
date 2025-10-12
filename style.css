@@ -1,0 +1,227 @@
+/* Enhanced Theme Toggle */
+.theme-toggle-container {
+    position: fixed;
+    top: 100px;
+    left: 20px;
+    z-index: 1000;
+}
+
+.theme-toggle-btn {
+    background: var(--btn-theme-bg);
+    color: var(--btn-theme-text);
+    padding: 12px 16px;
+    border-radius: 25px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    box-shadow: 0 4px 15px var(--shadow-color);
+    transition: all 0.3s ease;
+    border: 2px solid var(--light-bg);
+    font-weight: 600;
+    border: none;
+}
+
+.theme-toggle-btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 20px var(--shadow-color);
+    background: var(--btn-call-hover);
+}
+
+.theme-toggle-btn-small {
+    background: var(--btn-theme-bg);
+    color: var(--btn-theme-text);
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    border: none;
+    box-shadow: 0 2px 8px var(--shadow-color);
+    transition: all 0.3s ease;
+}
+
+.theme-toggle-btn-small:hover {
+    transform: scale(1.1);
+    background: var(--btn-call-hover);
+}
+
+/* Enhanced Search */
+.search-clear-btn {
+    background: transparent;
+    border: none;
+    color: var(--text-placeholder);
+    cursor: pointer;
+    padding: 5px;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+}
+
+.search-clear-btn:hover {
+    background: var(--border-color);
+    color: var(--text-color);
+}
+
+/* Loading Spinner */
+.loading-spinner {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: var(--modal-bg);
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px var(--shadow-modal);
+    z-index: 1000;
+    text-align: center;
+    border: 1px solid var(--border-color);
+}
+
+.spinner {
+    width: 40px;
+    height: 40px;
+    border: 4px solid var(--border-color);
+    border-top: 4px solid var(--primary-color);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin: 0 auto 15px;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Accessibility Improvements */
+.service-item:focus,
+.category-card:focus,
+.provider-card:focus,
+.nav-item:focus {
+    outline: 2px solid var(--primary-color);
+    outline-offset: 2px;
+}
+
+/* High Contrast Mode Support */
+@media (prefers-contrast: high) {
+    :root {
+        --border-color: #000000;
+        --shadow-color: rgba(0, 0, 0, 0.5);
+    }
+}
+
+/* Reduced Motion Support */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+/* Enhanced Notification with Types */
+.notification.success {
+    background: var(--primary-color);
+}
+
+.notification.error {
+    background: var(--btn-reset-bg);
+}
+
+.notification.warning {
+    background: #F59E0B;
+}
+
+/* Basic/Advanced Mode for Color Picker */
+.color-mode-toggle {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.color-mode-btn {
+    padding: 8px 16px;
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+    background: var(--card-bg);
+    color: var(--text-color);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: 600;
+}
+
+.color-mode-btn.active {
+    background: var(--primary-color);
+    color: white;
+    border-color: var(--primary-color);
+}
+
+.advanced-controls {
+    display: none;
+}
+
+.advanced-controls.active {
+    display: block;
+    animation: fadeIn 0.3s ease;
+}
+
+/* Skeleton Loading */
+.skeleton-loader {
+    background: linear-gradient(90deg, var(--card-bg) 25%, var(--border-color) 50%, var(--card-bg) 75%);
+    background-size: 200% 100%;
+    animation: loading 1.5s infinite;
+    border-radius: 8px;
+}
+
+@keyframes loading {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+}
+
+.skeleton-card {
+    background: var(--card-bg);
+    border-radius: 15px;
+    padding: 15px;
+    margin-bottom: 15px;
+}
+
+.skeleton-line {
+    height: 12px;
+    margin-bottom: 10px;
+    border-radius: 6px;
+}
+
+.skeleton-line.short {
+    width: 60%;
+}
+
+.skeleton-line.medium {
+    width: 80%;
+}
+
+/* Responsive Design Improvements */
+@media (max-width: 768px) {
+    .theme-toggle-container {
+        top: 80px;
+        left: 15px;
+    }
+    
+    .theme-toggle-btn {
+        padding: 10px 12px;
+        font-size: 0.9rem;
+    }
+    
+    .color-picker-dropdown {
+        top: 130px;
+        right: 15px;
+    }
+}
+
+@media (max-width: 480px) {
+    .theme-toggle-container {
+        display: none;
+    }
+}
+
+/* [Include all your existing CSS here] */

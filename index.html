@@ -1,83 +1,31 @@
 <!DOCTYPE html>
-<html lang="hi">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Service by Local - Complete Color Customization</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <title>Modern Weather App</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="container">
-        <!-- Theme Toggle Button -->
-        <div class="theme-toggle-container">
-            <button class="theme-toggle-btn" id="themeToggleBtn">
-                <i class="fas fa-moon"></i>
-                <span>Dark Mode</span>
-            </button>
-        </div>
-
-        <!-- Enhanced Color Picker Dropdown -->
-        <div class="color-picker-dropdown">
-            <!-- [Your existing color picker code] -->
-        </div>
-
-        <!-- Enhanced Color Picker Modal -->
-        <div class="color-picker-modal" id="colorPickerModal">
-            <!-- [Your existing modal code] -->
-        </div>
-
-        <!-- Enhanced Header Section -->
-        <div class="header">
-            <div class="header-top">
-                <div class="logo">
-                    <div class="logo-icon">
-                        <i class="fas fa-hands-helping"></i>
-                    </div>
-                    Service by Local
-                </div>
-                
-                <!-- Theme Toggle in Header -->
-                <button class="theme-toggle-btn-small" id="themeToggleBtnSmall">
-                    <i class="fas fa-moon"></i>
-                </button>
-                
-                <div class="location-selector">
-                    <i class="fas fa-map-marker-alt"></i>
-                    <span>Mumbai, India</span>
-                    <i class="fas fa-chevron-down"></i>
-                </div>
+    <div class="app">
+        <header>
+            <h1>Modern Weather</h1>
+            <div class="search-box">
+                <input type="text" class="search-bar" placeholder="Enter city name..." />
             </div>
-            
-            <div class="search-container">
-                <div class="search-bar">
-                    <i class="fas fa-search"></i>
-                    <input type="text" id="searchInput" placeholder="What service do you need?">
-                    <button class="search-clear-btn" id="searchClearBtn" style="display: none;">
-                        <i class="fas fa-times"></i>
-                    </button>
-                </div>
+        </header>
+        <main>
+            <section class="location">
+                <div class="city">City, Country</div>
+                <div class="date">Monday 1 January 2025</div>
+            </section>
+            <div class="current">
+                <div class="temp">25<span>°c</span></div>
+                <div class="weather">Sunny</div>
+                <div class="hi-low">20°c / 28°c</div>
             </div>
-        </div>
-
-        <!-- Loading Spinner -->
-        <div class="loading-spinner" id="loadingSpinner" style="display: none;">
-            <div class="spinner"></div>
-            <p>Loading services...</p>
-        </div>
-
-        <!-- Main Content -->
-        <div class="main-content" id="mainContent">
-            <!-- [Your existing content sections] -->
-        </div>
-
-        <!-- Enhanced Bottom Navigation -->
-        <div class="bottom-nav">
-            <!-- [Your existing navigation] -->
-        </div>
+        </main>
     </div>
-
     <script src="script.js"></script>
 </body>
 </html>

@@ -4,54 +4,582 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GharPaint - Color Visualizer</title>
-    <link rel="stylesheet" href="style.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #2C3E50;
+            margin-bottom: 30px;
+            font-size: 2.5em;
+        }
+
+        h3 {
+            color: #34495E;
+            margin-bottom: 15px;
+            font-size: 1.3em;
+        }
+
+        .section {
+            margin-bottom: 30px;
+            padding: 25px;
+            background: #f8f9fa;
+            border-radius: 15px;
+            border-left: 5px solid #3498DB;
+        }
+
+        /* Upload Section */
+        #photoUpload {
+            margin: 15px 0;
+            padding: 12px;
+            border: 2px dashed #3498DB;
+            border-radius: 8px;
+            width: 100%;
+            background: #ECF0F1;
+            font-size: 16px;
+        }
+
+        #roomCanvas {
+            width: 100%;
+            max-width: 600px;
+            height: 350px;
+            border: 3px solid #BDC3C7;
+            border-radius: 10px;
+            margin-top: 15px;
+            display: none;
+            background: #f5f5f5;
+        }
+
+        /* Color Picker */
+        .color-options {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        @media (max-width: 768px) {
+            .color-options {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        .color-box {
+            width: 70px;
+            height: 70px;
+            border-radius: 12px;
+            cursor: pointer;
+            border: 4px solid transparent;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+
+        .color-box:hover {
+            transform: scale(1.1);
+            border-color: #2C3E50;
+        }
+
+        .color-box.selected {
+            border-color: #E74C3C;
+            transform: scale(1.1);
+        }
+
+        .custom-color {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin-top: 20px;
+            padding: 15px;
+            background: white;
+            border-radius: 10px;
+        }
+
+        .custom-color label {
+            font-weight: bold;
+            color: #2C3E50;
+        }
+
+        #customColor {
+            width: 80px;
+            height: 80px;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+
+        /* Room Preview */
+        .room-template {
+            width: 100%;
+            height: 400px;
+            background: #ECF0F1;
+            border-radius: 15px;
+            position: relative;
+            overflow: hidden;
+            perspective: 1000px;
+            margin: 20px 0;
+            box-shadow: inset 0 0 20px rgba(0,0,0,0.1);
+        }
+
+        .wall {
+            position: absolute;
+            background: #FFFFFF;
+            border: 3px solid #BDC3C7;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: #7F8C8D;
+            font-size: 14px;
+        }
+
+        .wall:hover {
+            opacity: 0.9;
+            transform: scale(1.02);
+        }
+
+        .wall-left {
+            width: 35%;
+            height: 75%;
+            left: 5%;
+            top: 12%;
+            transform: skewY(3deg);
+        }
+
+        .wall-center {
+            width: 40%;
+            height: 85%;
+            left: 30%;
+            top: 7%;
+        }
+
+        .wall-right {
+            width: 35%;
+            height: 75%;
+            right: 5%;
+            top: 12%;
+            transform: skewY(-3deg);
+        }
+
+        .floor {
+            position: absolute;
+            width: 100%;
+            height: 25%;
+            bottom: 0;
+            background: #8B6B3D;
+            background: linear-gradient(to top, #8B6B3D, #A67C52);
+        }
+
+        .ceiling {
+            position: absolute;
+            width: 100%;
+            height: 12%;
+            top: 0;
+            background: #F7F9F9;
+            background: linear-gradient(to bottom, #F7F9F9, #ECF0F1);
+        }
+
+        /* Saved Designs */
+        #designGallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .design-item {
+            background: white;
+            padding: 15px;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .design-item:hover {
+            transform: translateY(-5px);
+        }
+
+        .design-preview {
+            width: 100%;
+            height: 120px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            border: 2px solid #BDC3C7;
+        }
+
+        .design-item button {
+            background: #E74C3C;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 8px;
+        }
+
+        .design-item button:hover {
+            background: #C0392B;
+        }
+
+        /* Buttons */
+        .action-buttons {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .btn {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary {
+            background: #3498DB;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #2980B9;
+        }
+
+        .btn-secondary {
+            background: #2C3E50;
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background: #1A252F;
+        }
+
+        .btn-success {
+            background: #27AE60;
+            color: white;
+        }
+
+        .btn-success:hover {
+            background: #219653;
+        }
+
+        /* Instructions */
+        .instructions {
+            background: #FFF3CD;
+            border-left: 5px solid #FFC107;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        .instructions h4 {
+            color: #856404;
+            margin-bottom: 10px;
+        }
+
+        .instructions ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+
+        .instructions li {
+            padding: 5px 0;
+            color: #856404;
+        }
+
+        .instructions li:before {
+            content: "✅ ";
+            margin-right: 8px;
+        }
+    </style>
 </head>
 <body>
     <div class="container">
-        <h1>🎨 GharPaint Color Visualizer</h1>
+        <h1>🎨 GharPaint - Color Visualizer</h1>
         
-        <div class="upload-section">
-            <h3>Step 1: Apne ghar ki photo upload karein</h3>
+        <div class="instructions">
+            <h4>Kaise Use Karein:</h4>
+            <ul>
+                <li>Pehle color select karein (predefined ya custom)</li>
+                <li>Phir room ke different walls par click karke color apply karein</li>
+                <li>Ya apni photo upload karke uspe color try karein</li>
+                <li>Apne designs save kar ke baad mein dekh sakte hain</li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <h3>📷 Step 1: Apne ghar ki photo upload karein (Optional)</h3>
             <input type="file" id="photoUpload" accept="image/*">
             <canvas id="roomCanvas"></canvas>
         </div>
 
-        <div class="color-picker">
-            <h3>Step 2: Color select karein</h3>
+        <div class="section">
+            <h3>🎨 Step 2: Color select karein</h3>
             <div class="color-options">
-                <div class="color-box" style="background-color: #FF6B6B;" data-color="#FF6B6B"></div>
-                <div class="color-box" style="background-color: #4ECDC4;" data-color="#4ECDC4"></div>
-                <div class="color-box" style="background-color: #45B7D1;" data-color="#45B7D1"></div>
-                <div class="color-box" style="background-color: #FFE66D;" data-color="#FFE66D"></div>
-                <div class="color-box" style="background-color: #95E1D3;" data-color="#95E1D3"></div>
-                <div class="color-box" style="background-color: #FCE38A;" data-color="#FCE38A"></div>
-                <div class="color-box" style="background-color: #FFFFFF;" data-color="#FFFFFF"></div>
-                <div class="color-box" style="background-color: #2C3E50;" data-color="#2C3E50"></div>
+                <div class="color-box" style="background-color: #FF6B6B;" data-color="#FF6B6B" title="Red"></div>
+                <div class="color-box" style="background-color: #4ECDC4;" data-color="#4ECDC4" title="Teal"></div>
+                <div class="color-box" style="background-color: #45B7D1;" data-color="#45B7D1" title="Blue"></div>
+                <div class="color-box" style="background-color: #FFE66D;" data-color="#FFE66D" title="Yellow"></div>
+                <div class="color-box" style="background-color: #95E1D3;" data-color="#95E1D3" title="Mint"></div>
+                <div class="color-box" style="background-color: #FCE38A;" data-color="#FCE38A" title="Light Yellow"></div>
+                <div class="color-box" style="background-color: #FFFFFF;" data-color="#FFFFFF" title="White"></div>
+                <div class="color-box" style="background-color: #2C3E50;" data-color="#2C3E50" title="Navy Blue"></div>
             </div>
             
             <div class="custom-color">
                 <label>Custom Color:</label>
-                <input type="color" id="customColor" value="#ff0000">
+                <input type="color" id="customColor" value="#ff6b6b">
+                <span id="currentColorText">Selected: #FF6B6B</span>
             </div>
         </div>
 
-        <div class="room-preview">
-            <h3>Step 3: Preview dekhein</h3>
+        <div class="section">
+            <h3>🏠 Step 3: Room preview - Walls par click karke color apply karein</h3>
             <div class="room-template">
-                <div class="wall wall-left" id="leftWall"></div>
-                <div class="wall wall-center" id="centerWall"></div>
-                <div class="wall wall-right" id="rightWall"></div>
+                <div class="wall wall-left" id="leftWall">LEFT WALL</div>
+                <div class="wall wall-center" id="centerWall">CENTER WALL</div>
+                <div class="wall wall-right" id="rightWall">RIGHT WALL</div>
                 <div class="floor"></div>
                 <div class="ceiling"></div>
             </div>
+
+            <div class="action-buttons">
+                <button class="btn btn-primary" onclick="resetDesign()">🔄 Reset Design</button>
+                <button class="btn btn-success" onclick="saveCurrentDesign()">💾 Save Design</button>
+                <button class="btn btn-secondary" onclick="downloadDesign()">📥 Export Design</button>
+            </div>
         </div>
 
-        <div class="saved-designs">
-            <h3>Apne saved designs</h3>
-            <div id="designGallery"></div>
+        <div class="section">
+            <h3>📁 Saved Designs</h3>
+            <div id="designGallery">
+                <div class="design-item">
+                    <div class="design-preview" style="background: linear-gradient(45deg, #FFFFFF, #FFFFFF, #FFFFFF)"></div>
+                    <p>Default Design</p>
+                    <small>Start creating your designs!</small>
+                </div>
+            </div>
         </div>
     </div>
 
-    <script src="script.js"></script>
+    <script>
+        class ColorVisualizer {
+            constructor() {
+                this.currentColor = '#FF6B6B';
+                this.selectedWall = null;
+                this.designCount = 0;
+                this.init();
+            }
+
+            init() {
+                this.setupEventListeners();
+                this.setDefaultColors();
+                this.updateColorText();
+            }
+
+            setupEventListeners() {
+                // Color boxes selection
+                document.querySelectorAll('.color-box').forEach(box => {
+                    box.addEventListener('click', (e) => {
+                        this.selectColor(e.target.dataset.color);
+                    });
+                });
+
+                // Custom color picker
+                document.getElementById('customColor').addEventListener('input', (e) => {
+                    this.selectColor(e.target.value);
+                });
+
+                // Wall selection
+                document.querySelectorAll('.wall').forEach(wall => {
+                    wall.addEventListener('click', (e) => {
+                        this.paintWall(e.target);
+                    });
+                });
+
+                // Photo upload
+                document.getElementById('photoUpload').addEventListener('change', (e) => {
+                    this.handleImageUpload(e);
+                });
+            }
+
+            selectColor(color) {
+                this.currentColor = color;
+                
+                // Update selected color boxes
+                document.querySelectorAll('.color-box').forEach(box => {
+                    box.classList.remove('selected');
+                    if (box.dataset.color === color) {
+                        box.classList.add('selected');
+                    }
+                });
+                
+                // Update custom color picker
+                document.getElementById('customColor').value = color;
+                this.updateColorText();
+            }
+
+            updateColorText() {
+                document.getElementById('currentColorText').textContent = `Selected: ${this.currentColor.toUpperCase()}`;
+            }
+
+            paintWall(wallElement) {
+                if (this.currentColor) {
+                    wallElement.style.backgroundColor = this.currentColor;
+                    wallElement.style.color = this.getContrastColor(this.currentColor);
+                    wallElement.style.borderColor = this.currentColor;
+                }
+            }
+
+            getContrastColor(hexcolor) {
+                // For text contrast on colored background
+                const r = parseInt(hexcolor.substr(1, 2), 16);
+                const g = parseInt(hexcolor.substr(3, 2), 16);
+                const b = parseInt(hexcolor.substr(5, 2), 16);
+                const brightness = ((r * 299) + (g * 587) + (b * 114)) / 1000;
+                return brightness > 128 ? '#000000' : '#FFFFFF';
+            }
+
+            setDefaultColors() {
+                const defaultColors = {
+                    leftWall: '#FFFFFF',
+                    centerWall: '#FFFFFF', 
+                    rightWall: '#FFFFFF'
+                };
+
+                Object.keys(defaultColors).forEach(wallId => {
+                    const wall = document.getElementById(wallId);
+                    if (wall) {
+                        wall.style.backgroundColor = defaultColors[wallId];
+                    }
+                });
+            }
+
+            handleImageUpload(event) {
+                const file = event.target.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    const canvas = document.getElementById('roomCanvas');
+                    const ctx = canvas.getContext('2d');
+
+                    reader.onload = function(e) {
+                        const img = new Image();
+                        img.onload = function() {
+                            canvas.style.display = 'block';
+                            // Resize image to fit canvas
+                            const maxWidth = 600;
+                            const maxHeight = 350;
+                            let width = img.width;
+                            let height = img.height;
+
+                            if (width > maxWidth) {
+                                height = (maxWidth / width) * height;
+                                width = maxWidth;
+                            }
+                            if (height > maxHeight) {
+                                width = (maxHeight / height) * width;
+                                height = maxHeight;
+                            }
+
+                            canvas.width = width;
+                            canvas.height = height;
+                            ctx.drawImage(img, 0, 0, width, height);
+                            
+                            // Add click to color functionality
+                            canvas.addEventListener('click', (e) => {
+                                this.addColorToImage(e, ctx, canvas);
+                            }.bind(this));
+                        }.bind(this);
+                        img.src = e.target.result;
+                    }.bind(this);
+                    reader.readAsDataURL(file);
+                }
+            }
+
+            addColorToImage(event, ctx, canvas) {
+                const rect = canvas.getBoundingClientRect();
+                const x = event.clientX - rect.left;
+                const y = event.clientY - rect.top;
+
+                // Create circular brush effect
+                ctx.globalCompositeOperation = 'source-over';
+                ctx.fillStyle = this.currentColor;
+                ctx.globalAlpha = 0.7;
+                ctx.beginPath();
+                ctx.arc(x, y, 30, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.globalAlpha = 1.0;
+            }
+
+            saveDesign() {
+                this.designCount++;
+                const gallery = document.getElementById('designGallery');
+                
+                const leftColor = document.getElementById('leftWall').style.backgroundColor;
+                const centerColor = document.getElementById('centerWall').style.backgroundColor;
+                const rightColor = document.getElementById('rightWall').style.backgroundColor;
+                
+                const designItem = document.createElement('div');
+                designItem.className = 'design-item';
+                designItem.innerHTML = `
+                    <div class="design-preview" style="background: linear-gradient(45deg, ${leftColor}, ${centerColor}, ${rightColor})"></div>
+                    <p>Design ${this.designCount}</p>
+                    <small>${new Date().toLocaleTimeString()}</small>
+                    <br>
+                    <button onclick="this.parentElement.remove()">Delete</button>
+                `;
+                
+                gallery.appendChild(designItem);
+            }
+        }
+
+        // Global functions
+        let visualizer;
+
+        function resetDesign() {
+            visualizer.setDefaultColors();
+        }
+
+        function saveCurrentDesign() {
+            visualizer.saveDesign();
+            alert('Design saved successfully! ✅');
+        }
+
+        function downloadDesign() {
+            alert('🚀 Advanced feature - Pro version mein export available hoga!');
+        }
+
+        // Initialize the app when page loads
+        document.addEventListener('DOMContentLoaded', () => {
+            visualizer = new ColorVisualizer();
+            console.log('GharPaint App loaded successfully!');
+        });
+    </script>
 </body>
 </html>

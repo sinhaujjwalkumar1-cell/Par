@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GharPaint - Color Visualizer</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>🎨 GharPaint Color Visualizer</h1>
+        
+        <div class="upload-section">
+            <h3>Step 1: Apne ghar ki photo upload karein</h3>
+            <input type="file" id="photoUpload" accept="image/*">
+            <canvas id="roomCanvas"></canvas>
+        </div>
+
+        <div class="color-picker">
+            <h3>Step 2: Color select karein</h3>
+            <div class="color-options">
+                <div class="color-box" style="background-color: #FF6B6B;" data-color="#FF6B6B"></div>
+                <div class="color-box" style="background-color: #4ECDC4;" data-color="#4ECDC4"></div>
+                <div class="color-box" style="background-color: #45B7D1;" data-color="#45B7D1"></div>
+                <div class="color-box" style="background-color: #FFE66D;" data-color="#FFE66D"></div>
+                <div class="color-box" style="background-color: #95E1D3;" data-color="#95E1D3"></div>
+                <div class="color-box" style="background-color: #FCE38A;" data-color="#FCE38A"></div>
+                <div class="color-box" style="background-color: #FFFFFF;" data-color="#FFFFFF"></div>
+                <div class="color-box" style="background-color: #2C3E50;" data-color="#2C3E50"></div>
+            </div>
+            
+            <div class="custom-color">
+                <label>Custom Color:</label>
+                <input type="color" id="customColor" value="#ff0000">
+            </div>
+        </div>
+
+        <div class="room-preview">
+            <h3>Step 3: Preview dekhein</h3>
+            <div class="room-template">
+                <div class="wall wall-left" id="leftWall"></div>
+                <div class="wall wall-center" id="centerWall"></div>
+                <div class="wall wall-right" id="rightWall"></div>
+                <div class="floor"></div>
+                <div class="ceiling"></div>
+            </div>
+        </div>
+
+        <div class="saved-designs">
+            <h3>Apne saved designs</h3>
+            <div id="designGallery"></div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

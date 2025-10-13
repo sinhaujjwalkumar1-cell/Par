@@ -1,0 +1,2013 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Haazir - Local Service Marketplace</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        body {
+            background: #f8fafc;
+            color: #334155;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 100%;
+            margin: 0 auto;
+            background: white;
+            min-height: 100vh;
+            position: relative;
+        }
+        
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, #0a5c36 0%, #0a7e4e 100%);
+            color: white;
+            padding: 15px 15px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        
+        .header-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .logo {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: white;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .logo-icon {
+            background: white;
+            color: #0a5c36;
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .location-selector {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 8px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .location-selector:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+        
+        .search-container {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 5px;
+        }
+        
+        .search-bar {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            background: white;
+            border-radius: 25px;
+            padding: 0 15px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .search-bar:focus-within {
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+            transform: translateY(-2px);
+        }
+        
+        .search-bar input {
+            flex: 1;
+            border: none;
+            outline: none;
+            padding: 12px 8px;
+            font-size: 0.95rem;
+            background: transparent;
+        }
+        
+        .search-bar i {
+            color: #64748b;
+        }
+        
+        /* Category Section - 7x2 Layout */
+        .category-section {
+            padding: 15px 12px;
+        }
+        
+        .section-title {
+            font-size: 1.2rem;
+            color: #065f46;
+            margin-bottom: 12px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .section-title i {
+            background: linear-gradient(135deg, #10b981, #047857);
+            color: white;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.9rem;
+        }
+        
+        .categories-container {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        
+        .category-row {
+            display: flex;
+            gap: 10px;
+            overflow-x: auto;
+            padding-bottom: 8px;
+            scrollbar-width: none;
+        }
+        
+        .category-row::-webkit-scrollbar {
+            display: none;
+        }
+        
+        .category-card {
+            background: white;
+            border-radius: 12px;
+            padding: 12px 8px;
+            text-align: center;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+            border: 1px solid #e2e8f0;
+            cursor: pointer;
+            min-width: 75px;
+            flex-shrink: 0;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .category-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(135deg, #10b981, #047857);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+        
+        .category-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+            border-color: #10b981;
+        }
+        
+        .category-card:hover::before {
+            transform: scaleX(1);
+        }
+        
+        .category-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #10b981, #047857);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 6px;
+            font-size: 0.9rem;
+            transition: all 0.2s ease;
+        }
+        
+        .category-card:hover .category-icon {
+            transform: scale(1.1);
+        }
+        
+        .category-name {
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: #065f46;
+        }
+        
+        /* Services Near You Section */
+        .services-near-you {
+            padding: 15px 8px;
+        }
+        
+        .providers-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+        
+        /* Service Provider Card with Enhanced 3D Look */
+        .provider-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.15);
+            border: 1px solid #e2e8f0;
+            transition: all 0.4s ease;
+            cursor: pointer;
+            position: relative;
+        }
+        
+        .provider-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.25);
+            border-color: #0E9C6D;
+        }
+        
+        /* Service Image with All Rounded Corners and Increased Size */
+        .service-image {
+            width: 100%;
+            height: 180px;
+            position: relative;
+            overflow: hidden;
+            border-radius: 20px;
+        }
+        
+        .service-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        /* Favorite Icon - Transparent Background */
+        .favorite-icon {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            background: transparent;
+            color: white;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 10;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        
+        .favorite-icon:hover {
+            color: #ef4444;
+            transform: scale(1.2);
+        }
+        
+        .favorite-icon.active {
+            color: #ef4444;
+        }
+        
+        /* Profile Picture - 80% on image, 20% below */
+        .profile-picture {
+            position: absolute;
+            top: 140px;
+            right: 12px;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            border: 3px solid white;
+            overflow: hidden;
+            background: #e2e8f0;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            z-index: 10;
+        }
+        
+        .profile-picture img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        /* Verified Badge - THODA AUR NEECHE */
+        .verified-badge {
+            position: absolute;
+            top: 162px;
+            left: 12px;
+            background: #0a5c36;
+            color: white;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            z-index: 10;
+            box-shadow: 0 3px 10px rgba(10, 92, 54, 0.3);
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+        
+        .verified-badge i {
+            font-size: 0.6rem;
+        }
+        
+        .provider-info {
+            padding: 25px 12px 12px;
+        }
+        
+        /* Service Title - Single line with ellipsis */
+        .service-title {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: #000000;
+            margin-bottom: 6px;
+            line-height: 1.3;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        
+        .provider-name {
+            font-size: 0.8rem;
+            color: #475569;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+        
+        .rating-trust {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 10px;
+        }
+        
+        .rating {
+            display: flex;
+            align-items: center;
+            gap: 3px;
+            background: #fffbeb;
+            padding: 4px 8px;
+            border-radius: 10px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            color: #d97706;
+        }
+        
+        .rating i {
+            color: #f59e0b;
+            font-size: 0.6rem;
+        }
+        
+        .experience {
+            background: #eff6ff;
+            color: #1e40af;
+            padding: 4px 8px;
+            border-radius: 10px;
+            font-size: 0.7rem;
+            font-weight: 600;
+        }
+        
+        .info-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 5px;
+        }
+        
+        .distance {
+            font-size: 0.75rem;
+            color: #0a5c36;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            white-space: nowrap;
+        }
+        
+        /* Call Button with new green color */
+        .small-call-btn {
+            background: #0a5c36;
+            color: white;
+            border: none;
+            border-radius: 12px;
+            padding: 6px 10px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            box-shadow: 0 2px 6px rgba(10, 92, 54, 0.3);
+            white-space: nowrap;
+            margin-left: auto;
+        }
+        
+        .small-call-btn:hover {
+            background: #08492b;
+            transform: scale(1.05);
+        }
+        
+        /* Location - Reduced gap from distance */
+        .location {
+            font-size: 0.65rem;
+            color: #64748b;
+            margin-bottom: 0;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            margin-top: 3px;
+        }
+        
+        /* Bottom Navigation */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: white;
+            display: flex;
+            justify-content: space-around;
+            padding: 12px 0;
+            box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.1);
+            z-index: 50;
+        }
+        
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            background: none;
+            border: none;
+            color: #64748b;
+            font-size: 0.75rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .nav-item.active {
+            color: #0a5c36;
+        }
+        
+        .nav-item.active::before {
+            content: '';
+            position: absolute;
+            top: -12px;
+            width: 25px;
+            height: 2px;
+            background: #0a5c36;
+            border-radius: 2px;
+        }
+        
+        .nav-item i {
+            font-size: 1.2rem;
+        }
+        
+        /* Add padding to main content for bottom nav */
+        .main-content {
+            padding-bottom: 70px;
+        }
+        
+        /* Category Details Page */
+        .category-details-page {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: white;
+            z-index: 1000;
+            overflow-y: auto;
+            animation: slideInRight 0.4s ease-out;
+        }
+        
+        @keyframes slideInRight {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+        
+        .category-details-header {
+            background: linear-gradient(135deg, #0a5c36 0%, #0a7e4e 100%);
+            color: white;
+            padding: 15px 15px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+        
+        .back-btn {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.1rem;
+            cursor: pointer;
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+        
+        .back-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: scale(1.1);
+        }
+        
+        .category-details-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+        
+        .category-details-content {
+            display: flex;
+            height: calc(100vh - 68px);
+        }
+        
+        .subcategories-sidebar {
+            width: 40%;
+            background: #f8fafc;
+            border-right: 1px solid #e2e8f0;
+            overflow-y: auto;
+            padding: 12px;
+        }
+        
+        .main-category-section {
+            margin-bottom: 15px;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .main-category-name {
+            font-size: 1rem;
+            color: #065f46;
+            margin-bottom: 8px;
+            padding-bottom: 4px;
+            border-bottom: 2px solid #10b981;
+            font-weight: 600;
+        }
+        
+        .main-category-name.selected {
+            color: #10b981;
+            border-color: #10b981;
+        }
+        
+        .subcategory-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 8px;
+            border-radius: 8px;
+            margin-bottom: 6px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: white;
+            border: 1px solid #e2e8f0;
+        }
+        
+        .subcategory-item.active {
+            background: #f0fdf4;
+            border-color: #10b981;
+            box-shadow: 0 4px 8px rgba(16, 185, 129, 0.1);
+            transform: translateX(3px);
+        }
+        
+        .subcategory-item:hover {
+            background: #f0fdf4;
+            transform: translateX(3px);
+        }
+        
+        .subcategory-icon {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #10b981, #047857);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.9rem;
+            flex-shrink: 0;
+        }
+        
+        .subcategory-name {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #065f46;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .hindi-name {
+            font-size: 0.65rem;
+            color: #64748b;
+            font-weight: normal;
+            margin-top: 2px;
+        }
+        
+        .services-container {
+            width: 60%;
+            padding: 15px;
+            overflow-y: auto;
+        }
+        
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(1, 1fr);
+            gap: 12px;
+        }
+        
+        .service-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+            border: 1px solid #e2e8f0;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            animation: fadeInUp 0.5s ease;
+        }
+        
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(135deg, #10b981, #047857);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+        
+        .service-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+            border-color: #10b981;
+        }
+        
+        .service-card:hover::before {
+            transform: scaleX(1);
+        }
+        
+        .service-info {
+            padding: 12px;
+        }
+        
+        .service-name {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: #065f46;
+            margin-bottom: 6px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+        
+        .service-price {
+            font-size: 0.85rem;
+            color: #10b981;
+            font-weight: 600;
+        }
+        
+        .service-meta {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 6px;
+            font-size: 0.7rem;
+            color: #64748b;
+        }
+        
+        .service-time {
+            display: flex;
+            align-items: center;
+            gap: 3px;
+            color: #0a5c36;
+            font-weight: 600;
+        }
+        
+        .service-providers {
+            display: flex;
+            align-items: center;
+            gap: 3px;
+        }
+        
+        /* Provider Profile Page */
+        .provider-profile-page {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: white;
+            z-index: 1000;
+            overflow-y: auto;
+        }
+        
+        .profile-header {
+            background: linear-gradient(135deg, #f0fdf4 0%, #e2e8f0 100%);
+            color: #334155;
+            padding: 30px 20px 30px 20px;
+            position: relative;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        
+        .profile-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 0 auto;
+        }
+        
+        .profile-image {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            border: 4px solid white;
+            margin-bottom: 20px;
+            overflow: hidden;
+            background: #e2e8f0;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+        
+        .profile-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .online-badge {
+            position: absolute;
+            bottom: 5px;
+            right: 5px;
+            width: 20px;
+            height: 20px;
+            background: #10b981;
+            border: 2px solid white;
+            border-radius: 50%;
+        }
+        
+        .profile-name {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 5px;
+            color: #059669;
+        }
+        
+        /* Verification Badges */
+        .verification-badges {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin: 10px 0;
+        }
+        
+        .badge {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+        
+        .badge.verified {
+            background: #d1fae5;
+            color: #065f46;
+            border: 1px solid #a7f3d0;
+        }
+        
+        .badge.premium {
+            background: #fef3c7;
+            color: #92400e;
+            border: 1px solid #fcd34d;
+        }
+        
+        .distance-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            background: #1BFC06;
+            color: #000;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            margin-top: 5px;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(27, 252, 6, 0.4); }
+            70% { box-shadow: 0 0 0 10px rgba(27, 252, 6, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(27, 252, 6, 0); }
+        }
+        
+        .profile-tag {
+            display: inline-block;
+            background: #059669;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+        }
+        
+        .rating {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+            margin: 10px 0;
+        }
+        
+        .stars {
+            color: #fbbf24;
+        }
+        
+        /* Activity Status */
+        .activity-status {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: #d1fae5;
+            padding: 8px 15px;
+            border-radius: 20px;
+            margin: 10px 0;
+        }
+        
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #10b981;
+            animation: pulse 2s infinite;
+        }
+        
+        .recent-activity {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.85rem;
+            color: #64748b;
+            margin-bottom: 10px;
+        }
+        
+        /* Statistics Grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            margin: 20px 0;
+            width: 100%;
+        }
+        
+        .stat-item {
+            text-align: center;
+            padding: 12px 8px;
+            background: white;
+            border-radius: 10px;
+            border: 1px solid #e2e8f0;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+        
+        .stat-number {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #059669;
+        }
+        
+        .stat-label {
+            font-size: 0.7rem;
+            color: #64748b;
+            margin-top: 5px;
+        }
+        
+        .profile-details {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            width: 100%;
+            margin-top: 15px;
+            text-align: left;
+        }
+        
+        .detail-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.9rem;
+        }
+        
+        .detail-item i {
+            color: #059669;
+            width: 20px;
+        }
+        
+        /* Service Guarantees */
+        .service-guarantees {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+            margin: 20px 0;
+        }
+        
+        .guarantee-card {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            padding: 12px 8px;
+            background: white;
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+        }
+        
+        .guarantee-card:hover {
+            border-color: #059669;
+            transform: translateY(-2px);
+        }
+        
+        .guarantee-card i {
+            font-size: 1.3rem;
+            color: #059669;
+            margin-bottom: 5px;
+        }
+        
+        .guarantee-card span {
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+        
+        .profile-content {
+            padding: 20px;
+        }
+        
+        .content-card {
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            padding: 20px;
+            margin-bottom: 20px;
+            animation: slideUp 0.5s ease-out;
+        }
+        
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        /* Skills & Pricing - Compact Layout */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 12px;
+        }
+        
+        .skill-card {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 15px;
+            background: #f8fafc;
+            border-radius: 12px;
+            border-left: 4px solid #059669;
+            transition: all 0.3s ease;
+            animation: fadeInLeft 0.6s ease-out;
+        }
+        
+        @keyframes fadeInLeft {
+            from { opacity: 0; transform: translateX(-20px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+        
+        .skill-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .skill-content {
+            flex: 1;
+        }
+        
+        .skill-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 5px;
+        }
+        
+        .skill-name {
+            font-weight: 600;
+            font-size: 1rem;
+            color: #059669;
+        }
+        
+        .skill-price {
+            font-weight: 700;
+            color: #059669;
+            font-size: 1.1rem;
+        }
+        
+        .skill-desc {
+            font-size: 0.85rem;
+            color: #64748b;
+            margin-bottom: 5px;
+            line-height: 1.4;
+        }
+        
+        .skill-note {
+            font-size: 0.75rem;
+            color: #94a3b8;
+            font-style: italic;
+        }
+        
+        /* Portfolio */
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+        }
+        
+        .portfolio-item {
+            border-radius: 12px;
+            overflow: hidden;
+            aspect-ratio: 1;
+            background: #f1f5f9;
+            position: relative;
+            transition: transform 0.3s ease;
+        }
+        
+        .portfolio-item:hover {
+            transform: scale(1.03);
+        }
+        
+        .portfolio-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        /* Contact Buttons */
+        .contact-buttons {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        
+        .contact-btn {
+            padding: 12px;
+            border: none;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        
+        .call-btn {
+            background: #0a5c36;
+            color: white;
+        }
+        
+        .call-btn:hover {
+            background: #08492b;
+        }
+        
+        .whatsapp-btn {
+            background: #25D366;
+            color: white;
+        }
+        
+        .whatsapp-btn:hover {
+            background: #128C7E;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 480px) {
+            .providers-grid {
+                grid-template-columns: 1fr;
+                gap: 12px;
+            }
+            
+            .category-icon {
+                width: 38px;
+                height: 38px;
+                font-size: 0.95rem;
+            }
+            
+            .category-name {
+                font-size: 0.7rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header Section -->
+        <div class="header">
+            <div class="header-top">
+                <div class="logo">
+                    <div class="logo-icon">
+                        <i class="fas fa-hands-helping"></i>
+                    </div>
+                    Haazir
+                </div>
+                <div class="location-selector">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span>Mumbai, India</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+            </div>
+            
+            <div class="search-container">
+                <div class="search-bar">
+                    <i class="fas fa-search"></i>
+                    <input type="text" placeholder="What service do you need?">
+                </div>
+            </div>
+        </div>
+        
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Homepage Content -->
+            <div id="homepage">
+                <!-- Category Section - 7x2 Layout -->
+                <div class="category-section">
+                    <h2 class="section-title">
+                        <i class="fas fa-th-large"></i> All Categories
+                    </h2>
+                    
+                    <div class="categories-container">
+                        <!-- First Row - 7 Categories -->
+                        <div class="category-row">
+                            <div class="category-card" data-category-id="1">
+                                <div class="category-icon">
+                                    <i class="fas fa-tools"></i>
+                                </div>
+                                <div class="category-name">Appliance Repair</div>
+                            </div>
+                            <div class="category-card" data-category-id="2">
+                                <div class="category-icon">
+                                    <i class="fas fa-home"></i>
+                                </div>
+                                <div class="category-name">Home Services</div>
+                            </div>
+                            <div class="category-card" data-category-id="3">
+                                <div class="category-icon">
+                                    <i class="fas fa-hard-hat"></i>
+                                </div>
+                                <div class="category-name">Construction</div>
+                            </div>
+                            <div class="category-card" data-category-id="4">
+                                <div class="category-icon">
+                                    <i class="fas fa-car"></i>
+                                </div>
+                                <div class="category-name">Rental Vehicle</div>
+                            </div>
+                            <div class="category-card" data-category-id="5">
+                                <div class="category-icon">
+                                    <i class="fas fa-calendar-alt"></i>
+                                </div>
+                                <div class="category-name">Event Services</div>
+                            </div>
+                            <div class="category-card" data-category-id="6">
+                                <div class="category-icon">
+                                    <i class="fas fa-spa"></i>
+                                </div>
+                                <div class="category-name">Beauty & Grooming</div>
+                            </div>
+                            <div class="category-card" data-category-id="7">
+                                <div class="category-icon">
+                                    <i class="fas fa-bug"></i>
+                                </div>
+                                <div class="category-name">Pest Control</div>
+                            </div>
+                        </div>
+                        
+                        <!-- Second Row - 6 Categories -->
+                        <div class="category-row">
+                            <div class="category-card" data-category-id="8">
+                                <div class="category-icon">
+                                    <i class="fas fa-rickshaw"></i>
+                                </div>
+                                <div class="category-name">E-Riksha</div>
+                            </div>
+                            <div class="category-card" data-category-id="9">
+                                <div class="category-icon">
+                                    <i class="fas fa-water"></i>
+                                </div>
+                                <div class="category-name">Tank Cleaning</div>
+                            </div>
+                            <div class="category-card" data-category-id="10">
+                                <div class="category-icon">
+                                    <i class="fas fa-handshake"></i>
+                                </div>
+                                <div class="category-name">Rent & Share</div>
+                            </div>
+                            <div class="category-card" data-category-id="11">
+                                <div class="category-icon">
+                                    <i class="fas fa-camera"></i>
+                                </div>
+                                <div class="category-name">Photo & Videography</div>
+                            </div>
+                            <div class="category-card" data-category-id="12">
+                                <div class="category-icon">
+                                    <i class="fas fa-shopping-basket"></i>
+                                </div>
+                                <div class="category-name">Daily Needs</div>
+                            </div>
+                            <div class="category-card" data-category-id="13">
+                                <div class="category-icon">
+                                    <i class="fas fa-graduation-cap"></i>
+                                </div>
+                                <div class="category-name">Education & Tuition</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Services Near You Section -->
+                <div class="services-near-you">
+                    <h2 class="section-title">
+                        <i class="fas fa-map-marker-alt"></i> Services Near You
+                    </h2>
+                    
+                    <div class="providers-grid" id="providersGrid">
+                        <!-- Providers will be populated by JavaScript -->
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Category Details Page -->
+        <div class="category-details-page" id="categoryDetailsPage">
+            <div class="category-details-header">
+                <button class="back-btn" id="backBtn">
+                    <i class="fas fa-arrow-left"></i>
+                </button>
+                <h2 class="category-details-title" id="categoryDetailsTitle">All Services</h2>
+            </div>
+            
+            <div class="category-details-content">
+                <div class="subcategories-sidebar" id="subcategoriesSidebar">
+                    <!-- All subcategories will be populated here -->
+                </div>
+                
+                <div class="services-container">
+                    <div class="services-grid" id="servicesGrid">
+                        <!-- Services will be populated by JavaScript -->
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Provider Profile Page -->
+        <div class="provider-profile-page" id="providerProfilePage">
+            <div class="profile-header">
+                <button class="back-btn" id="backFromProfile">
+                    <i class="fas fa-arrow-left"></i>
+                </button>
+                <div class="profile-container">
+                    <div class="profile-image">
+                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=200&q=80" alt="Rahul Sharma">
+                        <div class="online-badge"></div>
+                    </div>
+                    <h1 class="profile-name">Rahul Sharma</h1>
+                    
+                    <!-- Verification Badges -->
+                    <div class="verification-badges">
+                        <div class="badge verified">
+                            <i class="fas fa-shield-alt"></i>
+                            <span>Phone Verified</span>
+                        </div>
+                        <div class="badge verified">
+                            <i class="fas fa-id-card"></i>
+                            <span>Aadhar Verified</span>
+                        </div>
+                        <div class="badge premium">
+                            <i class="fas fa-crown"></i>
+                            <span>Premium Provider</span>
+                        </div>
+                    </div>
+                    
+                    <div class="profile-tag">Professional Plumber</div>
+                    
+                    <!-- Activity Status -->
+                    <div class="activity-status">
+                        <div class="status-dot"></div>
+                        <span>Online - Responds in 5 mins</span>
+                    </div>
+                    
+                    <div class="recent-activity">
+                        <i class="fas fa-clock"></i>
+                        <span>Last active: 2 minutes ago</span>
+                    </div>
+                    
+                    <div class="distance-badge">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>5 minutes away</span>
+                    </div>
+                    
+                    <div class="rating">
+                        <div class="stars">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                        </div>
+                        <span>4.5 (128 reviews)</span>
+                    </div>
+                    
+                    <!-- Statistics Grid -->
+                    <div class="stats-grid">
+                        <div class="stat-item">
+                            <div class="stat-number">98%</div>
+                            <div class="stat-label">Success Rate</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number">247</div>
+                            <div class="stat-label">Jobs Done</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number">45</div>
+                            <div class="stat-label">Repeat Clients</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number">2h</div>
+                            <div class="stat-label">Avg. Response</div>
+                        </div>
+                    </div>
+                    
+                    <!-- Service Guarantees -->
+                    <div class="service-guarantees">
+                        <div class="guarantee-card">
+                            <i class="fas fa-rupee-sign"></i>
+                            <span>Best Price</span>
+                        </div>
+                        <div class="guarantee-card">
+                            <i class="fas fa-clock"></i>
+                            <span>On-time</span>
+                        </div>
+                        <div class="guarantee-card">
+                            <i class="fas fa-tools"></i>
+                            <span>90 Days Warranty</span>
+                        </div>
+                    </div>
+                    
+                    <div class="profile-details">
+                        <div class="detail-item">
+                            <i class="fas fa-briefcase"></i>
+                            <span>8 Years Experience</span>
+                        </div>
+                        <div class="detail-item">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>Sector 15, Noida</span>
+                        </div>
+                        <div class="detail-item">
+                            <i class="fas fa-clock"></i>
+                            <span>Available Today</span>
+                        </div>
+                        <div class="detail-item">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Verified Provider</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="profile-content">
+                <div class="content-card">
+                    <h2 class="section-title"><i class="fas fa-user"></i> About Me</h2>
+                    <p>Professional plumber with 8+ years of experience in residential and commercial plumbing services. Specialized in tap repair, pipe installation, leakage fixes, and bathroom fittings. I provide quality service with 90 days warranty on all repairs.</p>
+                </div>
+                
+                <div class="content-card">
+                    <h2 class="section-title"><i class="fas fa-cogs"></i> Services & Pricing</h2>
+                    <div class="skills-grid">
+                        <!-- Service 1 -->
+                        <div class="skill-card">
+                            <div class="skill-content">
+                                <div class="skill-header">
+                                    <span class="skill-name">Tap Repair</span>
+                                    <span class="skill-price">₹ 199</span>
+                                </div>
+                                <p class="skill-desc">Complete repair for 1-2 taps including washer replacement</p>
+                                <p class="skill-note">Service charge only. Customer pays for replacement parts.</p>
+                            </div>
+                        </div>
+                        
+                        <!-- Service 2 -->
+                        <div class="skill-card">
+                            <div class="skill-content">
+                                <div class="skill-header">
+                                    <span class="skill-name">Pipe Installation</span>
+                                    <span class="skill-price">₹ 849</span>
+                                </div>
+                                <p class="skill-desc">New pipe installation up to 10 feet with fittings</p>
+                                <p class="skill-note">Service charge only. Customer provides pipes.</p>
+                            </div>
+                        </div>
+                        
+                        <!-- Service 3 -->
+                        <div class="skill-card">
+                            <div class="skill-content">
+                                <div class="skill-header">
+                                    <span class="skill-name">Leakage Fix</span>
+                                    <span class="skill-price">₹ 499</span>
+                                </div>
+                                <p class="skill-desc">Identify and fix water leakage in pipes and joints</p>
+                                <p class="skill-note">Service charge only. Parts additional.</p>
+                            </div>
+                        </div>
+                        
+                        <!-- Service 4 -->
+                        <div class="skill-card">
+                            <div class="skill-content">
+                                <div class="skill-header">
+                                    <span class="skill-name">Bathroom Fitting</span>
+                                    <span class="skill-price">₹ 1,149</span>
+                                </div>
+                                <p class="skill-desc">Complete bathroom fixture installation</p>
+                                <p class="skill-note">Service charge only. Fixtures provided by customer.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="content-card">
+                    <h2 class="section-title"><i class="fas fa-camera"></i> Portfolio</h2>
+                    <div class="portfolio-grid">
+                        <div class="portfolio-item">
+                            <img src="https://images.unsplash.com/photo-1621905252507-b35492cc74b4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80" alt="Bathroom Installation">
+                        </div>
+                        <div class="portfolio-item">
+                            <img src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80" alt="Pipe Repair">
+                        </div>
+                        <div class="portfolio-item">
+                            <img src="https://images.unsplash.com/photo-1558618047-3c8c76ca7d13?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80" alt="Kitchen Plumbing">
+                        </div>
+                        <div class="portfolio-item">
+                            <img src="https://images.unsplash.com/photo-1607472586893-edb57bdc0e39?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80" alt="Water Heater Installation">
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="contact-buttons">
+                    <button class="contact-btn call-btn">
+                        <i class="fas fa-phone"></i> Call Now
+                    </button>
+                    <button class="contact-btn whatsapp-btn">
+                        <i class="fab fa-whatsapp"></i> WhatsApp
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Bottom Navigation -->
+        <div class="bottom-nav">
+            <div class="nav-item active">
+                <i class="fas fa-home"></i>
+                <span>Home</span>
+            </div>
+            <div class="nav-item">
+                <i class="fas fa-search"></i>
+                <span>Search</span>
+            </div>
+            <div class="nav-item">
+                <i class="fas fa-shopping-cart"></i>
+                <span>Orders</span>
+            </div>
+            <div class="nav-item">
+                <i class="fas fa-user"></i>
+                <span>Profile</span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Complete Categories Data with Hindi names and detailed skills for ALL categories
+        const categories = [
+            {
+                id: 1,
+                name: "Appliance Repair",
+                icon: "fas fa-tools",
+                description: "Expert repair for all home appliances",
+                subcategories: [
+                    { 
+                        id: 1, 
+                        name: "AC Repair", 
+                        hindiName: "एसी रिपेयर",
+                        icon: "fas fa-snowflake", 
+                        popular: true,
+                        skills: [
+                            { name: "AC Installation & Uninstallation", hindiName: "एसी इंस्टालेशन और अनइंस्टालेशन", price: 800, time: 30 },
+                            { name: "AC Service & Gas Refill", hindiName: "एसी सर्विस और गैस रिफिल", price: 1200, time: 45 },
+                            { name: "AC Repair & Maintenance", hindiName: "एसी रिपेयर और मेंटेनेंस", price: 600, time: 25 },
+                            { name: "AC Shifting", hindiName: "एसी शिफ्टिंग", price: 1000, time: 60 },
+                            { name: "AC Deep Cleaning", hindiName: "एसी डीप क्लीनिंग", price: 500, time: 40 }
+                        ]
+                    },
+                    { 
+                        id: 2, 
+                        name: "Washing Machine", 
+                        hindiName: "वाशिंग मशीन",
+                        icon: "fas fa-soap", 
+                        popular: true,
+                        skills: [
+                            { name: "Washing Machine Repair", hindiName: "वाशिंग मशीन रिपेयर", price: 500, time: 30 },
+                            { name: "Washing Machine Service", hindiName: "वाशिंग मशीन सर्विस", price: 400, time: 25 },
+                            { name: "Installation & Setup", hindiName: "इंस्टालेशन और सेटअप", price: 300, time: 20 },
+                            { name: "Drum Cleaning", hindiName: "ड्रम क्लीनिंग", price: 350, time: 25 },
+                            { name: "Motor Repair", hindiName: "मोटर रिपेयर", price: 800, time: 45 }
+                        ]
+                    }
+                ]
+            },
+            {
+                id: 2,
+                name: "Home Services",
+                icon: "fas fa-home",
+                description: "Complete home maintenance solutions",
+                subcategories: [
+                    { 
+                        id: 1, 
+                        name: "Plumbing", 
+                        hindiName: "प्लंबिंग",
+                        icon: "fas fa-faucet", 
+                        popular: true,
+                        skills: [
+                            { name: "Bath Fittings", hindiName: "बाथरूम की फिटिंग", price: 400, time: 30 },
+                            { name: "Basin & Sink", hindiName: "बेसिन और सिंक", price: 350, time: 25 },
+                            { name: "Grouting", hindiName: "ग्राउटिंग", price: 500, time: 35 },
+                            { name: "Water Filter", hindiName: "पानी का फिल्टर", price: 300, time: 20 },
+                            { name: "Drainage", hindiName: "ड्रेनेज/नाली", price: 450, time: 40 }
+                        ]
+                    },
+                    { 
+                        id: 2, 
+                        name: "Electrical", 
+                        hindiName: "इलेक्ट्रिकल",
+                        icon: "fas fa-bolt", 
+                        popular: true,
+                        skills: [
+                            { name: "Switch & Socket", hindiName: "स्विच और सॉकेट", price: 300, time: 20 },
+                            { name: "Fan", hindiName: "पंखा", price: 250, time: 15 },
+                            { name: "Wall/Ceiling Light", hindiName: "दीवार/छत की लाइट", price: 280, time: 20 },
+                            { name: "Wiring", hindiName: "वायरिंग", price: 600, time: 50 },
+                            { name: "Doorbell", hindiName: "डोरबेल", price: 150, time: 10 }
+                        ]
+                    }
+                ]
+            },
+            {
+                id: 3,
+                name: "Construction",
+                icon: "fas fa-hard-hat",
+                description: "Construction materials and services",
+                subcategories: [
+                    { 
+                        id: 1, 
+                        name: "Bricks", 
+                        hindiName: "ईंट",
+                        icon: "fas fa-cube",
+                        skills: [
+                            { name: "Red Bricks Supply", hindiName: "रेड ब्रिक्स सप्लाई", price: 8000, time: 120 },
+                            { name: "Fly Ash Bricks", hindiName: "फ्लाई ऐश ब्रिक्स", price: 7000, time: 110 },
+                            { name: "Hollow Bricks", hindiName: "होलो ब्रिक्स", price: 9000, time: 130 },
+                            { name: "Brick Laying Work", hindiName: "ईंट बिछाने का काम", price: 12000, time: 240 },
+                            { name: "Brick Cutting", hindiName: "ईंट कटिंग", price: 1500, time: 60 }
+                        ]
+                    },
+                    { 
+                        id: 2, 
+                        name: "Gravel", 
+                        hindiName: "बजरी",
+                        icon: "fas fa-mountain",
+                        skills: [
+                            { name: "Gravel Supply - Small Size", hindiName: "बजरी सप्लाई - छोटा आकार", price: 5000, time: 90 },
+                            { name: "Gravel Supply - Medium Size", hindiName: "बजरी सप्लाई - मध्यम आकार", price: 5500, time: 95 },
+                            { name: "Gravel Supply - Large Size", hindiName: "बजरी सप्लाई - बड़ा आकार", price: 6000, time: 100 },
+                            { name: "Gravel Supply - Mixed Size", hindiName: "बजरी सप्लाई - मिश्रित आकार", price: 5200, time: 92 },
+                            { name: "Gravel Laying Work", hindiName: "बजरी बिछाने का काम", price: 7000, time: 120 }
+                        ]
+                    }
+                ]
+            }
+        ];
+
+        // Sample data for service providers
+        const serviceProviders = [
+            {
+                id: 1,
+                name: "Priya Sharma",
+                service: "Professional AC Installation & Service",
+                category: "AC Repair",
+                rating: 4.9,
+                reviews: 142,
+                experience: "6+ Years",
+                distance: "7 min away",
+                location: "Bandra West • 1.1 km",
+                image: "https://images.unsplash.com/photo-1621905251189-08b45d6a269e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80",
+                profileImage: "https://images.unsplash.com/photo-1554151228-14d9def656e4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&q=80",
+                verified: true
+            },
+            {
+                id: 2,
+                name: "Rajesh Kumar",
+                service: "Expert Plumbing & Pipe Solutions",
+                category: "Plumbing",
+                rating: 4.8,
+                reviews: 96,
+                experience: "8+ Years",
+                distance: "5 min away",
+                location: "Andheri East • 0.8 km",
+                image: "https://images.unsplash.com/photo-1607472586893-edb57bdc0e39?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80",
+                profileImage: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&q=80",
+                verified: true
+            },
+            {
+                id: 3,
+                name: "Vikram Singh",
+                service: "Professional Electrical Wiring Services",
+                category: "Electrical",
+                rating: 4.9,
+                reviews: 128,
+                experience: "10+ Years",
+                distance: "10 min away",
+                location: "Dadar West • 1.5 km",
+                image: "https://images.unsplash.com/photo-1621905252507-b35492cc74b4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80",
+                profileImage: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&q=80",
+                verified: true
+            },
+            {
+                id: 4,
+                name: "Anjali Verma",
+                service: "Premium Home Painting Services",
+                category: "Painting",
+                rating: 4.7,
+                reviews: 87,
+                experience: "5+ Years",
+                distance: "12 min away",
+                location: "Juhu • 2.2 km",
+                image: "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80",
+                profileImage: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&q=80",
+                verified: true
+            }
+        ];
+
+        // DOM Elements
+        const homepage = document.getElementById('homepage');
+        const categoryDetailsPage = document.getElementById('categoryDetailsPage');
+        const providerProfilePage = document.getElementById('providerProfilePage');
+        const providersGrid = document.getElementById('providersGrid');
+        const categoryDetailsTitle = document.getElementById('categoryDetailsTitle');
+        const subcategoriesSidebar = document.getElementById('subcategoriesSidebar');
+        const servicesGrid = document.getElementById('servicesGrid');
+        const backBtn = document.getElementById('backBtn');
+        const backFromProfile = document.getElementById('backFromProfile');
+
+        // Track selected category
+        let selectedCategoryId = null;
+
+        // Initialize the page
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add event listeners to category cards
+            document.querySelectorAll('.category-card').forEach(card => {
+                card.addEventListener('click', function() {
+                    const categoryId = this.getAttribute('data-category-id');
+                    selectedCategoryId = parseInt(categoryId);
+                    openCategoryDetailsPage(categoryId);
+                });
+            });
+            
+            // Populate providers on homepage
+            populateProviders(providersGrid, serviceProviders);
+            
+            // Add event listeners
+            backBtn.addEventListener('click', closeCategoryDetailsPage);
+            backFromProfile.addEventListener('click', closeProviderProfilePage);
+            
+            // Provider cards click
+            document.addEventListener('click', function(e) {
+                if (e.target.closest('.provider-card')) {
+                    const providerCard = e.target.closest('.provider-card');
+                    const providerId = providerCard.getAttribute('data-provider-id');
+                    
+                    // In a real app, this would fetch provider details
+                    openProviderProfilePage(providerId);
+                }
+                
+                // Favorite icon
+                if (e.target.closest('.favorite-icon')) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    const favoriteIcon = e.target.closest('.favorite-icon');
+                    const heartIcon = favoriteIcon.querySelector('i');
+                    
+                    if (heartIcon.classList.contains('far')) {
+                        heartIcon.classList.remove('far');
+                        heartIcon.classList.add('fas');
+                        favoriteIcon.classList.add('active');
+                    } else {
+                        heartIcon.classList.remove('fas');
+                        heartIcon.classList.add('far');
+                        favoriteIcon.classList.remove('active');
+                    }
+                }
+                
+                // Call button
+                if (e.target.closest('.small-call-btn')) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    const providerCard = e.target.closest('.provider-card');
+                    const providerName = providerCard.querySelector('.provider-name').textContent;
+                    const serviceTitle = providerCard.querySelector('.service-title').textContent;
+                    
+                    alert(`Calling ${providerName} for ${serviceTitle}`);
+                }
+            });
+        });
+
+        // Populate providers in a grid
+        function populateProviders(grid, providers) {
+            grid.innerHTML = '';
+            
+            providers.forEach(provider => {
+                const providerCard = document.createElement('div');
+                providerCard.className = 'provider-card';
+                providerCard.setAttribute('data-provider-id', provider.id);
+                
+                providerCard.innerHTML = `
+                    <div class="service-image">
+                        <img src="${provider.image}" alt="${provider.service}">
+                        <div class="favorite-icon">
+                            <i class="far fa-heart"></i>
+                        </div>
+                    </div>
+                    ${provider.verified ? `<div class="verified-badge">
+                        <i class="fas fa-shield-alt"></i> Verified
+                    </div>` : ''}
+                    <div class="profile-picture">
+                        <img src="${provider.profileImage}" alt="${provider.name}">
+                    </div>
+                    <div class="provider-info">
+                        <div class="service-title">${provider.service}</div>
+                        <div class="provider-name">${provider.name}</div>
+                        <div class="rating-trust">
+                            <div class="rating">
+                                <i class="fas fa-star"></i> ${provider.rating} (${provider.reviews})
+                            </div>
+                            <div class="experience">${provider.experience}</div>
+                        </div>
+                        <div class="info-row">
+                            <div class="distance">
+                                <i class="fas fa-clock"></i> ${provider.distance}
+                            </div>
+                            <button class="small-call-btn">
+                                <i class="fas fa-phone"></i> Call
+                            </button>
+                        </div>
+                        <div class="location">
+                            <i class="fas fa-map-marker-alt"></i> ${provider.location}
+                        </div>
+                    </div>
+                `;
+                
+                grid.appendChild(providerCard);
+            });
+        }
+
+        // Open category details page for specific category
+        function openCategoryDetailsPage(categoryId) {
+            const category = categories.find(cat => cat.id == categoryId);
+            if (category) {
+                categoryDetailsTitle.textContent = category.name;
+                renderAllSubcategories(category);
+                categoryDetailsPage.style.display = 'block';
+                
+                // Show services for the first subcategory by default
+                if (category.subcategories.length > 0) {
+                    const firstSubcategory = category.subcategories[0];
+                    showServices(firstSubcategory);
+                    
+                    // Set first subcategory as active after a delay to ensure DOM is updated
+                    setTimeout(() => {
+                        const firstSubcategoryItem = document.querySelector(`.subcategory-item[data-subcategory-id="${firstSubcategory.id}"]`);
+                        if (firstSubcategoryItem) {
+                            firstSubcategoryItem.classList.add('active');
+                        }
+                    }, 100);
+                }
+            }
+        }
+
+        // Close category details page
+        function closeCategoryDetailsPage() {
+            categoryDetailsPage.style.display = 'none';
+            selectedCategoryId = null;
+        }
+
+        // Open provider profile page
+        function openProviderProfilePage(providerId) {
+            providerProfilePage.style.display = 'block';
+        }
+
+        // Close provider profile page
+        function closeProviderProfilePage() {
+            providerProfilePage.style.display = 'none';
+        }
+
+        // Render ALL subcategories from ALL categories
+        function renderAllSubcategories(selectedCategory) {
+            subcategoriesSidebar.innerHTML = '';
+            
+            categories.forEach(category => {
+                const categorySection = document.createElement('div');
+                categorySection.className = 'main-category-section';
+                
+                // Highlight selected category
+                const isSelected = category.id === selectedCategory.id;
+                const highlightClass = isSelected ? 'selected' : '';
+                
+                categorySection.innerHTML = `
+                    <h3 class="main-category-name ${highlightClass}">${category.name}</h3>
+                    <p style="font-size: 0.75rem; color: #64748b; margin-bottom: 8px;">${category.description}</p>
+                `;
+                
+                subcategoriesSidebar.appendChild(categorySection);
+                
+                // Render subcategories for this category
+                category.subcategories.forEach(subcategory => {
+                    const subcategoryItem = document.createElement('div');
+                    subcategoryItem.className = 'subcategory-item';
+                    subcategoryItem.setAttribute('data-subcategory-id', subcategory.id);
+                    subcategoryItem.setAttribute('data-category-id', category.id);
+                    
+                    // Auto-scroll to selected category
+                    if (isSelected && category.subcategories[0].id === subcategory.id) {
+                        setTimeout(() => {
+                            subcategoryItem.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                        }, 300);
+                    }
+                    
+                    // Add popular badge if applicable
+                    const popularBadge = subcategory.popular ? '<span style="background: #f59e0b; color: white; padding: 2px 6px; border-radius: 10px; font-size: 0.65rem; margin-left: auto;">Popular</span>' : '';
+                    
+                    subcategoryItem.innerHTML = `
+                        <div class="subcategory-icon">
+                            <i class="${subcategory.icon}"></i>
+                        </div>
+                        <div class="subcategory-name">
+                            ${subcategory.name}
+                            <span class="hindi-name">${subcategory.hindiName}</span>
+                        </div>
+                        ${popularBadge}
+                    `;
+                    
+                    subcategoryItem.addEventListener('click', function() {
+                        // Remove active class from all items
+                        document.querySelectorAll('.subcategory-item').forEach(item => {
+                            item.classList.remove('active');
+                        });
+                        
+                        // Add active class to clicked item
+                        this.classList.add('active');
+                        
+                        // Show services for this subcategory
+                        const categoryId = this.getAttribute('data-category-id');
+                        const subcategoryId = this.getAttribute('data-subcategory-id');
+                        const category = categories.find(cat => cat.id == categoryId);
+                        const subcategory = category.subcategories.find(sub => sub.id == subcategoryId);
+                        
+                        showServices(subcategory);
+                    });
+                    
+                    subcategoriesSidebar.appendChild(subcategoryItem);
+                });
+            });
+        }
+
+        // Show services for a specific subcategory
+        function showServices(subcategory) {
+            servicesGrid.innerHTML = '';
+            
+            // Check if subcategory has skills
+            if (subcategory.skills && subcategory.skills.length > 0) {
+                // Render skills as services
+                subcategory.skills.forEach(skill => {
+                    const serviceCard = document.createElement('div');
+                    serviceCard.className = 'service-card';
+                    
+                    serviceCard.innerHTML = `
+                        <div class="service-info">
+                            <div class="service-name">
+                                <div>
+                                    ${skill.name}
+                                    <div class="hindi-name">${skill.hindiName}</div>
+                                </div>
+                                <div class="service-price">₹${skill.price}</div>
+                            </div>
+                            <div class="service-meta">
+                                <div class="service-time">
+                                    <i class="fas fa-clock"></i> ${skill.time} mins away
+                                </div>
+                                <div class="service-providers">
+                                    <i class="fas fa-users"></i> 12 providers
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    
+                    serviceCard.addEventListener('click', function() {
+                        showProvidersForSkill(skill.name, subcategory.name);
+                    });
+                    
+                    servicesGrid.appendChild(serviceCard);
+                });
+            } else {
+                // Show default message if no skills defined
+                servicesGrid.innerHTML = `
+                    <div style="text-align: center; padding: 40px 20px; color: #64748b;">
+                        <i class="fas fa-tools" style="font-size: 2.5rem; margin-bottom: 15px; color: #cbd5e1;"></i>
+                        <h3>Services Coming Soon</h3>
+                        <p>We're working on adding services for this category</p>
+                    </div>
+                `;
+            }
+        }
+
+        // Show providers for a specific skill
+        function showProvidersForSkill(skillName, categoryName) {
+            // Filter providers by category
+            const filteredProviders = serviceProviders.filter(provider => 
+                provider.category === categoryName
+            );
+            
+            // Populate providers grid
+            populateProviders(providersGrid, filteredProviders);
+            
+            // Close category details page
+            closeCategoryDetailsPage();
+            
+            // Show homepage
+            homepage.style.display = 'block';
+        }
+    </script>
+</body>
+</html>

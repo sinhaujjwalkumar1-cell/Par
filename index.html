@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Service by Local — Combined SPA</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --green:#10b981;
+      --dark:#065f46;
+      --muted:#64748b;
+      --bg:#f8fafc;
+      --card:#ffffff;
+      --glass: rgba(255,255,255,0.5);
+    }
+    *{box-sizing:border-box;font-family:'Poppins',sans-serif}
+    html,body{height:100%;margin:0;background:var(--bg);color:#0f172a}
+    .app{min-height:100vh;display:flex;flex-direction:column}
+    /* Header */
+    .header{
+      background: linear-gradient(135deg,#0a5c36 0%, #0a7e4e 100%);
+      color:white;padding:12px 14px;display:flex;align-items:center;gap:12px;position:sticky;top:0;z-index:40;
+      box-shadow:0 4px 12px rgba(0,0,0,0.08)
+    }
+    .logo{display:flex;align-items:center;gap:10px;font-weight:700}
+    .logo .badge{background:white;color:var(--dark);width:36px;height:36px;border-radius:8px;display:flex;align-items:center;justify-content:center}
+    .search{flex:1;display:flex;align-items:center;gap:8px}
+    .search input{width:100%;padding:10px 12px;border-radius:24px;border:none;outline:none}
+    .lang-switch{margin-left:8px;display:flex;gap:6px}
+    .lang-btn{background:transparent;border:1px solid rgba(255,255,255,0.15);color:white;padding:6px 8px;border-radius:8px;cursor:pointer}
+    .lang-btn.active{background:white;color:var(--dark);font-weight:700}
+    /* content area */
+    .main{flex:1;padding:12px 12px 80px}
+    .section{display:none}
+    .section.active{display:block}
+    /* Section title */
+    .section-title{display:flex;align-items:center;gap:10px;color:var(--dark);font-weight:700;margin-bottom:12px}
+    /* Popular services (horizontal scroll) */
+    .scroll-x{display:flex;gap:10px;overflow:auto;padding-bottom:6px}
+    .service-pill{min-width:130px;background:var(--card);border-radius:12px;padding:12px;border:1px solid #e6eef0;box-shadow:0 4px 8px rgba(0,0,0,0.04);cursor:pointer}
+    .service-pill i{display:block;margin-bottom:8px;background:linear-gradient(135deg,var(--green),#047857);color:white;width:42px;height:42px;border-radius:50%;display:flex;align-items:center;justify-content:center}
+    /* categories */
+    .categories{display:flex;flex-wrap:wrap;gap:10px}
+    .cat{background:var(--card);padding:10px;border-radius:10px;border:1px solid #eef2f5;min-width:110px;text-align:center;cursor:pointer}
+    /* providers grid */
+    .cards-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+    .card{background:var(--card);border-radius:12px;padding:10px;border:1px solid #e6eef0;box-shadow:0 6px 18px rgba(2,6,23,0.04);cursor:pointer;position:relative}
+    .card img{width:100%;height:120px;object-fit:cover;border-radius:8px}
+    .card .meta{display:flex;justify-content:space-between;align-items:center;margin-top:8px}
+    .favorite{position:absolute;top:10px;right:10px;background:rgba(255,255,255,0.6);padding:8px;border-radius:50%}
+    /* profile */
+    .profile-header{background:linear-gradient(135deg,#f0fdf4,#e2e8f0);padding:18px;border-radius:12px;display:flex;gap:14px;align-items:center}
+    .avatar{width:110px;height:110px;border-radius:50%;overflow:hidden;border:4px solid white;background:#e2e8f0}
+    .avatar img{width:100%;height:100%;object-fit:cover}
+    .profile-main{flex:1}
+    .stat-row{display:flex;gap:10px;margin-top:10px}
+    .stat{background:white;padding:8px;border-radius:8px;border:1px solid #e6eef0;flex:1;text-align:center}
+    /* forms */
+    form{background:var(--card);padding:12px;border-radius:12px;border:1px solid #e6eef0}
+    .form-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+    .form-row.single{grid-template-columns:1fr}
+    label{font-size:0.85rem;color:var(--muted);margin-bottom:6px;display:block}
+    input[type="text"],input[type="number"],input[type="tel"],select,textarea{width:100%;padding:10px;border-radius:8px;border:1px solid #e6eef0;outline:none}
+    textarea{min-height:100px;resize:vertical}
+    .btn{background:var(--green);color:white;padding:10px 12px;border-radius:10px;border:none;cursor:pointer;font-weight:700}
+    .btn.ghost{background:white;color:var(--dark);border:1px solid #e6eef0}
+    .img-preview{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
+    .img-preview img{width:78px;height:78px;object-fit:cover;border-radius:8px;border:1px solid #e6eef0}
+    /* bottom nav */
+    .bottom-nav{position:fixed;left:0;right:0;bottom:0;background:white;padding:8px 6px;display:flex;justify-content:space-around;align-items:center;border-top:1px solid #eef2f5;z-index:50}
+    .nav-item{display:flex;flex-direction:column;align-items:center;gap:6px;color:var(--muted);font-size:0.75rem;cursor:pointer}
+    .nav-item.active{color:var(--green);font-weight:700}
+    /* responsive */
+    @media(max-width:480px){.cards-grid{grid-template-columns:1fr 1fr}.section{padding-bottom:80px}}
+    @media(max-width:380px){.cards-grid{grid-template-columns:1fr}.search{display:none}}
+  </style>
+</head>
+<body>
+  <div class="app">
+    <!-- Header -->
+    <header class="header">
+      <div class="logo">
+        <div class="badge"><i class="fas fa-hands-helping"></i></div>
+        <div>
+          <div id="brand-en">Service by Local</div>
+          <div id="brand-hi" style="display:none;font-size:0.8rem;opacity:0.9">सर्विस बाय लोकल</div>
+        </div>
+      </div>
+
+      <div class="search">
+        <div style="background:white;padding:6px 10px;border-radius:20px;display:flex;align-items:center;gap:8px;width:100%">
+          <i class="fas fa-search" style="color:#94a3b8"></i>
+          <input id="searchInput" placeholder="What service do you need? / आपको किस सेवा की जरूरत है?" />
+        </div>
+      </div>
+
+      <div class="lang-switch" role="tablist" aria-label="Language switch">
+        <button id="btnEn" class="lang-btn active">EN</button>
+        <button id="btnHi" class="lang-btn">HI</button>
+      </div>
+    </header>
+
+    <!-- Main content -->
+    <main class="main">
+      <!-- HOME -->
+      <section id="home" class="section active" aria-labelledby="home-title">
+        <h2 class="section-title" id="home-title"><i class="fas fa-bolt" style="color:var(--green)"></i> <span class="txt-en">Popular Services</span><span class="txt-hi" style="display:none">लोकप्रिय सेवाएं</span></h2>
+
+        <div class="scroll-x" id="popularServices">
+          <!-- pills injected by JS -->
+        </div>
+
+        <div style="height:14px"></div>
+
+        <h3 class="section-title"><i class="fas fa-th-large" style="color:var(--green)"></i> <span class="txt-en">Categories</span><span class="txt-hi" style="display:none">श्रेणियाँ</span></h3>
+        <div class="categories" id="categories">
+          <!-- categories injected -->
+        </div>
+
+        <div style="height:14px"></div>
+
+        <h3 class="section-title"><i class="fas fa-award" style="color:var(--green)"></i> <span class="txt-en">Trusted Providers Near You</span><span class="txt-hi" style="display:none">आपके पास विश्वसनीय प्रदाता</span></h3>
+        <div class="cards-grid" id="homeProviders">
+          <!-- small provider cards (subset) -->
+        </div>
+      </section>
+
+      <!-- PROVIDERS -->
+      <section id="providers" class="section" aria-labelledby="providers-title">
+        <h2 class="section-title" id="providers-title"><i class="fas fa-users" style="color:var(--green)"></i> <span class="txt-en">All Providers</span><span class="txt-hi" style="display:none">सभी प्रदाता</span></h2>
+        <div class="cards-grid" id="providersGrid">
+          <!-- cards filled by JS -->
+        </div>
+      </section>
+
+      <!-- PROFILE -->
+      <section id="profile" class="section" aria-labelledby="profile-title">
+        <div class="profile-header">
+          <div class="avatar" id="profileAvatar"><img src="" alt="avatar"/></div>
+          <div class="profile-main">
+            <div style="display:flex;justify-content:space-between;align-items:center">
+              <div>
+                <div id="profileName" style="font-size:1.3rem;font-weight:800;color:var(--green)">Rahul Sharma</div>
+                <div id="profileTag" style="margin-top:6px;color:var(--muted)">Plumber • 8 years experience</div>
+              </div>
+              <div style="text-align:right">
+                <div style="font-weight:800;color:var(--dark);font-size:1rem">4.8 <i class="fas fa-star" style="color:#f59e0b;font-size:0.9rem"></i></div>
+                <div style="font-size:0.8rem;color:var(--muted)">1.2 km • Mumbai</div>
+              </div>
+            </div>
+
+            <div class="stat-row">
+              <div class="stat">
+                <div style="font-weight:800;color:var(--green)" id="jobsCount">124</div>
+                <div style="font-size:0.8rem;color:var(--muted)">Jobs</div>
+              </div>
+              <div class="stat">
+                <div style="font-weight:800;color:var(--green)" id="yearsExp">8</div>
+                <div style="font-size:0.8rem;color:var(--muted)">Years</div>
+              </div>
+              <div class="stat">
+                <div style="font-weight:800;color:var(--green)">₹ 500</div>
+                <div style="font-size:0.8rem;color:var(--muted)">Avg. Price</div>
+              </div>
+              <div class="stat">
+                <div style="font-weight:800;color:var(--green)">Verified</div>
+                <div style="font-size:0.8rem;color:var(--muted)">Profile</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div style="height:12px"></div>
+
+        <div class="content">
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+            <div style="background:white;padding:12px;border-radius:12px;border:1px solid #e6eef0">
+              <h3 style="margin:0 0 8px 0;color:var(--dark)">Services & Pricing</h3>
+              <div id="profileServices">
+                <!-- list -->
+              </div>
+            </div>
+            <div style="background:white;padding:12px;border-radius:12px;border:1px solid #e6eef0">
+              <h3 style="margin:0 0 8px 0;color:var(--dark)">Reviews</h3>
+              <div id="profileReviews">
+                <p style="color:var(--muted)">No reviews yet.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ADD SERVICE -->
+      <section id="addService" class="section" aria-labelledby="add-title">
+        <h2 class="section-title" id="add-title"><i class="fas fa-plus-circle" style="color:var(--green)"></i> <span class="txt-en">Add Service</span><span class="txt-hi" style="display:none">सेवा जोड़ें</span></h2>
+
+        <form id="serviceForm">
+          <div class="form-row">
+            <div>
+              <label class="lbl-en">Provider Name</label><label class="lbl-hi" style="display:none">प्रदानकर्ता का नाम</label>
+              <input id="providerName" type="text" required placeholder="e.g. Rahul Sharma / राहुल शर्मा"/>
+            </div>
+            <div>
+              <label class="lbl-en">Phone</label><label class="lbl-hi" style="display:none">फोन</label>
+              <input id="providerPhone" type="tel" required placeholder="99999xxxxx"/>
+            </div>
+
+            <div>
+              <label class="lbl-en">Service Type</label><label class="lbl-hi" style="display:none">सेवा प्रकार</label>
+              <select id="serviceType" required>
+                <option value="">-- Select --</option>
+                <option>Plumbing / प्लंबिंग</option>
+                <option>Electrical / इलेक्ट्रिकल</option>
+                <option>AC Repair / एसी रिपेयर</option>
+                <option>Cleaning / क्लीनिंग</option>
+                <option>Painting / पेंटिंग</option>
+                <option>Other / अन्य</option>
+              </select>
+            </div>
+            <div>
+              <label class="lbl-en">City</label><label class="lbl-hi" style="display:none">शहर</label>
+              <input id="city" type="text" placeholder="Mumbai / शहर"/>
+            </div>
+
+            <div>
+              <label class="lbl-en">Experience (years)</label><label class="lbl-hi" style="display:none">अनुभव (वर्ष)</label>
+              <input id="experience" type="number" min="0" value="1" />
+            </div>
+            <div>
+              <label class="lbl-en">Price (₹)</label><label class="lbl-hi" style="display:none">कीमत (₹)</label>
+              <input id="price" type="number" min="0" value="500" />
+            </div>
+
+            <div class="form-row single" style="grid-column:'1/3'">
+              <div style="grid-column:1/1">
+                <label class="lbl-en">Description</label><label class="lbl-hi" style="display:none">विवरण</label>
+                <textarea id="description" placeholder="Short description of the service"></textarea>
+              </div>
+            </div>
+
+            <div style="grid-column:1/1">
+              <label class="lbl-en">Profile Photo</label><label class="lbl-hi" style="display:none">प्रोफ़ाइल फोटो</label>
+              <input id="profilePhoto" type="file" accept="image/*"/>
+              <div class="img-preview" id="profilePreview"></div>
+            </div>
+
+            <div style="grid-column:1/1">
+              <label class="lbl-en">Work Photo (optional)</label><label class="lbl-hi" style="display:none">काम की फोटो (वैकल्पिक)</label>
+              <input id="workPhoto" type="file" accept="image/*"/>
+              <div class="img-preview" id="workPreview"></div>
+            </div>
+
+            <div style="grid-column:1/1;display:flex;gap:10px;margin-top:8px">
+              <label style="display:flex;align-items:center;gap:8px">
+                <input id="isVerified" type="checkbox"/> <span class="lbl-en">Verified Provider</span><span class="lbl-hi" style="display:none">सत्यापित प्रदाता</span>
+              </label>
+              <label style="display:flex;align-items:center;gap:8px">
+                <input id="isEmergency" type="checkbox"/> <span class="lbl-en">Available for Emergency</span><span class="lbl-hi" style="display:none">आपातकाल के लिए उपलब्ध</span>
+              </label>
+            </div>
+
+          </div>
+
+          <div style="margin-top:12px;display:flex;gap:8px">
+            <button type="submit" class="btn">Submit / सबमिट करें</button>
+            <button type="button" id="clearForm" class="btn ghost">Clear</button>
+          </div>
+        </form>
+      </section>
+    </main>
+
+    <!-- Bottom navigation -->
+    <nav class="bottom-nav" role="navigation">
+      <div class="nav-item active" data-target="home"><i class="fas fa-home"></i><div class="txt-en">Home</div><div class="txt-hi" style="display:none">होम</div></div>
+      <div class="nav-item" data-target="providers"><i class="fas fa-search"></i><div class="txt-en">Providers</div><div class="txt-hi" style="display:none">प्रदाता</div></div>
+      <div class="nav-item" data-target="addService"><i class="fas fa-plus"></i><div class="txt-en">Add</div><div class="txt-hi" style="display:none">जोड़ें</div></div>
+      <div class="nav-item" data-target="profile"><i class="fas fa-user"></i><div class="txt-en">Profile</div><div class="txt-hi" style="display:none">प्रोफ़ाइल</div></div>
+    </nav>
+  </div>
+
+  <script>
+    /*****************************
+     * Initial sample data
+     *****************************/
+    const sampleProviders = [
+      {
+        id: 'p-1',
+        name: 'Rahul Sharma',
+        phone: '9000000001',
+        service: 'Plumbing / प्लंबिंग',
+        price: 500,
+        experience: 8,
+        city: 'Mumbai',
+        desc: 'Tap repair, pipe fitting / नल मरम्मत',
+        profileImg: '',
+        workImg: '',
+        verified: true,
+        emergency: true
+      },
+      {
+        id: 'p-2',
+        name: 'Asha Beauty',
+        phone: '9000000002',
+        service: 'Beauty & Grooming / ब्यूटी',
+        price: 700,
+        experience: 5,
+        city: 'Mumbai',
+        desc: 'Home salon services / होम सैलून',
+        profileImg: '',
+        workImg: '',
+        verified: true,
+        emergency: false
+      },
+      {
+        id: 'p-3',
+        name: 'AC Experts',
+        phone: '9000000003',
+        service: 'AC Repair / एसी रिपेयर',
+        price: 1200,
+        experience: 6,
+        city: 'Mumbai',
+        desc: 'Full AC service / एसी सर्विस',
+        profileImg: '',
+        workImg: '',
+        verified: false,
+        emergency: false
+      }
+    ];
+
+    /*****************************
+     * Helpers & state
+     *****************************/
+    const $ = sel => document.querySelector(sel);
+    const $$ = sel => Array.from(document.querySelectorAll(sel));
+    const state = {
+      providers: [],
+      currentLang: 'en',
+      currentProfile: null
+    };
+
+    // load providers from localStorage or use sample
+    function loadProviders(){
+      const raw = localStorage.getItem('sbl_providers_v1');
+      if(raw){
+        try{
+          state.providers = JSON.parse(raw);
+        }catch(e){ state.providers = sampleProviders; saveProviders(); }
+      } else {
+        state.providers = sampleProviders;
+        saveProviders();
+      }
+    }
+    function saveProviders(){
+      localStorage.setItem('sbl_providers_v1', JSON.stringify(state.providers));
+    }
+
+    /*****************************
+     * Renderers
+     *****************************/
+    function renderPopularServices(){
+      const list = ['Plumbing','Electrical','AC Repair','Cleaning','Painting','Appliance Repair'];
+      const container = $('#popularServices');
+      container.innerHTML = '';
+      list.forEach(s=>{
+        const el = document.createElement('div');
+        el.className='service-pill';
+        el.innerHTML = `<i class="fas fa-wrench"></i><div style="font-weight:700">${s}</div><div style="font-size:0.8rem;color:var(--muted)">Quick help</div>`;
+        el.onclick = ()=> { filterByService(s); navigateTo('providers'); };
+        container.appendChild(el);
+      });
+    }
+
+    function renderCategories(){
+      const cats = ['Appliance Repair','Home Services','Construction','Rental Vehicle','Event Services','Beauty & Grooming','Pest Control','Tank Cleaning','Education'];
+      const c = $('#categories'); c.innerHTML='';
+      cats.forEach(cat=>{
+        const d = document.createElement('div');
+        d.className='cat';
+        d.innerHTML = `<div style="font-weight:700">${cat}</div><div style="font-size:0.8rem;color:var(--muted)">20+ providers</div>`;
+        d.onclick = ()=>{ filterByService(cat); navigateTo('providers'); };
+        c.appendChild(d);
+      });
+    }
+
+    function renderHomeProviders(){
+      const container = $('#homeProviders'); container.innerHTML='';
+      state.providers.slice(0,6).forEach(p=>{
+        const card = document.createElement('div');
+        card.className='card';
+        card.innerHTML = `
+          <div style="height:110px;background:#f1f5f9;display:flex;align-items:center;justify-content:center;border-radius:8px;overflow:hidden">
+            ${p.profileImg ? `<img src="${p.profileImg}" alt="">` : `<i class="fas fa-user" style="font-size:48px;color:#9ca3af"></i>`}
+          </div>
+          <div style="margin-top:8px;font-weight:800;color:var(--dark)">${p.name}</div>
+          <div class="meta"><div style="font-size:0.85rem;color:var(--muted)">${p.service}</div><div style="font-weight:800;color:var(--green)">₹ ${p.price}</div></div>
+        `;
+        card.onclick = ()=> openProfile(p.id);
+        container.appendChild(card);
+      });
+    }
+
+    function renderProvidersGrid(filter=null){
+      const container = $('#providersGrid'); container.innerHTML='';
+      const list = state.providers.filter(p => !filter ? true : (p.service || '').toLowerCase().includes(filter.toLowerCase()));
+      if(list.length===0){ container.innerHTML = '<p style="color:var(--muted)">No providers found.</p>'; return; }
+      list.forEach(p=>{
+        const card = document.createElement('div');
+        card.className='card';
+        card.innerHTML = `
+          <div style="position:relative">
+            ${p.profileImg ? `<img src="${p.profileImg}" alt="">` : `<div style="height:120px;background:#f1f5f9;display:flex;align-items:center;justify-content:center;border-radius:8px"><i class="fas fa-user" style="font-size:48px;color:#9ca3af"></i></div>`}
+            <div class="favorite">${p.verified ? '<i class="fas fa-check-circle" style="color:var(--green)"></i>' : '<i class="fas fa-user" style="color:#94a3b8"></i>'}</div>
+          </div>
+          <div style="margin-top:8px;font-weight:800;color:var(--dark)">${p.name}</div>
+          <div style="font-size:0.9rem;color:var(--muted)">${p.service}</div>
+          <div class="meta"><div style="font-weight:800;color:var(--green)">₹ ${p.price}</div><div style="font-size:0.85rem;color:var(--muted)">${p.city}</div></div>
+        `;
+        card.onclick = ()=> openProfile(p.id);
+        container.appendChild(card);
+      });
+    }
+
+    function openProfile(id){
+      const p = state.providers.find(x=>x.id===id);
+      if(!p) return;
+      state.currentProfile = p;
+      // populate profile page
+      $('#profileAvatar img').src = p.profileImg || 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=800&auto=format&fit=crop&crop=faces';
+      $('#profileName').textContent = p.name;
+      $('#profileTag').textContent = `${p.service} • ${p.experience} yrs • ${p.city}`;
+      $('#jobsCount').textContent = Math.floor(Math.random()*300)+20;
+      $('#yearsExp').textContent = p.experience;
+      // services in profile
+      const serv = document.getElementById('profileServices'); serv.innerHTML='';
+      const sCard = document.createElement('div');
+      sCard.style.padding='8px'; sCard.style.borderRadius='8px'; sCard.style.border='1px solid #eef2f5';
+      sCard.innerHTML = `<div style="font-weight:800">${p.service}</div><div style="color:var(--muted);margin-top:6px">${p.desc}</div><div style="margin-top:8px;font-weight:800;color:var(--green)">₹ ${p.price}</div>`;
+      serv.appendChild(sCard);
+
+      navigateTo('profile');
+    }
+
+    /*****************************
+     * Navigation and language
+     *****************************/
+    function navigateTo(sectionId){
+      $$('.nav-item').forEach(i=>i.classList.remove('active'));
+      $$('.section').forEach(s=>s.classList.remove('active'));
+      $(`.nav-item[data-target="${sectionId}"]`)?.classList.add('active');
+      $(`#${sectionId}`).classList.add('active');
+      window.scrollTo(0,0);
+    }
+
+    // language toggle
+    function setLang(lang){
+      state.currentLang = lang;
+      if(lang==='en'){
+        $$('.txt-hi').forEach(e=>e.style.display='none');
+        $$('.txt-en').forEach(e=>e.style.display='inline');
+        $$('.lbl-hi').forEach(e=>e.style.display='none');
+        $$('.lbl-en').forEach(e=>e.style.display='inline');
+        $('#btnEn').classList.add('active'); $('#btnHi').classList.remove('active');
+      } else {
+        $$('.txt-en').forEach(e=>e.style.display='none');
+        $$('.txt-hi').forEach(e=>e.style.display='inline');
+        $$('.lbl-en').forEach(e=>e.style.display='none');
+        $$('.lbl-hi').forEach(e=>e.style.display='inline');
+        $('#btnHi').classList.add('active'); $('#btnEn').classList.remove('active');
+      }
+    }
+
+    /*****************************
+     * Add Service form handling
+     *****************************/
+    function readImageFile(input, previewEl, callback){
+      const file = input.files && input.files[0];
+      if(!file){ previewEl.innerHTML=''; callback(''); return; }
+      const reader = new FileReader();
+      reader.onload = e => {
+        previewEl.innerHTML = `<img src="${e.target.result}" />`;
+        callback(e.target.result);
+      };
+      reader.readAsDataURL(file);
+    }
+
+    function uid(prefix='p'){
+      return prefix + '-' + Math.random().toString(36).slice(2,9);
+    }
+
+    function handleFormSubmit(e){
+      e.preventDefault();
+      const obj = {
+        id: uid(),
+        name: $('#providerName').value.trim() || 'Unnamed',
+        phone: $('#providerPhone').value.trim() || '',
+        service: $('#serviceType').value || 'Other',
+        price: Number($('#price').value) || 0,
+        experience: Number($('#experience').value) || 0,
+        city: $('#city').value || '',
+        desc: $('#description').value || '',
+        profileImg: $('#profilePreview img') ? $('#profilePreview img').src : '',
+        workImg: $('#workPreview img') ? $('#workPreview img').src : '',
+        verified: $('#isVerified').checked,
+        emergency: $('#isEmergency').checked
+      };
+      state.providers.unshift(obj);
+      saveProviders();
+      renderProvidersGrid();
+      renderHomeProviders();
+      // clear form
+      $('#serviceForm').reset();
+      $('#profilePreview').innerHTML=''; $('#workPreview').innerHTML='';
+      alert(state.currentLang==='en' ? 'Service added! It appears in Providers.' : 'सेवा जोड़ दी गई! यह प्रदाताओं में दिखेगी।');
+      navigateTo('providers');
+    }
+
+    /*****************************
+     * Filters & search
+     *****************************/
+    function filterByService(text){
+      renderProvidersGrid(text);
+    }
+    function setupSearch(){
+      $('#searchInput').addEventListener('input', e=>{
+        const q = e.target.value.trim();
+        if(!q) renderHomeProviders();
+        else renderProvidersGrid(q);
+      });
+    }
+
+    /*****************************
+     * Init
+     *****************************/
+    function init(){
+      loadProviders();
+      renderPopularServices();
+      renderCategories();
+      renderHomeProviders();
+      renderProvidersGrid();
+
+      // nav clicks
+      $$('.nav-item').forEach(n=>{
+        n.addEventListener('click', ()=> navigateTo(n.dataset.target));
+      });
+
+      // language
+      $('#btnEn').addEventListener('click', ()=> setLang('en'));
+      $('#btnHi').addEventListener('click', ()=> setLang('hi'));
+
+      // form (image previews)
+      $('#profilePhoto').addEventListener('change', ()=> readImageFile($('#profilePhoto'), $('#profilePreview'), (data)=>{}));
+      $('#workPhoto').addEventListener('change', ()=> readImageFile($('#workPhoto'), $('#workPreview'), (data)=>{}));
+      $('#serviceForm').addEventListener('submit', handleFormSubmit);
+      $('#clearForm').addEventListener('click', ()=> { $('#serviceForm').reset(); $('#profilePreview').innerHTML=''; $('#workPreview').innerHTML=''; });
+
+      // search
+      setupSearch();
+
+      // search providers grid: click on categories/popular pills already wired
+      // language default
+      setLang('en');
+
+      // nav active click styling
+      $$('.nav-item').forEach(item=> item.addEventListener('click', ()=>{
+        $$('.nav-item').forEach(i=>i.classList.remove('active'));
+        item.classList.add('active');
+      }));
+
+      // simple click-to-open-profile from providers grid after initial rendering
+      // already wired in renderers
+    }
+
+    init();
+  </script>
+</body>
+</html>

@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+<title>Service by Local — Mobile App UI (Premium)</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<style>
+  /* ====== Theme & Reset ====== */
+  :root{
+    --bg:#0f1724;            /* dark background for app-like feel behind cards */
+    --surface:#0b1220;       /* deep surface */
+    --glass: rgba(255,255,255,0.06);
+    --card:#071021;
+    --accent:#08a77a;        /* vivid green */
+    --accent-2:#05a36b;
+    --muted:#9aa6b2;
+    --white: #eef6f0;
+    --danger:#ff6b6b;
+    --glass-border: rgba(255,255,255,0.04);
+    --shadow: 0 10px 30px rgba(2,6,23,0.6);
+    --radius:18px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%;background:linear-gradient(180deg,#061422 0%, #06141b 60%);font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial; color:var(--white); -webkit-font-smoothing:antialiased}
+  img{max-width:100%;display:block}
+  button{cursor:pointer}
+  /* ====== App shell ====== */
+  .phone {
+    width:100%;
+    max-width:420px; /* mobile app width */
+    margin:18px auto;
+    min-height:86vh;
+    background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+    border-radius:28px;
+    padding:14px;
+    box-shadow: 0 30px 80px rgba(2,6,23,0.6);
+    position:relative; overflow:hidden;
+    border: 1px solid rgba(255,255,255,0.03);
+  }
+
+  /* ====== Header (glass) ====== */
+  header.appbar {
+    display:flex; align-items:center; gap:10px; padding:10px;
+    backdrop-filter: blur(6px) saturate(120%);
+    background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+    border-radius:14px;
+    border:1px solid var(--glass-border);
+    margin-bottom:10px;
+  }
+  .brand {
+    display:flex; align-items:center; gap:10px; flex:1;
+  }
+  .brand .logo {
+    width:46px; height:46px; border-radius:12px; background:linear-gradient(135deg,var(--white), #e6ffef); display:flex; align-items:center; justify-content:center; color:var(--accent-2); font-weight:800; box-shadow: 0 6px 18px rgba(8,163,122,0.12)
+  }
+  .brand .title { font-weight:700; font-size:15px; line-height:1; color:var(--white) }
+  .brand .subtitle { font-size:11px; color:var(--muted) }
+
+  .searchBox {
+    flex:2; display:flex; gap:8px; align-items:center;
+  }
+  .search {
+    width:100%; display:flex; align-items:center; gap:8px;
+    background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+    border-radius:14px; padding:8px 10px; border:1px solid var(--glass-border)
+  }
+  .search input { background:transparent; border:0; outline:0; color:var(--white); font-size:14px; width:100% }
+  .lang-toggle { display:flex; gap:6px; margin-left:8px }
+  .lang-toggle button { font-weight:700; background:transparent; border:0; color:var(--muted); padding:6px 8px; border-radius:10px }
+  .lang-toggle button.active { background: linear-gradient(90deg,var(--accent),var(--accent-2)); color:#00110b; box-shadow: 0 8px 24px rgba(8,163,122,0.18) }
+
+  /* ====== content area w/ animated pages ====== */
+  .viewport { position:relative; height:calc(86vh - 152px); overflow:hidden } /* adapt for nav/header */
+  .page {
+    position:absolute; inset:0; padding:8px 6px 86px; /* space for bottom nav */
+    transform: translateX(100%); opacity:0; transition: transform 360ms cubic-bezier(.2,.9,.3,1), opacity 260ms ease;
+    will-change: transform, opacity;
+  }
+  .page.active { transform: translateX(0); opacity:1; z-index:5 }
+  .page.left-enter { transform: translateX(-20%); opacity:0 }
+  /* slide-out when leaving */
+  .page.leave-left { transform: translateX(-100%); opacity:0 }
+  .page.leave-right { transform: translateX(100%); opacity:0 }
+
+  /* ====== Home top cards ====== */
+  .top-scroll { display:flex; gap:12px; overflow:auto; padding:8px 4px 16px 4px }
+  .card-slim { min-width:200px; background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01)); border-radius:16px; padding:12px; border:1px solid var(--glass-border); box-shadow: var(--shadow) }
+  .card-slim h3{font-size:15px;color:var(--white);margin-bottom:6px}
+  .card-slim p{font-size:12px;color:var(--muted)}
+
+  /* categories grid */
+  .cats { display:flex; flex-wrap:wrap; gap:10px; margin:8px 2px 18px }
+  .cat { width:calc(50% - 8px); background: linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.02)); border-radius:14px; padding:12px; border:1px solid var(--glass-border); display:flex; gap:10px; align-items:center }
+  .cat .icon { width:48px;height:48;border-radius:12px;background:linear-gradient(135deg,var(--accent),var(--accent-2)); display:flex;align-items:center;justify-content:center;color:#042016; font-weight:700 }
+  .cat .txt { font-size:13px; font-weight:700; color:var(--white) }
+  .cat .sub { font-size:11px; color:var(--muted) }
+
+  /* providers list - accent cards */
+  .provider-list { display:flex; flex-direction:column; gap:12px; padding-bottom:10px }
+  .provider {
+    display:flex; gap:12px; background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01)); border-radius:16px; padding:12px; border:1px solid var(--glass-border); align-items:center; box-shadow:0 10px 30px rgba(2,6,23,0.5)
+  }
+  .prov-avatar { width:78px; height:78px; border-radius:14px; overflow:hidden; flex-shrink:0; background:#0f1724; display:flex;align-items:center;justify-content:center }
+  .prov-avatar img{width:100%;height:100%;object-fit:cover}
+  .prov-body { flex:1 }
+  .prov-name { font-weight:800; font-size:15px; color:var(--white) }
+  .prov-service { font-size:13px; color:var(--muted); margin-top:4px }
+  .prov-meta { display:flex; gap:8px; align-items:center; margin-top:8px }
+  .pill { background: rgba(255,255,255,0.03); padding:6px 8px; border-radius:999px; font-size:12px; color:var(--muted); border:1px solid rgba(255,255,255,0.02) }
+
+  .prov-actions { display:flex; flex-direction:column; gap:8px; align-items:flex-end }
+  .call-btn { background: linear-gradient(180deg,var(--accent),var(--accent-2)); padding:8px 12px; border-radius:12px; color:#00110b; font-weight:800; border:none }
+  .fav { background:transparent; border:1px solid rgba(255,255,255,0.04); padding:8px; border-radius:10px; color:var(--accent) }
+
+  /* profile detail layout */
+  .profile-area { display:flex; flex-direction:column; gap:12px }
+  .profile-hero { display:flex; gap:12px; align-items:center; background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01)); padding:12px; border-radius:14px; border:1px solid var(--glass-border) }
+  .profile-hero .big-avatar { width:110px;height:110px;border-radius:16px;overflow:hidden; }
+  .profile-hero .big-avatar img{width:100%;height:100%;object-fit:cover}
+  .profile-hero .pinfo { flex:1 }
+  .pinfo .name { font-size:18px;font-weight:900;color:var(--white) }
+  .pinfo .meta { color:var(--muted); margin-top:6px; font-size:13px }
+  .stats-row { display:flex; gap:8px; margin-top:10px }
+  .stat { flex:1; background:rgba(255,255,255,0.02); padding:10px; border-radius:10px; text-align:center; border:1px solid rgba(255,255,255,0.02) }
+
+  /* add service form (card) */
+  .form-card { background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01)); padding:12px; border-radius:14px; border:1px solid var(--glass-border) }
+  .field { display:flex; flex-direction:column; gap:6px; margin-bottom:10px }
+  label{ font-size:13px; color:var(--muted) }
+  input,input[type="file"],select,textarea { background:transparent; border:1px solid rgba(255,255,255,0.04); padding:10px; border-radius:10px; color:var(--white); outline:none }
+  textarea{ min-height:110px; resize:vertical }
+  .photo-grid { display:flex; gap:10px; margin-top:8px }
+  .photo-preview { width:84px; height:84px; border-radius:12px; overflow:hidden; border:1px solid rgba(255,255,255,0.03); display:flex;align-items:center;justify-content:center;background:#09202a }
+  .btn-primary { background:linear-gradient(90deg,var(--accent),var(--accent-2)); border-radius:12px; padding:12px 14px; border:none; color:#00110b; font-weight:800; width:100% }
+
+  /* bottom navigation - pill style */
+  .bottom-nav { position:absolute; left:14px; right:14px; bottom:14px; display:flex; justify-content:space-between; gap:8px; align-items:center }
+  .tab { background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01)); border-radius:12px; padding:10px 12px; display:flex; gap:10px; align-items:center; flex:1; justify-content:center; border:1px solid var(--glass-border); box-shadow:0 10px 24px rgba(2,6,23,0.6) }
+  .tab.active { background: linear-gradient(90deg,var(--accent),var(--accent-2)); color:#00110b; box-shadow: 0 18px 40px rgba(8,163,122,0.18) }
+
+  /* small helpers */
+  .muted { color:var(--muted); font-size:13px }
+  .tiny { font-size:12px; color:var(--muted) }
+</style>
+</head>
+<body>
+
+<div class="phone" role="application" aria-label="Service by Local - mobile app">
+  <!-- Header -->
+  <header class="appbar" role="banner">
+    <div class="brand" aria-hidden>
+      <div class="logo"><i class="fas fa-hands-helping"></i></div>
+      <div>
+        <div class="title" id="brandTitle">Service by Local</div>
+        <div class="subtitle tiny" id="brandSub">Trusted services in your city</div>
+      </div>
+    </div>
+
+    <div style="display:flex;gap:8px;align-items:center">
+      <div class="search" role="search" title="Search">
+        <i class="fas fa-search" style="color:var(--muted)"></i>
+        <input id="searchInput" placeholder="Search services or provider..." aria-label="Search" />
+      </div>
+
+      <div class="lang-toggle" role="tablist" aria-label="Language">
+        <button id="btnEn" class="active" aria-pressed="true">EN</button>
+        <button id="btnHi" aria-pressed="false">HI</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- content viewport -->
+  <div class="viewport" id="viewport" role="main">
+    <!-- HOME PAGE -->
+    <section id="page-home" class="page active" aria-labelledby="homeHeading">
+      <h2 id="homeHeading" class="tiny" style="margin-bottom:8px">Quick help • Top picks</h2>
+
+      <div class="top-scroll" id="topScroll">
+        <!-- trending cards injected -->
+      </div>
+
+      <div style="display:flex;justify-content:space-between;align-items:center;margin:6px 2px 8px">
+        <div class="muted">Categories</div>
+        <div class="tiny muted" id="view-all-cats">View all</div>
+      </div>
+
+      <div class="cats" id="cats"></div>
+
+      <div style="display:flex;justify-content:space-between;align-items:center;margin:6px 2px 8px">
+        <div class="muted">Trusted providers near you</div>
+        <div class="tiny muted" id="see-all">See all</div>
+      </div>
+
+      <div class="provider-list" id="homeProviders" aria-live="polite">
+        <!-- providers injections -->
+      </div>
+    </section>
+
+    <!-- PROVIDERS PAGE -->
+    <section id="page-providers" class="page" aria-labelledby="providersHeading">
+      <h2 id="providersHeading" class="tiny">All Providers</h2>
+      <div id="providersList" style="margin-top:8px"></div>
+    </section>
+
+    <!-- PROFILE PAGE -->
+    <section id="page-profile" class="page" aria-labelledby="profileHeading">
+      <h2 id="profileHeading" class="tiny">Provider</h2>
+      <div class="profile-area">
+        <div class="profile-hero">
+          <div class="big-avatar"><img id="profileImg" src="" alt="Profile image" /></div>
+          <div class="pinfo">
+            <div class="name" id="profileName">—</div>
+            <div class="meta" id="profileMeta">Service • City • years</div>
+            <div class="stats-row" style="margin-top:10px">
+              <div class="stat"><div class="tiny">Jobs</div><div id="pJobs" style="font-weight:800">0</div></div>
+              <div class="stat"><div class="tiny">Rating</div><div id="pRating" style="font-weight:800">4.7</div></div>
+              <div class="stat"><div class="tiny">Price</div><div id="pPrice" style="font-weight:800">₹ 0</div></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-card">
+          <div style="margin-bottom:10px"><strong>About</strong></div>
+          <div id="profileDesc" class="tiny muted">—</div>
+        </div>
+
+        <div class="form-card">
+          <div style="margin-bottom:8px"><strong>Services</strong></div>
+          <div id="profileServices"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ADD SERVICE PAGE -->
+    <section id="page-add" class="page" aria-labelledby="addHeading">
+      <h2 id="addHeading" class="tiny">Add a Service</h2>
+
+      <div class="form-card" style="margin-top:8px">
+        <form id="addForm" autocomplete="off">
+          <div class="field">
+            <label>Provider name</label>
+            <input id="f_name" type="text" placeholder="e.g. Rahul Sharma / राहुल शर्मा" required />
+          </div>
+
+          <div class="field">
+            <label>Service type</label>
+            <select id="f_service" required>
+              <option value="">Select service</option>
+              <option>Plumbing / प्लंबिंग</option>
+              <option>Electrical / इलेक्ट्रिकल</option>
+              <option>AC Repair / एसी रिपेयर</option>
+              <option>Cleaning / क्लीनिंग</option>
+              <option>Painting / पेंटिंग</option>
+              <option>Other / अन्य</option>
+            </select>
+          </div>
+
+          <div class="field" style="display:flex;gap:8px">
+            <div style="flex:1">
+              <label>Price (₹)</label>
+              <input id="f_price" type="number" min="0" value="500" />
+            </div>
+            <div style="width:110px">
+              <label>Years</label>
+              <input id="f_exp" type="number" min="0" value="1" />
+            </div>
+          </div>
+
+          <div class="field">
+            <label>City</label>
+            <input id="f_city" type="text" placeholder="Mumbai / शहर" />
+          </div>
+
+          <div class="field">
+            <label>Description</label>
+            <textarea id="f_desc" placeholder="Short description..."></textarea>
+          </div>
+
+          <div class="field">
+            <label>Profile photo</label>
+            <input id="f_profile_photo" type="file" accept="image/*" />
+            <div class="photo-grid" id="f_profile_preview"></div>
+          </div>
+
+          <div class="field">
+            <label>Work photo (optional)</label>
+            <input id="f_work_photo" type="file" accept="image/*" />
+            <div class="photo-grid" id="f_work_preview"></div>
+          </div>
+
+          <div style="display:flex;gap:8px;margin-top:10px">
+            <label style="flex:1;display:flex;gap:8px;align-items:center"><input type="checkbox" id="f_verified" /> Verified provider</label>
+            <label style="display:flex;gap:8px;align-items:center"><input type="checkbox" id="f_emergency" /> Emergency</label>
+          </div>
+
+          <div style="margin-top:12px">
+            <button type="submit" class="btn-primary">Publish service</button>
+          </div>
+        </form>
+      </div>
+
+    </section>
+
+  </div>
+
+  <!-- bottom nav -->
+  <nav class="bottom-nav" role="navigation" aria-label="Main">
+    <div class="tab active" data-target="home" id="tab-home"><i class="fas fa-home"></i> <div style="margin-left:6px">Home</div></div>
+    <div class="tab" data-target="providers" id="tab-providers"><i class="fas fa-search"></i> <div style="margin-left:6px">Providers</div></div>
+    <div class="tab" data-target="add" id="tab-add"><i class="fas fa-plus"></i> <div style="margin-left:6px">Add</div></div>
+    <div class="tab" data-target="profile" id="tab-profile"><i class="fas fa-user"></i> <div style="margin-left:6px">Profile</div></div>
+  </nav>
+</div>
+
+<script>
+/* ====== App JS ====== */
+
+/* state */
+const state = {
+  lang: 'en',
+  providers: [],
+  current: null
+};
+
+/* sample data (fallback) */
+const sample = [
+  { id:'p1', name:'Rahul Sharma', service:'Plumbing / प्लंबिंग', price:500, exp:8, city:'Mumbai', desc:'Tap repair, pipe fitting', img:'', verified:true, emergency:true },
+  { id:'p2', name:'Asha Beauty', service:'Beauty & Grooming / ब्यूटी', price:700, exp:5, city:'Mumbai', desc:'Home salon services', img:'', verified:true, emergency:false },
+  { id:'p3', name:'AC Experts', service:'AC Repair / एसी रिपेयर', price:1200, exp:6, city:'Mumbai', desc:'Full AC service', img:'', verified:false, emergency:false }
+];
+
+/* DOM helpers */
+const $ = s=> document.querySelector(s);
+const $$ = s=> Array.from(document.querySelectorAll(s));
+
+/* load/save */
+function load(){
+  const raw = localStorage.getItem('sbl_v2_providers');
+  if(raw){
+    try{ state.providers = JSON.parse(raw); }
+    catch(e){ state.providers = sample; save(); }
+  } else { state.providers = sample; save(); }
+}
+function save(){ localStorage.setItem('sbl_v2_providers', JSON.stringify(state.providers)); }
+
+/* navigation & transitions */
+function showPage(key){
+  // pages mapping
+  const pages = {
+    home: '#page-home',
+    providers: '#page-providers',
+    add: '#page-add',
+    profile: '#page-profile'
+  };
+  // active page element
+  $$('.page').forEach(p=> p.classList.remove('active'));
+  $(pages[key]).classList.add('active');
+
+  // nav active
+  $$('.tab').forEach(t=> t.classList.remove('active'));
+  $(`.tab[data-target="${key}"]`).classList.add('active');
+
+  // special: if profile and state.current, populate profile
+  if(key==='profile' && state.current) populateProfile(state.current);
+}
+
+/* language */
+function setLang(l){
+  state.lang = l;
+  if(l==='en'){
+    $('#btnEn').classList.add('active'); $('#btnHi').classList.remove('active');
+    $('#btnEn').setAttribute('aria-pressed','true'); $('#btnHi').setAttribute('aria-pressed','false');
+    $('#brandTitle').textContent = 'Service by Local';
+    $('#brandSub').textContent = 'Trusted services in your city';
+  } else {
+    $('#btnHi').classList.add('active'); $('#btnEn').classList.remove('active');
+    $('#btnHi').setAttribute('aria-pressed','true'); $('#btnEn').setAttribute('aria-pressed','false');
+    $('#brandTitle').textContent = 'सर्विस बाय लोकल';
+    $('#brandSub').textContent = 'आपके शहर की भरोसेमंद सेवाएँ';
+  }
+}
+
+/* render helpers */
+function createProviderDOM(p){
+  const el = document.createElement('div');
+  el.className = 'provider';
+  el.innerHTML = `
+    <div class="prov-avatar">${ p.img ? `<img src="${p.img}" alt="${p.name}">` : '<i class="fas fa-user" style="font-size:30px;color:var(--muted)"></i>' }</div>
+    <div class="prov-body">
+      <div class="prov-name">${p.name} ${p.verified ? ' <span style="color:var(--accent);font-weight:800">✔</span>' : ''}</div>
+      <div class="prov-service">${p.service}</div>
+      <div class="prov-meta">
+        <div class="pill">₹ ${p.price}</div>
+        <div class="pill">${p.city}</div>
+        <div class="pill">${p.exp} yrs</div>
+      </div>
+    </div>
+    <div class="prov-actions">
+      <button class="call-btn" data-phone="${p.phone||''}"><i class="fas fa-phone"></i> Call</button>
+      <button class="fav" data-id="${p.id}"><i class="fas fa-ellipsis-v"></i></button>
+    </div>
+  `;
+  // click whole card to open profile
+  el.addEventListener('click', e=>{
+    // if click was on call or fav, don't open profile
+    if(e.target.closest('.call-btn') || e.target.closest('.fav')) return;
+    openProfile(p.id);
+  });
+  // call button
+  el.querySelector('.call-btn').addEventListener('click', ev=>{
+    ev.stopPropagation();
+    const tel = ev.currentTarget.dataset.phone || '';
+    if(tel) window.open(`tel:${tel}`);
+    else alert(state.lang==='en' ? 'Phone not available' : 'फोन उपलब्ध नहीं है');
+  });
+  // fav / options
+  el.querySelector('.fav').addEventListener('click', ev=>{
+    ev.stopPropagation();
+    showProviderOptions(p.id);
+  });
+  return el;
+}
+
+function renderHome(){
+  // top scroll (trending)
+  const top = $('#topScroll'); top.innerHTML = '';
+  ['Plumbing','Electrical','AC Repair','Cleaning'].forEach(s=>{
+    const d = document.createElement('div'); d.className='card-slim';
+    d.innerHTML = `<h3>${s}</h3><p class="tiny muted">Quick help & trusted pros</p>`;
+    d.addEventListener('click', ()=> {
+      filterProviders(s);
+      showPage('providers');
+    });
+    top.appendChild(d);
+  });
+
+  // categories
+  const cats = ['Appliance Repair','Home Services','Construction','Event Services','Beauty & Grooming','Pest Control'];
+  const catsNode = $('#cats'); catsNode.innerHTML='';
+  cats.forEach(c=>{
+    const el = document.createElement('div');
+    el.className='cat';
+    el.innerHTML = `<div class="icon"><i class="fas fa-tools"></i></div><div><div class="txt">${c}</div><div class="sub">20+ providers</div></div>`;
+    el.addEventListener('click', ()=> { filterProviders(c); showPage('providers'); });
+    catsNode.appendChild(el);
+  });
+
+  // home providers (top 4)
+  const hprov = $('#homeProviders'); hprov.innerHTML='';
+  state.providers.slice(0,6).forEach(p => hprov.appendChild(createProviderDOM(p)));
+}
+
+function renderProvidersList(filter){
+  const node = $('#providersList'); node.innerHTML='';
+  const list = (filter ? state.providers.filter(x=> (x.service||'').toLowerCase().includes(filter.toLowerCase()) || (x.name||'').toLowerCase().includes(filter.toLowerCase())) : state.providers);
+  if(list.length===0){ node.innerHTML = `<div class="tiny muted">No providers found.</div>`; return; }
+  list.forEach(p => node.appendChild(createProviderDOM(p)));
+}
+
+/* open profile */
+function openProfile(id){
+  const p = state.providers.find(x=>x.id===id);
+  if(!p) return;
+  state.current = p;
+  showPage('profile');
+}
+
+/* populate profile page */
+function populateProfile(p){
+  $('#profileImg').src = p.img || 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=800&auto=format&fit=crop&crop=faces';
+  $('#profileName').textContent = p.name;
+  $('#profileMeta').textContent = `${p.service} • ${p.city} • ${p.exp} yrs`;
+  $('#pJobs').textContent = Math.floor(Math.random()*200)+10;
+  $('#pRating').textContent = (Math.random()*0.8+4.2).toFixed(1);
+  $('#pPrice').textContent = `₹ ${p.price}`;
+  $('#profileDesc').textContent = p.desc || '—';
+  // services small
+  const srv = $('#profileServices'); srv.innerHTML = `<div class="tiny muted">Main: ${p.service}</div><div style="margin-top:8px;font-weight:700">Starting ₹ ${p.price}</div>`;
+}
+
+/* provider options menu (simple) */
+function showProviderOptions(id){
+  const p = state.providers.find(x=>x.id===id);
+  if(!p) return;
+  const choice = prompt((state.lang==='en' ? 'Options: 1=Delete  2=Edit (not implemented)  3=Call\nEnter 1/2/3' : 'विकल्प: 1=डिलीट 2=एडिट (नहीं) 3=कॉल\n1/2/3 दर्ज करें'));
+  if(choice==='1'){ if(confirm('Confirm delete?')){ state.providers = state.providers.filter(x=>x.id!==id); save(); renderHome(); renderProvidersList(); showPage('home'); } }
+  else if(choice==='3'){ window.open(`tel:${p.phone||''}`); }
+}
+
+/* filter helper */
+function filterProviders(q){
+  renderProvidersList(q);
+}
+
+/* form handling - convert image to base64 */
+function readImageAsDataURL(file, cb){
+  const fr = new FileReader();
+  fr.onload = e=> cb(e.target.result);
+  fr.readAsDataURL(file);
+}
+
+/* form submit */
+function bindForm(){
+  const form = $('#addForm');
+  const pPreview = $('#f_profile_preview');
+  const wPreview = $('#f_work_preview');
+  let profileImg = '', workImg = '';
+
+  $('#f_profile_photo').addEventListener('change', e=>{
+    const f = e.target.files[0]; if(!f) return;
+    readImageAsDataURL(f, data=>{
+      profileImg = data; pPreview.innerHTML = `<div class="photo-preview"><img src="${data}" alt="p"/></div>`;
+    });
+  });
+  $('#f_work_photo').addEventListener('change', e=>{
+    const f = e.target.files[0]; if(!f) return;
+    readImageAsDataURL(f, data=>{
+      workImg = data; wPreview.innerHTML = `<div class="photo-preview"><img src="${data}" alt="w"/></div>`;
+    });
+  });
+
+  form.addEventListener('submit', e=>{
+    e.preventDefault();
+    const obj = {
+      id: 'id_'+Math.random().toString(36).slice(2,9),
+      name: $('#f_name').value.trim() || 'Unnamed',
+      service: $('#f_service').value || 'Other',
+      price: Number($('#f_price').value) || 0,
+      exp: Number($('#f_exp').value) || 0,
+      city: $('#f_city').value || '',
+      desc: $('#f_desc').value || '',
+      img: profileImg,
+      verified: $('#f_verified').checked,
+      emergency: $('#f_emergency').checked,
+      phone: ''
+    };
+    state.providers.unshift(obj);
+    save();
+    // reset
+    form.reset(); pPreview.innerHTML=''; wPreview.innerHTML='';
+    alert(state.lang==='en' ? 'Service published!' : 'सेवा प्रकाशित हो गई!');
+    renderHome(); renderProvidersList();
+    showPage('providers');
+  });
+}
+
+/* search behavior */
+function bindSearch(){
+  $('#searchInput').addEventListener('input', e=>{
+    const q = e.target.value.trim();
+    if(q) { renderProvidersList(q); showPage('providers'); }
+    else { renderHome(); showPage('home'); }
+  });
+}
+
+/* nav bindings */
+function bindNav(){
+  $$('.tab').forEach(t=>{
+    t.addEventListener('click', ()=>{
+      const target = t.dataset.target;
+      showPage(target);
+    });
+  });
+}
+
+/* language binding */
+function bindLang(){
+  $('#btnEn').addEventListener('click', ()=> setLang('en'));
+  $('#btnHi').addEventListener('click', ()=> setLang('hi'));
+}
+
+/* init */
+function init(){
+  load();
+  setLang('en');
+  bindNav();
+  bindLang();
+  bindForm();
+  bindSearch();
+  renderHome();
+  renderProvidersList();
+}
+init();
+
+</script>
+</body>
+</html>

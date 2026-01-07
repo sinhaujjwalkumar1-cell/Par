@@ -2,293 +2,254 @@
 <html lang="hi">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SBL Digital Corporation Pvt. Ltd. - Official Website</title>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Service By Local - SBL Digital Corporation Pvt. Ltd.</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
     <style>
-        /* --- YOUR BRAND COLORS (SBL THEME) --- */
+        /* --- SAME STYLE AS PROVIDED (sw1.html) --- */
         :root {
-            --sbl-green: #008F5D;  /* આપका फिक्स हरा रंग */
-            --sbl-dark: #004d32;   /* गहरा हरा */
-            --text-main: #1D1D1F;
-            --bg-light: #F9FAFB;
-            --white: #ffffff;
+            --primary: #008F5D; /* SBL Original Green */
+            --bg: #FFFFFF;
+            --card-bg: #F9FAFB;
+            --text: #1D1D1F;
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Outfit', sans-serif; }
-        body { background-color: var(--bg-light); color: var(--text-main); line-height: 1.6; }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Outfit', sans-serif; -webkit-tap-highlight-color: transparent; }
+        body { background: var(--bg); color: var(--text); overflow-x: hidden; scroll-behavior: smooth; }
 
-        /* --- HEADER --- */
-        header {
-            background: var(--white);
-            padding: 15px 5%;
-            display: flex; justify-content: space-between; align-items: center;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-            position: sticky; top: 0; z-index: 1000;
-        }
-        .logo {
-            font-size: 1.5rem; font-weight: 800; color: var(--sbl-green);
-            text-transform: uppercase; letter-spacing: -0.5px;
-        }
-        .logo span { color: var(--text-main); font-weight: 400; font-size: 1rem; }
+        /* --- HERO SECTION --- */
+        .hero { padding: 120px 5% 60px; text-align: center; }
+        .hero h1 { font-size: 3.2rem; font-weight: 800; line-height: 1.1; margin-bottom: 20px; letter-spacing: -2px; }
+        .hero p { color: #666; font-size: 1.2rem; max-width: 600px; margin: 0 auto 40px; }
         
-        .header-btn {
-            background: var(--sbl-green); color: white; padding: 10px 25px;
-            border-radius: 50px; text-decoration: none; font-weight: 600;
-            font-size: 0.9rem; transition: 0.3s;
-        }
-        .header-btn:hover { background: var(--sbl-dark); box-shadow: 0 5px 15px rgba(0,143,93,0.3); }
+        .download-badges { display: flex; justify-content: center; gap: 15px; flex-wrap: wrap; margin-bottom: 40px; }
+        .store-btn { background: #000; color: #fff; padding: 12px 25px; border-radius: 12px; text-decoration: none; display: flex; align-items: center; gap: 10px; transition: 0.3s; }
+        .store-btn:hover { transform: translateY(-3px); box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
 
-        /* --- HERO SECTION (MAIN) --- */
-        .hero {
-            text-align: center; padding: 100px 20px 60px;
-            background: radial-gradient(circle at center, rgba(0,143,93,0.08), transparent 70%);
-        }
-        .gov-badge {
-            background: #E8F5E9; color: var(--sbl-green); padding: 5px 15px;
-            border-radius: 20px; font-size: 0.8rem; font-weight: 700;
-            display: inline-block; margin-bottom: 20px; border: 1px solid var(--sbl-green);
-        }
-        .hero h1 {
-            font-size: 3rem; font-weight: 800; line-height: 1.2; margin-bottom: 20px;
-            color: var(--text-main);
-        }
-        .hero h1 span { color: var(--sbl-green); }
-        .hero p {
-            max-width: 700px; margin: 0 auto 40px; color: #555; font-size: 1.1rem;
-        }
+        /* --- 4 STEPS PROCESS --- */
+        .process-section { padding: 80px 5%; background: #fff; }
+        .step-container { display: flex; flex-direction: column; gap: 30px; max-width: 800px; margin: 0 auto; }
+        .step-card { background: var(--card-bg); border-radius: 35px; padding: 45px 35px; border: 1px solid #edf2f7; position: relative; transition: 0.4s; }
+        .step-card h2 { font-size: 2.2rem; font-weight: 800; color: var(--primary); margin-bottom: 15px; }
+        .step-card p { color: #555; font-size: 1.1rem; line-height: 1.6; }
+        .step-num { position: absolute; top: 15px; right: 30px; font-size: 5rem; font-weight: 800; color: rgba(0,143,93,0.06); }
 
-        /* --- COMPANY INFO CARD --- */
-        .company-details {
-            max-width: 900px; margin: 0 auto 60px;
-            background: white; padding: 30px; border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-            border-top: 5px solid var(--sbl-green);
-            text-align: left;
+        /* --- PROUD OF DIGITAL INDIA SECTION --- */
+        .vision-section { 
+            margin: 60px 5%; background: linear-gradient(135deg, #008F5D 0%, #004d32 100%); 
+            padding: 60px 40px; border-radius: 40px; color: #fff; text-align: center;
+            box-shadow: 0 20px 40px rgba(0,143,93,0.2);
         }
-        .cd-grid {
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin-top: 20px;
-        }
-        .cd-item h4 { color: #888; font-size: 0.85rem; margin-bottom: 5px; }
-        .cd-item p { font-weight: 700; font-size: 1rem; color: var(--text-main); }
+        .vision-section h2 { font-size: 2.2rem; margin-bottom: 15px; font-weight: 800; }
+        .vision-section p { opacity: 0.9; font-size: 1.1rem; line-height: 1.6; }
 
-        /* --- SERVICES GRID (Based on MOA) --- */
-        .services-section { padding: 60px 5%; background: white; }
-        .sec-title { text-align: center; margin-bottom: 50px; }
-        .sec-title h2 { font-size: 2.2rem; font-weight: 800; margin-bottom: 10px; }
+        /* --- SERVICE SLIDER (Updated with MOA Data) --- */
+        .slider-section { padding: 80px 0; background: #fff; overflow: hidden; }
+        .slider-title { text-align: center; font-size: 2.2rem; font-weight: 800; margin-bottom: 40px; }
         
-        .service-grid {
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px;
-            max-width: 1200px; margin: 0 auto;
-        }
-        .s-card {
-            background: var(--bg-light); padding: 30px; border-radius: 24px;
-            transition: 0.3s; border: 1px solid #eee;
-        }
-        .s-card:hover {
-            transform: translateY(-5px); background: white;
-            box-shadow: 0 15px 40px rgba(0,0,0,0.08); border-color: var(--sbl-green);
-        }
-        .s-icon {
-            width: 60px; height: 60px; background: white; border-radius: 50%;
-            display: flex; align-items: center; justify-content: center;
-            font-size: 1.5rem; color: var(--sbl-green); margin-bottom: 20px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-        }
-        .s-card h3 { font-size: 1.2rem; margin-bottom: 15px; font-weight: 700; }
-        .s-card ul { list-style: none; padding: 0; }
-        .s-card li {
-            margin-bottom: 8px; font-size: 0.95rem; color: #555;
-            padding-left: 20px; position: relative;
-        }
-        .s-card li::before {
-            content: "✓"; color: var(--sbl-green); position: absolute; left: 0; font-weight: bold;
-        }
+        .swiper-wrapper { display: flex; overflow-x: auto; gap: 20px; padding: 20px 5%; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
+        .swiper-wrapper::-webkit-scrollbar { display: none; }
 
-        /* --- DIRECTOR / VISION SECTION --- */
-        .vision-box {
-            background: var(--sbl-green); color: white; padding: 60px 5%;
-            text-align: center; margin: 60px 0;
-        }
-        .vision-content { max-width: 800px; margin: 0 auto; }
-        .vision-content h2 { font-size: 2rem; margin-bottom: 20px; }
-        .vision-content p { font-size: 1.1rem; opacity: 0.9; margin-bottom: 30px; }
-        .directors { font-weight: 700; font-size: 1.1rem; border-top: 1px solid rgba(255,255,255,0.3); padding-top: 20px; display: inline-block; }
+        .auto-track { display: flex; gap: 20px; animation: scroll-track 60s linear infinite; width: max-content; }
+        .auto-track:hover { animation-play-state: paused; }
+        @keyframes scroll-track { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
 
-        /* --- FOOTER (Official) --- */
-        footer {
-            background: #111; color: #aaa; padding: 60px 5% 20px; font-size: 0.9rem;
+        .service-card { 
+            min-width: 320px; background: #fff; border-radius: 30px; padding: 30px; 
+            box-shadow: 0 15px 40px rgba(0,0,0,0.06); border: 1px solid #eee;
         }
-        .footer-row {
-            display: flex; flex-wrap: wrap; justify-content: space-between; gap: 40px;
-            max-width: 1200px; margin: 0 auto;
-        }
-        .ft-info { max-width: 400px; }
-        .ft-info h3 { color: white; margin-bottom: 15px; font-size: 1.3rem; }
-        .cin-box { 
-            background: #222; padding: 10px; border-radius: 8px; 
-            display: inline-block; margin-top: 10px; font-family: monospace; color: var(--sbl-green);
-        }
-        .ft-links h4 { color: white; margin-bottom: 15px; }
-        .ft-links a { display: block; color: #aaa; text-decoration: none; margin-bottom: 8px; }
-        .ft-links a:hover { color: var(--sbl-green); }
+        .service-card h3 { color: var(--primary); font-size: 1.4rem; margin-bottom: 15px; font-weight: 800; }
+        .tag-box { display: flex; flex-wrap: wrap; gap: 8px; }
+        .tag { background: #f0f2f5; padding: 6px 12px; border-radius: 10px; font-size: 0.8rem; color: #444; font-weight: 600; border: 1px solid #e1e4e8; }
 
-        /* Mobile Fix */
-        @media (max-width: 768px) {
-            .hero h1 { font-size: 2.2rem; }
-            .company-details { padding: 20px; }
-        }
+        /* --- APP MOCKUP --- */
+        .mockup-container { padding: 80px 5%; text-align: center; background: var(--card-bg); }
+        .mockup-scroll { display: flex; overflow-x: auto; gap: 20px; padding: 40px 0; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
+        .mockup-scroll::-webkit-scrollbar { display: none; }
+        .mockup-img { min-width: 270px; height: 560px; background: #000; border-radius: 40px; border: 8px solid #333; overflow: hidden; box-shadow: 0 20px 40px rgba(0,0,0,0.15); display: flex; align-items: center; justify-content: center; color: white; }
+        
+        /* --- FAQ --- */
+        .faq-section { padding: 80px 5%; max-width: 900px; margin: 0 auto; }
+        .faq-item { background: #fff; border: 1px solid #edf2f7; border-radius: 20px; margin-bottom: 15px; padding: 25px; cursor: pointer; }
+        .faq-item h4 { display: flex; justify-content: space-between; align-items: center; font-size: 1.1rem; font-weight: 700; }
+        .faq-content { display: none; margin-top: 15px; color: #666; font-size: 0.95rem; border-top: 1px solid #f0f0f0; padding-top: 15px; }
+
+        /* --- FOOTER (OFFICIAL) --- */
+        footer { padding: 80px 5% 40px; text-align: center; border-top: 1px solid #f0f0f0; background: #fff; }
+        .footer-official { margin-top: 30px; padding-top: 30px; border-top: 1px solid #eee; font-size: 0.9rem; color: #777; }
+        .footer-official strong { color: #000; display: block; margin-bottom: 5px; }
+        
+        .made-in { display: flex; align-items: center; justify-content: center; gap: 10px; font-weight: 800; color: #555; font-size: 1.3rem; margin-bottom: 30px; }
+        .heart-icon { font-size: 2.2rem; color: #ff3b30; animation: heartBeat 1.2s infinite; }
+        @keyframes heartBeat { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.15); } }
+
+        /* Animation */
+        .reveal { opacity: 0; transform: translateY(30px); transition: 1s all ease; }
+        .reveal.active { opacity: 1; transform: translateY(0); }
     </style>
 </head>
 <body>
 
-    <header>
-        <div class="logo">
-            SBL DIGITAL <span>CORP.</span>
+    <header class="hero reveal">
+        <div style="font-size: 1.5rem; font-weight: 900; color: var(--primary); margin-bottom: 30px; text-transform: uppercase;">Service By Local</div>
+        
+        <div style="background: #E8F5E9; color: var(--primary); padding: 8px 20px; border-radius: 50px; display: inline-block; font-weight: 800; font-size: 0.85rem; margin-bottom: 25px;">
+            Aatmanirbhar Bharat Ka Digital Platform 🇮🇳
         </div>
-        <a href="#download" class="header-btn">Download App</a>
+        <h1>Hunar Ki Kadar, <br><span style="color:var(--primary)">Kamayi Poori!</span></h1>
+        <p>Jamtara aur Jharkhand ka sabse transparent marketplace. 0% commission aur 100% direct connection ke sath local experts se judein.</p>
+        <div class="download-badges">
+            <a href="#" class="store-btn"><i class="fab fa-google-play fa-2x"></i> <div><small>Get it on</small><br>Google Play</div></a>
+            <a href="#" class="store-btn"><i class="fab fa-apple fa-2x"></i> <div><small>Download on the</small><br>App Store</div></a>
+        </div>
     </header>
 
-    <section class="hero">
-        <div class="gov-badge">Registered Under Ministry of Corporate Affairs (Govt. of India)</div>
-        <h1>Service By Local<br><span>Sab Kuch Local. Sab Kuch Verified.</span></h1>
-        <p>Jamtara aur Jharkhand ka apna Digital Platform. 0% Commission par kaam karein, seedha customer se judein.</p>
-        
-        <div class="company-details">
-            <h3 style="margin-bottom: 15px; color: var(--sbl-green);">Official Company Information</h3>
-            <div class="cd-grid">
-                <div class="cd-item">
-                    <h4>Company Name</h4>
-                    <p>SBL DIGITAL CORPORATION <br>PRIVATE LIMITED [cite: 6, 36]</p>
+    <section class="process-section">
+        <div class="step-container">
+            <div class="step-card reveal">
+                <div class="step-num">01</div>
+                <h2 style="color:var(--primary)">Discover</h2>
+                <p>Browse through 200+ local services. SBL App mein har category ke liye verified experts turant milte hain.</p>
+            </div>
+            <div class="step-card reveal">
+                <div class="step-num">02</div>
+                <h2 style="color:var(--primary)">Connect</h2>
+                <p>Bypass middlemen! Seedha Call ya WhatsApp karein expert ko app ke andar se hi. Minutes mein milen.</p>
+            </div>
+            <div class="step-card reveal">
+                <div class="step-num">03</div>
+                <h2 style="color:var(--primary)">Negotiate</h2>
+                <p>Talk directly aur apna price finalize karein. Pricing par pura control aapka hoga, bina kisi platform fees ke.</p>
+            </div>
+            <div class="step-card reveal">
+                <div class="step-num">04</div>
+                <h2 style="color:var(--primary)">Succeed</h2>
+                <p>Kaam hone par provider ko direct pay karein. Pure business, hum lete hain 0% commission.</p>
+            </div>
+        </div>
+    </section>
+
+    <div class="vision-section reveal">
+        <h2>Proud of Digital India 🇮🇳</h2>
+        <p>SBL DIGITAL CORPORATION (SBL) ka mission hai local entrepreneurship ko promote karna aur middlemen ko khatam karna.</p>
+    </div>
+
+    <section class="slider-section reveal">
+        <h2 class="slider-title">Hamari 200+ Services</h2>
+        <div class="swiper-wrapper">
+            <div class="auto-track">
+                
+                <div class="service-card">
+                    <h3>Building Material</h3>
+                    <div class="tag-box">
+                        <span class="tag">Bricks (Eent)</span><span class="tag">Sand (Balu)</span><span class="tag">Gravel (Gitti)</span><span class="tag">Cement</span><span class="tag">Soil</span><span class="tag">Labour</span>
+                    </div>
                 </div>
-                <div class="cd-item">
-                    <h4>Registration Date</h4>
-                    <p>31 December 2025 [cite: 6]</p>
+
+                <div class="service-card">
+                    <h3>Vehicle Rental</h3>
+                    <div class="tag-box">
+                        <span class="tag">E-Riksha</span><span class="tag">Auto Booking</span><span class="tag">JCB Rental</span><span class="tag">Tractor</span><span class="tag">Car/Taxi</span><span class="tag">Truck</span>
+                    </div>
                 </div>
-                <div class="cd-item">
-                    <h4>CIN Number</h4>
-                    <p>U63120JH2025PTC026634 [cite: 7]</p>
+
+                <div class="service-card">
+                    <h3>Appliance Repair</h3>
+                    <div class="tag-box">
+                        <span class="tag">AC Repair</span><span class="tag">Washing Machine</span><span class="tag">Fridge</span><span class="tag">Geyser</span><span class="tag">Laptop</span><span class="tag">TV Repair</span>
+                    </div>
                 </div>
-                <div class="cd-item">
-                    <h4>Headquarters</h4>
-                    <p>Mihijam, Jamtara [cite: 20]</p>
+
+                <div class="service-card">
+                    <h3>Events & Wedding</h3>
+                    <div class="tag-box">
+                        <span class="tag">Tent & Decor</span><span class="tag">Catering</span><span class="tag">Photography</span><span class="tag">Makeup Artist</span><span class="tag">Wedding Planner</span>
+                    </div>
+                </div>
+
+                <div class="service-card">
+                    <h3>Home Services</h3>
+                    <div class="tag-box">
+                        <span class="tag">Plumbing</span><span class="tag">Electrical</span><span class="tag">Carpentry</span><span class="tag">Painting</span><span class="tag">Deep Cleaning</span>
+                    </div>
+                </div>
+
+                <div class="service-card">
+                    <h3>Daily Needs</h3>
+                    <div class="tag-box">
+                        <span class="tag">Maid Services</span><span class="tag">Cook</span><span class="tag">Home Tutor</span><span class="tag">Water Tank Cleaning</span><span class="tag">Pest Control</span>
+                    </div>
+                </div>
+
+                <div class="service-card">
+                    <h3>Building Material</h3>
+                    <div class="tag-box">
+                        <span class="tag">Bricks (Eent)</span><span class="tag">Sand (Balu)</span><span class="tag">Gravel (Gitti)</span><span class="tag">Cement</span>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <section class="services-section">
-        <div class="sec-title">
-            <h2>हमारी सेवाएं (Our Services)</h2>
-            <p>MOA के अनुसार SBL Digital Corporation इन क्षेत्रों में काम करती है:</p>
-        </div>
-
-        <div class="service-grid">
-            <div class="s-card">
-                <div class="s-icon"><i class="fas fa-truck-loading"></i></div>
-                <h3>Building Materials [cite: 148]</h3>
-                <p>घर बनाने का सामान अब ऑनलाइन:</p>
-                <ul>
-                    <li>ईंट (Bricks) Supply</li>
-                    <li>बालू (Sand) & गिट्टी (Gravel)</li>
-                    <li>सीमेंट और मिट्टी (Soil/Cement)</li>
-                    <li>Construction Labour</li>
-                </ul>
-            </div>
-
-            <div class="s-card">
-                <div class="s-icon"><i class="fas fa-tractor"></i></div>
-                <h3>Mobility & Rental [cite: 149]</h3>
-                <p>गाड़ी और मशीनरी किराए पर:</p>
-                <ul>
-                    <li>JCB & Tractor Rental</li>
-                    <li>Truck for Transport</li>
-                    <li>E-Rickshaw & Auto Booking</li>
-                    <li>Car Rental</li>
-                </ul>
-            </div>
-
-            <div class="s-card">
-                <div class="s-icon"><i class="fas fa-tools"></i></div>
-                <h3>Home Repairs [cite: 146]</h3>
-                <p>वेरीफाइड मिस्त्री आपके घर पर:</p>
-                <ul>
-                    <li>AC & Fridge Repair</li>
-                    <li>Washing Machine & TV</li>
-                    <li>Electrician & Plumber</li>
-                    <li>Carpenter (बढ़ई)</li>
-                </ul>
-            </div>
-
-            <div class="s-card">
-                <div class="s-icon"><i class="fas fa-camera-retro"></i></div>
-                <h3>Events & Lifestyle [cite: 147]</h3>
-                <p>शादी और पार्टी की पूरी तैयारी:</p>
-                <ul>
-                    <li>Wedding Planning & Decor</li>
-                    <li>Catering Services</li>
-                    <li>Photography & Video</li>
-                    <li>Salon at Home & Makeup</li>
-                </ul>
-            </div>
-
-            <div class="s-card">
-                <div class="s-icon"><i class="fas fa-hands-helping"></i></div>
-                <h3>Daily Essentials [cite: 150]</h3>
-                <p>रोज़मर्रा की ज़रूरतें:</p>
-                <ul>
-                    <li>Maids & Cooks</li>
-                    <li>Home Tutors (ट्यूशन)</li>
-                    <li>Pest Control</li>
-                    <li>Water Tank Cleaning</li>
-                </ul>
-            </div>
+    <section class="mockup-container reveal">
+        <h2 class="slider-title">App Ki Ek Jhalak</h2>
+        <div class="mockup-scroll">
+            <div class="mockup-img">App Screen 1</div>
+            <div class="mockup-img">App Screen 2</div>
+            <div class="mockup-img">App Screen 3</div>
         </div>
     </section>
 
-    <section class="vision-box">
-        <div class="vision-content">
-            <h2>Our Vision</h2>
-            <p>"SBL का उद्देश्य है स्थानीय सर्विस प्रोवाइडर्स को डिजिटल बनाना। हम बिचौलियों को हटाकर ग्राहक और दुकानदार को सीधे जोड़ते हैं ताकि सबको फायदा हो।"</p>
-            <div class="directors">
-                DIRECTORS: UJJWAL KUMAR SINHA & SUSHMITA SINHA [cite: 60, 203]
-            </div>
+    <section class="faq-section reveal">
+        <h2 style="text-align:center; margin-bottom:40px; font-size:2rem; font-weight:800;">Aksar Puche Jane Wale Sawal</h2>
+        <div class="faq-item" onclick="toggleFaq(this)">
+            <h4>SBL App use karne ki fees kya hai? <i class="fas fa-plus"></i></h4>
+            <div class="faq-content">SBL App bilkul FREE hai. Hum 0% commission lete hain, aap jo bhi pay karte hain wo seedha provider ko jata hai.</div>
+        </div>
+        <div class="faq-item" onclick="toggleFaq(this)">
+            <h4>Kya providers verified hote hain? <i class="fas fa-plus"></i></h4>
+            <div class="faq-content">Ji haan, hum Aadhar aur physical verification ko focus karte hain taaki aapka bharosa bana rahe.</div>
+        </div>
+        <div class="faq-item" onclick="toggleFaq(this)">
+            <h4>Payment kise karna hai? <i class="fas fa-plus"></i></h4>
+            <div class="faq-content">Aapko payment seedha service provider ko karna hai. SBL beech mein koi payment nahi leta.</div>
         </div>
     </section>
 
     <footer>
-        <div class="footer-row">
-            <div class="ft-info">
-                <h3>SBL DIGITAL CORP.</h3>
-                <p>Connecting Jamtara & Jharkhand to the Digital World.</p>
-                <div class="cin-box">CIN: U63120JH2025PTC026634 [cite: 7]</div>
-                <p style="margin-top: 15px; color: #fff;">
-                    <i class="fas fa-map-marker-alt"></i> 
-                    1658/A, Sahardal, Mihijam, Jamtara, Jharkhand - 815354 [cite: 20]
-                </p>
-            </div>
-            
-            <div class="ft-links">
-                <h4>Quick Links</h4>
-                <a href="#">About Company</a>
-                <a href="#">Our Services</a>
-                <a href="#">Contact Support</a>
-                <a href="#">Privacy Policy</a>
-            </div>
-
-            <div class="ft-links">
-                <h4>Contact</h4>
-                <a href="mailto:support@servicebylocal.com">support@servicebylocal.com</a>
-                <a href="#">+91 00000 00000</a>
-                <a href="#">Help Center</a>
-            </div>
+        <div class="made-in">Made in BHARAT By Heart <i class="fas fa-heart heart-icon"></i></div>
+        
+        <div style="display:flex; justify-content:center; gap:20px; font-weight:600; margin-bottom: 20px;">
+            <a href="#" style="color:#666; text-decoration:none;">About Us</a>
+            <a href="#" style="color:#666; text-decoration:none;">Terms</a>
+            <a href="#" style="color:#666; text-decoration:none;">Privacy</a>
         </div>
-        <div style="text-align: center; margin-top: 40px; padding-top: 20px; border-top: 1px solid #333;">
-            &copy; 2026 SBL DIGITAL CORPORATION PRIVATE LIMITED. All Rights Reserved.
+
+        <div class="footer-official">
+            <strong>SBL DIGITAL CORPORATION PRIVATE LIMITED</strong>
+            <p>CIN: U63120JH2025PTC026634</p>
+            <p>Registered Office: 1658/A, Sahardal, Mihijam, Jamtara, Jharkhand - 815354</p>
+            <p style="margin-top: 10px;">&copy; 2026 All Rights Reserved.</p>
         </div>
     </footer>
 
+    <script>
+        function toggleFaq(el) {
+            const content = el.querySelector('.faq-content');
+            const icon = el.querySelector('i');
+            const isOpen = content.style.display === 'block';
+            content.style.display = isOpen ? 'none' : 'block';
+            icon.className = isOpen ? 'fas fa-plus' : 'fas fa-minus';
+        }
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) entry.target.classList.add('active');
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.reveal').forEach(section => observer.observe(section));
+    </script>
 </body>
 </html>

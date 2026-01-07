@@ -2,418 +2,389 @@
 <html lang="hi">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Service by Local (SBL) - Official App</title>
-    <meta name="description" content="Service by Local - Home Repairs, Construction, Events & Rentals in Jamtara & Jharkhand.">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Service By Local - Official App | Jamtara & Jharkhand</title>
+    <meta name="description" content="SBL Digital Corporation - Home Services, Repairs, Construction & Events. Zero Commission App.">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
     <style>
-        /* --- CSS STYLES (DESIGN) --- */
+        /* --- PREMIUM THEME VARIABLES --- */
         :root {
-            --primary-color: #0056b3; /* Deep Blue */
-            --secondary-color: #ff9900; /* Vibrant Orange */
-            --dark-bg: #1a1a1a;
-            --light-bg: #f4f7f6;
-            --text-color: #333;
+            --primary: #008F5D;      /* SBL Green */
+            --dark: #0f172a;         /* Deep Navy */
+            --accent: #FF9900;       /* Orange for Buttons */
+            --light: #F0F9FF;        /* Light Background */
+            --glass: rgba(255, 255, 255, 0.85);
+            --shadow: 0 10px 30px rgba(0,0,0,0.08);
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Outfit', sans-serif; scroll-behavior: smooth; }
+        body { background: var(--light); color: var(--dark); overflow-x: hidden; }
 
-        body {
-            line-height: 1.6;
-            color: var(--text-color);
-            background-color: #fff;
-        }
-
-        /* Header / Navigation */
-        header {
-            background-color: #fff;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            position: fixed;
-            width: 100%;
-            top: 0;
-            z-index: 1000;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-
+        /* --- 1. GLASS NAVIGATION (Premium Look) --- */
         nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            height: 70px;
+            position: fixed; top: 0; width: 100%; z-index: 1000;
+            background: var(--glass); backdrop-filter: blur(15px);
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+            padding: 15px 5%;
+            display: flex; justify-content: space-between; align-items: center;
         }
-
-        .logo {
-            font-size: 1.5rem;
-            font-weight: bold;
-            color: var(--primary-color);
-            text-transform: uppercase;
-            letter-spacing: 1px;
+        .logo { font-size: 1.5rem; font-weight: 800; color: var(--primary); letter-spacing: -0.5px; }
+        .logo span { color: var(--dark); }
+        .nav-btn {
+            background: var(--dark); color: #fff; padding: 10px 20px;
+            border-radius: 50px; text-decoration: none; font-size: 0.9rem; font-weight: 600;
+            transition: 0.3s;
         }
+        .nav-btn:hover { background: var(--primary); box-shadow: 0 5px 15px rgba(0,143,93,0.3); }
 
-        .nav-links a {
-            margin-left: 20px;
-            text-decoration: none;
-            color: #555;
-            font-weight: 500;
-            transition: color 0.3s;
-        }
-
-        .nav-links a:hover {
-            color: var(--primary-color);
-        }
-
-        .btn-header {
-            background-color: var(--primary-color);
-            color: white !important;
-            padding: 10px 20px;
-            border-radius: 5px;
-        }
-
-        /* Hero Section (Main Banner) */
+        /* --- 2. HERO SECTION (Impactful) --- */
         .hero {
-            background: linear-gradient(rgba(0, 86, 179, 0.9), rgba(0, 86, 179, 0.8)), url('https://images.unsplash.com/photo-1581578731117-104f2a417954?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
-            background-size: cover;
-            background-position: center;
-            height: 100vh;
-            display: flex;
-            align-items: center;
-            text-align: center;
-            color: white;
-            padding-top: 70px;
+            padding: 140px 5% 60px; text-align: center;
+            background: radial-gradient(circle at top, rgba(0,143,93,0.08), transparent 70%);
         }
-
-        .hero-content {
-            max-width: 800px;
-            margin: 0 auto;
+        .badge {
+            background: #E6FFFA; color: var(--primary); padding: 8px 16px;
+            border-radius: 30px; font-weight: 700; font-size: 0.85rem;
+            display: inline-flex; align-items: center; gap: 8px; margin-bottom: 25px;
+            border: 1px solid rgba(0,143,93,0.2);
         }
-
         .hero h1 {
-            font-size: 3rem;
-            margin-bottom: 20px;
-            line-height: 1.2;
+            font-size: 3.5rem; line-height: 1.1; font-weight: 800; margin-bottom: 20px;
+            background: linear-gradient(to right, var(--dark), var(--primary));
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
         }
+        .hero p { font-size: 1.25rem; color: #555; max-width: 700px; margin: 0 auto 40px; }
+        
+        /* App Buttons */
+        .app-btns { display: flex; gap: 15px; justify-content: center; flex-wrap: wrap; }
+        .store-btn {
+            background: var(--dark); color: white; padding: 12px 28px; border-radius: 12px;
+            text-decoration: none; display: flex; align-items: center; gap: 10px;
+            transition: transform 0.2s; box-shadow: var(--shadow);
+        }
+        .store-btn:hover { transform: translateY(-3px); background: #000; }
+        .store-btn i { font-size: 1.8rem; }
+        .store-btn div { text-align: left; line-height: 1.2; }
+        .store-btn small { font-size: 0.7rem; opacity: 0.8; }
+        .store-btn strong { font-size: 1rem; }
 
-        .hero p {
-            font-size: 1.2rem;
-            margin-bottom: 30px;
-            opacity: 0.9;
+        /* Trust Indicators */
+        .trust-row {
+            display: flex; justify-content: center; gap: 15px; margin-top: 40px; flex-wrap: wrap;
         }
+        .trust-tag {
+            background: white; padding: 10px 20px; border-radius: 50px;
+            font-size: 0.9rem; font-weight: 600; color: #444;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05); display: flex; align-items: center; gap: 8px;
+        }
+        .trust-tag i { color: var(--primary); }
 
-        .app-buttons {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            flex-wrap: wrap;
-        }
+        /* --- 3. INFINITE SERVICE SLIDER (From SW1) --- */
+        .slider-section { padding: 60px 0; overflow: hidden; background: white; }
+        .section-title { text-align: center; margin-bottom: 40px; }
+        .section-title h2 { font-size: 2.5rem; font-weight: 800; color: var(--dark); }
+        .section-title p { color: #666; margin-top: 10px; }
 
-        .download-btn {
-            background-color: var(--secondary-color);
-            color: white;
-            padding: 15px 35px;
-            text-decoration: none;
-            font-size: 1.2rem;
-            border-radius: 50px;
-            font-weight: bold;
-            transition: transform 0.3s, background 0.3s;
-            box-shadow: 0 5px 15px rgba(255, 153, 0, 0.4);
-            border: none;
-            cursor: pointer;
+        .slider-track {
+            display: flex; width: max-content; gap: 20px;
+            animation: scroll 40s linear infinite; padding: 20px 0;
         }
-
-        .download-btn:hover {
-            transform: translateY(-3px);
-            background-color: #e68a00;
-        }
-
-        /* About Section */
-        .section {
-            padding: 80px 0;
-        }
-
-        .section-title {
-            text-align: center;
-            margin-bottom: 50px;
-        }
-
-        .section-title h2 {
-            font-size: 2.5rem;
-            color: var(--primary-color);
-            margin-bottom: 10px;
-        }
-
-        .section-title p {
-            color: #666;
-            max-width: 600px;
-            margin: 0 auto;
-        }
-
-        /* Services Grid */
-        .services-bg {
-            background-color: var(--light-bg);
-        }
-
-        .services-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-        }
+        .slider-track:hover { animation-play-state: paused; }
+        
+        @keyframes scroll { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
 
         .service-card {
-            background: white;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-            transition: transform 0.3s;
-            border-top: 4px solid var(--primary-color);
+            width: 280px; background: white; padding: 25px; border-radius: 20px;
+            border: 1px solid #eee; box-shadow: 0 10px 20px rgba(0,0,0,0.03);
+            flex-shrink: 0; transition: 0.3s;
         }
-
-        .service-card:hover {
-            transform: translateY(-10px);
+        .service-card:hover { transform: translateY(-5px); border-color: var(--primary); }
+        .icon-box {
+            width: 50px; height: 50px; background: #E6FFFA; border-radius: 12px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.5rem; color: var(--primary); margin-bottom: 15px;
         }
-
-        .icon {
-            font-size: 3rem;
-            margin-bottom: 20px;
-            display: block;
+        .service-card h3 { font-size: 1.2rem; margin-bottom: 10px; font-weight: 700; }
+        .service-card ul { list-style: none; padding: 0; }
+        .service-card li { 
+            font-size: 0.9rem; color: #666; margin-bottom: 5px; padding-left: 15px; position: relative; 
         }
-
-        .service-card h3 {
-            margin-bottom: 15px;
-            color: #2c3e50;
-        }
-
-        .service-card ul {
-            list-style: none;
-            padding-left: 0;
-        }
-
-        .service-card li {
-            margin-bottom: 10px;
-            padding-left: 25px;
-            position: relative;
-            color: #555;
-        }
-
         .service-card li::before {
-            content: "✓";
-            color: var(--secondary-color);
-            position: absolute;
-            left: 0;
-            font-weight: bold;
+            content: "•"; color: var(--accent); position: absolute; left: 0; font-weight: bold;
         }
 
-        /* Call to Action */
-        .cta-section {
-            background-color: var(--primary-color);
-            color: white;
-            text-align: center;
-            padding: 60px 20px;
+        /* --- 4. WHY US GRID (Process) --- */
+        .features { padding: 80px 5%; background: var(--light); }
+        .feature-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px;
+            max-width: 1200px; margin: 0 auto;
         }
-
-        .cta-section h2 {
-            margin-bottom: 20px;
+        .f-card {
+            background: white; padding: 40px; border-radius: 30px;
+            text-align: center; border: 1px solid rgba(0,0,0,0.05); transition: 0.3s;
         }
+        .f-card:hover { transform: translateY(-10px); box-shadow: 0 20px 40px rgba(0,0,0,0.08); }
+        .f-icon { 
+            font-size: 3rem; margin-bottom: 20px; 
+            background: linear-gradient(135deg, var(--primary), #00cc88); 
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+        }
+        .f-card h3 { font-size: 1.5rem; margin-bottom: 15px; }
+        .f-card p { color: #666; line-height: 1.6; }
 
-        /* Footer */
+        /* --- 5. FAQ SECTION --- */
+        .faq-sec { padding: 80px 5%; max-width: 800px; margin: 0 auto; }
+        .faq-item {
+            background: white; border-radius: 15px; margin-bottom: 15px; padding: 20px 25px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.02); cursor: pointer; transition: 0.3s;
+            border: 1px solid #eee;
+        }
+        .faq-item.active { border-color: var(--primary); }
+        .faq-head { display: flex; justify-content: space-between; align-items: center; font-weight: 700; font-size: 1.1rem; }
+        .faq-body { display: none; margin-top: 15px; color: #666; font-size: 0.95rem; line-height: 1.6; border-top: 1px solid #eee; padding-top: 15px; }
+
+        /* --- 6. OFFICIAL FOOTER --- */
         footer {
-            background-color: var(--dark-bg);
-            color: #bbb;
-            padding: 50px 0 20px;
-        }
-
-        .footer-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 40px;
-            margin-bottom: 40px;
-        }
-
-        .footer-col h3 {
-            color: white;
-            margin-bottom: 20px;
-            border-bottom: 2px solid var(--secondary-color);
-            display: inline-block;
-            padding-bottom: 5px;
-        }
-
-        .footer-col p, .footer-col li {
-            margin-bottom: 10px;
-            font-size: 0.95rem;
-        }
-
-        .copyright {
-            text-align: center;
-            border-top: 1px solid #333;
-            padding-top: 20px;
+            background: var(--dark); color: #ccc; padding: 60px 5% 20px;
             font-size: 0.9rem;
         }
+        .footer-content {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 40px;
+            max-width: 1200px; margin: 0 auto 40px;
+        }
+        .ft-col h4 { color: white; font-size: 1.2rem; margin-bottom: 20px; }
+        .ft-col p { margin-bottom: 10px; }
+        .ft-col i { color: var(--primary); margin-right: 10px; }
+        
+        .legal-strip {
+            border-top: 1px solid #333; padding-top: 20px; text-align: center;
+        }
 
-        /* Responsive Mobile Fixes */
+        /* Mobile Adjustments */
         @media (max-width: 768px) {
-            .hero h1 { font-size: 2rem; }
-            .nav-links { display: none; } /* Simplified for mobile */
-            .logo { font-size: 1.2rem; }
+            .hero h1 { font-size: 2.5rem; }
+            .slider-card { width: 260px; }
         }
     </style>
 </head>
 <body>
 
-    <header>
-        <div class="container">
-            <nav>
-                <div class="logo">SERVICE BY LOCAL</div>
-                <div class="nav-links">
-                    <a href="#about">About</a>
-                    <a href="#services">Services</a>
-                    <a href="#contact">Contact</a>
-                    <a href="https://play.google.com/store" class="btn-header">App Download</a>
-                </div>
-            </nav>
-        </div>
-    </header>
+    <nav>
+        <div class="logo">SBL <span>DIGITAL</span></div>
+        <a href="#download" class="nav-btn">Download App</a>
+    </nav>
 
     <section class="hero">
-        <div class="container hero-content">
-            <h1>आपके शहर की अपनी सर्विस ऐप <br><span style="color:var(--secondary-color)">Service by Local</span></h1>
-            <p>रिपेयरिंग, कंस्ट्रक्शन, गाड़ी बुकिंग या शादी की तैयारी - सब कुछ एक क्लिक पर। लोकल, वेरीफाइड और भरोसेमंद।</p>
-            <div class="app-buttons">
-                <a href="https://play.google.com/store" class="download-btn">📲 Download Android App</a>
-            </div>
+        <div class="badge"><i class="fas fa-check-circle"></i> Proudly Made in India</div>
+        <h1>Your City. Your People.<br><span style="color:var(--primary)">Zero Commission.</span></h1>
+        <p>भारत का पहला ऐसा ऐप जो आपको सीधे सर्विस प्रोवाइडर से जोड़ता है। कोई बिचौलिया नहीं, कोई एक्स्ट्रा फीस नहीं।</p>
+        
+        <div class="app-btns" id="download">
+            <a href="#" class="store-btn">
+                <i class="fab fa-google-play"></i>
+                <div><small>GET IT ON</small><br><strong>Google Play</strong></div>
+            </a>
+            <a href="#" class="store-btn" style="opacity: 0.7;">
+                <i class="fab fa-apple"></i>
+                <div><small>COMING SOON</small><br><strong>App Store</strong></div>
+            </a>
+        </div>
+
+        <div class="trust-row">
+            <div class="trust-tag"><i class="fas fa-id-card"></i> Aadhar Verified</div>
+            <div class="trust-tag"><i class="fas fa-map-marker-alt"></i> 10 Mins Delivery</div>
+            <div class="trust-tag"><i class="fas fa-handshake"></i> Direct Deal</div>
         </div>
     </section>
 
-    <section id="about" class="section container">
+    <section class="slider-section">
         <div class="section-title">
-            <h2>About Us</h2>
-            <p>SBL Digital Corporation Pvt. Ltd. का उद्देश्य ग्राहकों को उनके शहर के वेरीफाइड सर्विस प्रोवाइडर्स से सीधे जोड़ना है।</p>
+            <h2>200+ Services Available</h2>
+            <p>From Repairs to Construction, we have it all.</p>
+        </div>
+        
+        <div class="slider-track">
+            <div class="service-card">
+                <div class="icon-box"><i class="fas fa-tools"></i></div>
+                <h3>Home Repairs</h3>
+                <ul>
+                    <li>AC & Fridge Repair</li>
+                    <li>Washing Machine</li>
+                    <li>Electrician</li>
+                    <li>Plumber</li>
+                </ul>
+            </div>
+            
+            <div class="service-card">
+                <div class="icon-box"><i class="fas fa-truck-loading"></i></div>
+                <h3>Construction Material</h3>
+                <ul>
+                    <li>Bricks (Eent)</li>
+                    <li>Sand (Balu)</li>
+                    <li>Gravel (Gitti)</li>
+                    <li>Cement Supply</li>
+                </ul>
+            </div>
+
+            <div class="service-card">
+                <div class="icon-box"><i class="fas fa-taxi"></i></div>
+                <h3>Vehicle Rental</h3>
+                <ul>
+                    <li>E-Rickshaw Booking</li>
+                    <li>Car & Taxi</li>
+                    <li>JCB & Tractor</li>
+                    <li>Truck for Shifting</li>
+                </ul>
+            </div>
+
+            <div class="service-card">
+                <div class="icon-box"><i class="fas fa-camera"></i></div>
+                <h3>Events & Lifestyle</h3>
+                <ul>
+                    <li>Wedding Planning</li>
+                    <li>Photography</li>
+                    <li>Catering</li>
+                    <li>Makeup Artist</li>
+                </ul>
+            </div>
+
+            <div class="service-card">
+                <div class="icon-box"><i class="fas fa-home"></i></div>
+                <h3>Home Essentials</h3>
+                <ul>
+                    <li>Maid & Cook</li>
+                    <li>Water Tank Cleaning</li>
+                    <li>Pest Control</li>
+                    <li>Home Tutors</li>
+                </ul>
+            </div>
+
+             <div class="service-card">
+                <div class="icon-box"><i class="fas fa-tools"></i></div>
+                <h3>Home Repairs</h3>
+                <ul>
+                    <li>AC & Fridge Repair</li>
+                    <li>Washing Machine</li>
+                    <li>Electrician</li>
+                    <li>Plumber</li>
+                </ul>
+            </div>
+            <div class="service-card">
+                <div class="icon-box"><i class="fas fa-truck-loading"></i></div>
+                <h3>Construction Material</h3>
+                <ul>
+                    <li>Bricks (Eent)</li>
+                    <li>Sand (Balu)</li>
+                    <li>Gravel (Gitti)</li>
+                    <li>Cement Supply</li>
+                </ul>
+            </div>
+            <div class="service-card">
+                <div class="icon-box"><i class="fas fa-taxi"></i></div>
+                <h3>Vehicle Rental</h3>
+                <ul>
+                    <li>E-Rickshaw Booking</li>
+                    <li>Car & Taxi</li>
+                    <li>JCB & Tractor</li>
+                    <li>Truck for Shifting</li>
+                </ul>
+            </div>
         </div>
     </section>
 
-    <section id="services" class="section services-bg">
-        <div class="container">
-            <div class="section-title">
-                <h2>हमारी सेवाएं (Our Services)</h2>
-                <p>हम नीचे दी गई सभी कैटेगरी में सर्विस प्रदान करते हैं:</p>
+    <section class="features">
+        <div class="section-title">
+            <h2>Why Choose SBL?</h2>
+        </div>
+        <div class="feature-grid">
+            <div class="f-card">
+                <div class="f-icon"><i class="fas fa-search-location"></i></div>
+                <h3>1. Discover</h3>
+                <p>अपने लोकेशन के पास मौजूद वेरीफाइड प्रोफेशनल्स को खोजें।</p>
             </div>
-
-            <div class="services-grid">
-                <div class="service-card">
-                    <span class="icon">🛠️</span>
-                    <h3>Home Repairs & Maintenance</h3>
-                    <ul>
-                        <li>AC, Fridge, Washing Machine Repair</li>
-                        <li>Electrician & Plumber Services</li>
-                        <li>Carpenter & Furniture Work</li>
-                        <li>TV & Laptop Repair</li>
-                        <li>Deep Cleaning Services</li>
-                    </ul>
-                </div>
-
-                <div class="service-card">
-                    <span class="icon">🏗️</span>
-                    <h3>Construction Materials</h3>
-                    <p>सीधे वेंडर से घर तक डिलीवरी:</p>
-                    <ul>
-                        <li>ईंट (Bricks)</li>
-                        <li>बालू (Sand)</li>
-                        <li>गिट्टी (Gravel/Gitti)</li>
-                        <li>मिट्टी और सीमेंट (Soil & Cement)</li>
-                    </ul>
-                </div>
-
-                <div class="service-card">
-                    <span class="icon">🚜</span>
-                    <h3>Vehicle Rental & Mobility</h3>
-                    <ul>
-                        <li>E-Rickshaw & Auto Booking</li>
-                        <li>Car & Taxi Rental</li>
-                        <li>Truck & Tractor for shifting</li>
-                        <li>JCB Rental</li>
-                    </ul>
-                </div>
-
-                <div class="service-card">
-                    <span class="icon">🎉</span>
-                    <h3>Lifestyle & Events</h3>
-                    <ul>
-                        <li>Salon at Home (Makeup/Spa)</li>
-                        <li>Wedding Planning & Decor</li>
-                        <li>Catering Services</li>
-                        <li>Photography & Videography</li>
-                    </ul>
-                </div>
-
-                <div class="service-card">
-                    <span class="icon">🏠</span>
-                    <h3>Essential Services</h3>
-                    <ul>
-                        <li>Maids & Cooks</li>
-                        <li>Home Tutors</li>
-                        <li>Pest Control</li>
-                        <li>Water Tank Cleaning</li>
-                        <li>Laundry Services</li>
-                    </ul>
-                </div>
+            <div class="f-card">
+                <div class="f-icon"><i class="fas fa-phone-alt"></i></div>
+                <h3>2. Connect Directly</h3>
+                <p>सीधे कॉल या व्हाट्सएप करें। बीच में कोई कस्टमर केयर नहीं।</p>
+            </div>
+            <div class="f-card">
+                <div class="f-icon"><i class="fas fa-rupee-sign"></i></div>
+                <h3>3. Zero Commission</h3>
+                <p>दाम आप तय करें। हम आपकी कमाई से कोई कमीशन नहीं लेते।</p>
             </div>
         </div>
     </section>
 
-    <section class="cta-section">
-        <div class="container">
-            <h2>क्या आप एक सर्विस प्रोवाइडर हैं?</h2>
-            <p>आज ही SBL से जुड़ें और अपने बिज़नेस को बढ़ाएं। 0% कमीशन मॉडल।</p>
-            <br>
-            <a href="#contact" style="color:white; border: 2px solid white; padding: 10px 20px; text-decoration: none; border-radius: 30px;">हमें संपर्क करें</a>
+    <section class="faq-sec">
+        <div class="section-title"><h2>Frequently Asked Questions</h2></div>
+        
+        <div class="faq-item" onclick="toggleFaq(this)">
+            <div class="faq-head">SBL ऐप इस्तेमाल करने की फीस क्या है? <i class="fas fa-plus"></i></div>
+            <div class="faq-body">SBL ऐप ग्राहकों के लिए और सर्विस प्रोवाइडर्स के लिए 0% कमीशन मॉडल पर काम करता है। हमारा उद्देश्य लोकल रोजगार बढ़ाना है।</div>
+        </div>
+        
+        <div class="faq-item" onclick="toggleFaq(this)">
+            <div class="faq-head">क्या वेंडर्स वेरीफाइड हैं? <i class="fas fa-plus"></i></div>
+            <div class="faq-body">जी हाँ, हम आधार कार्ड और फिजिकल वेरिफिकेशन के जरिए वेंडर्स को ऑनबोर्ड करते हैं ताकि सुरक्षा बनी रहे।</div>
+        </div>
+
+        <div class="faq-item" onclick="toggleFaq(this)">
+            <div class="faq-head">मैं पेमेंट कैसे करूँ? <i class="fas fa-plus"></i></div>
+            <div class="faq-body">काम पूरा होने के बाद आप सीधे वेंडर (प्रोवाइडर) को कैश या UPI से पेमेंट कर सकते हैं।</div>
         </div>
     </section>
 
-    <footer id="contact">
-        <div class="container">
-            <div class="footer-grid">
-                <div class="footer-col">
-                    <h3>SBL DIGITAL CORP.</h3>
-                    <p>Connecting verified local experts with customers.</p>
-                    <p><strong>CIN:</strong> U63120JH2025PTC026634</p>
-                </div>
-                <div class="footer-col">
-                    <h3>Contact Info</h3>
-                    <p>📍 <strong>Registered Office:</strong><br>
-                    1658/A, Sahardal, Mihijam,<br>
-                    Jamtara - 815354, Jharkhand</p>
-                    <p>📧 support@servicebylocal.com</p>
-                </div>
-                <div class="footer-col">
-                    <h3>Legal</h3>
-                    <ul>
-                        <li><a href="#" style="color:#bbb">Privacy Policy</a></li>
-                        <li><a href="#" style="color:#bbb">Terms & Conditions</a></li>
-                        <li><a href="#" style="color:#bbb">Refund Policy</a></li>
-                    </ul>
-                </div>
+    <footer>
+        <div class="footer-content">
+            <div class="ft-col">
+                <h4 style="color:var(--primary)">SBL DIGITAL CORP.</h4>
+                <p>Connecting verified local experts with customers seamlessly. Aatmanirbhar Bharat Initiative.</p>
+                <br>
+                <p><strong>CIN:</strong> U63120JH2025PTC026634</p>
             </div>
-            <div class="copyright">
-                <p>&copy; 2026 SBL DIGITAL CORPORATION PRIVATE LIMITED. All Rights Reserved.</p>
+            
+            <div class="ft-col">
+                <h4>Registered Office</h4>
+                <p><i class="fas fa-map-pin"></i> 1658/A, Sahardal, Mihijam</p>
+                <p>Jamtara, Jharkhand - 815354</p>
+                <p><i class="fas fa-envelope"></i> support@servicebylocal.com</p>
             </div>
+
+            <div class="ft-col">
+                <h4>Legal</h4>
+                <p><a href="#" style="color:#ccc; text-decoration:none;">Privacy Policy</a></p>
+                <p><a href="#" style="color:#ccc; text-decoration:none;">Terms & Conditions</a></p>
+                <p><a href="#" style="color:#ccc; text-decoration:none;">Refund Policy</a></p>
+            </div>
+        </div>
+        
+        <div class="legal-strip">
+            <p>&copy; 2026 SBL DIGITAL CORPORATION PRIVATE LIMITED. All Rights Reserved.</p>
+            <p style="font-size: 0.8rem; margin-top:5px; opacity: 0.6;">Made in BHARAT with ❤️</p>
         </div>
     </footer>
 
     <script>
-        document.querySelector('.download-btn').addEventListener('click', function(e) {
-            // अगर लिंक असली नहीं है तो यूजर को बताएं
-            if(this.getAttribute('href') === '#' || this.getAttribute('href') === '') {
-                e.preventDefault();
-                alert('App link will be updated soon! (SBL Team)');
+        // FAQ Toggle Script
+        function toggleFaq(el) {
+            const body = el.querySelector('.faq-body');
+            const icon = el.querySelector('.fa-plus') || el.querySelector('.fa-minus');
+            
+            if (body.style.display === "block") {
+                body.style.display = "none";
+                icon.classList.remove('fa-minus');
+                icon.classList.add('fa-plus');
+                el.classList.remove('active');
+            } else {
+                body.style.display = "block";
+                icon.classList.remove('fa-plus');
+                icon.classList.add('fa-minus');
+                el.classList.add('active');
             }
-        });
+        }
     </script>
 </body>
 </html>

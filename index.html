@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Surina Masala  Maa ki Rasoi Se | Jharkhand ka Apna Masala Brand</title>
+<meta name="description" content="Surina Masala  100% shuddh, lab-tested masale. Maa ki rasoi se. Market se 3-5% sasta. Shop online ya distributor banen."/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="style.css"/>
+<style>
+/* ===== HOMEPAGE-ONLY STYLES ===== */
+
+/* HERO */
+.hero{
+  min-height:96vh;position:relative;display:flex;align-items:center;
+  padding-top:76px;overflow:hidden;
+  background:linear-gradient(160deg,var(--yellow) 0%,var(--yellow-dk) 38%,#E8960A 70%,#D4860A 100%);
+}
+.hero-pattern{
+  position:absolute;inset:0;opacity:.5;
+  background-image:radial-gradient(circle,rgba(255,255,255,.18) 1.5px,transparent 1.5px);
+  background-size:34px 34px;
+}
+.hero-swirl{position:absolute;border-radius:50%;filter:blur(60px);pointer-events:none}
+.sw1{width:420px;height:420px;background:rgba(216,30,30,.18);top:-100px;right:-80px}
+.sw2{width:300px;height:300px;background:rgba(255,255,255,.25);bottom:-80px;left:-60px}
+.hero-body{position:relative;z-index:2;display:grid;grid-template-columns:1.1fr 1fr;gap:54px;align-items:center;padding:70px 28px 64px;max-width:1220px;margin:0 auto;width:100%}
+.hero-tag{
+  display:inline-flex;align-items:center;gap:9px;
+  background:rgba(122,10,10,.1);border:1.5px solid rgba(122,10,10,.25);
+  color:var(--red-deep);font-size:13px;font-weight:700;
+  padding:9px 20px;border-radius:var(--r-pill);margin-bottom:26px;
+}
+.hero-dot{width:7px;height:7px;border-radius:50%;background:var(--red);animation:pulse 2s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(.7)}}
+.hero-h1{font-family:var(--font-display);font-size:clamp(38px,5.6vw,62px);font-weight:800;color:var(--red-deep);line-height:1.06;letter-spacing:-1px;margin-bottom:8px}
+.hero-h1 .accent-line{color:var(--white);text-shadow:0 3px 0 var(--red-deep),0 2px 14px rgba(122,10,10,.3);-webkit-text-stroke:1.5px var(--red-deep)}
+.hero-tagline{font-family:var(--font-display);font-size:clamp(18px,2.2vw,24px);font-weight:600;color:var(--red);font-style:italic;margin-bottom:20px}
+.hero-desc{font-size:clamp(15px,1.6vw,17px);color:rgba(43,23,0,.78);line-height:1.8;margin-bottom:18px;max-width:480px;font-weight:500}
+.hero-saving{display:inline-flex;align-items:center;gap:8px;background:rgba(31,157,85,.12);border:1.5px solid rgba(31,157,85,.3);color:#136B38;font-size:13px;font-weight:700;padding:8px 18px;border-radius:var(--r-pill);margin-bottom:34px}
+.hero-btns{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:46px}
+.hero-stats-row{display:grid;grid-template-columns:repeat(3,1fr);border-radius:18px;overflow:hidden;background:rgba(255,255,255,.35);border:1.5px solid rgba(122,10,10,.12)}
+.hs{padding:18px 12px;text-align:center;border-right:1px solid rgba(122,10,10,.1)}
+.hs:last-child{border-right:none}
+.hs-num{font-family:var(--font-display);font-size:32px;font-weight:800;color:var(--red-deep);line-height:1}
+.hs-num sup{font-size:17px}
+.hs-lbl{font-size:9.5px;letter-spacing:2px;text-transform:uppercase;color:rgba(43,23,0,.55);font-weight:700;margin-top:5px}
+
+/* Hero right - logo showcase */
+.hero-right{display:flex;flex-direction:column;align-items:center;gap:22px;position:relative}
+.brand-disc{
+  width:340px;height:340px;border-radius:50%;
+  background:radial-gradient(circle at 38% 32%,#fff 0%,#fff 38%,var(--yellow-pale) 70%);
+  display:flex;align-items:center;justify-content:center;position:relative;
+  box-shadow:0 30px 80px rgba(122,10,10,.25),0 0 0 14px rgba(255,255,255,.5);
+}
+.brand-oval{
+  width:280px;height:170px;border-radius:50%;
+  background:radial-gradient(ellipse at 35% 30%,var(--red) 0%,var(--red-dk) 55%,var(--red-deep) 100%);
+  border:6px solid var(--gold);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  box-shadow:0 16px 40px rgba(122,10,10,.4),inset 0 2px 10px rgba(255,255,255,.25);
+  transform:rotate(-3deg);
+}
+.brand-oval-name{font-family:var(--font-display);font-size:38px;font-weight:800;color:#fff;text-shadow:0 2px 0 var(--red-deep),0 4px 10px rgba(0,0,0,.3);letter-spacing:1px;-webkit-text-stroke:1px var(--red-dk)}
+.brand-oval-sub{font-family:var(--font-display);font-size:18px;font-style:italic;font-weight:600;color:#fff;margin-top:-2px;opacity:.95}
+.brand-disc-tag{position:absolute;top:8%;left:6%;font-size:11px;font-weight:800;color:var(--red);background:#fff;padding:6px 14px;border-radius:var(--r-pill);box-shadow:var(--sh-sm);transform:rotate(-8deg)}
+.float-spice{position:absolute;font-size:30px;filter:drop-shadow(0 6px 10px rgba(0,0,0,.15))}
+.fs1{top:0;right:8%;animation:floaty 5s ease-in-out infinite}
+.fs2{bottom:6%;left:2%;animation:floaty 4.5s ease-in-out infinite 1s}
+.fs3{bottom:-2%;right:0;animation:floaty 5.5s ease-in-out infinite .5s}
+@keyframes floaty{0%,100%{transform:translateY(0) rotate(0)}50%{transform:translateY(-14px) rotate(8deg)}}
+.hero-badge-strip{display:flex;gap:10px}
+.hbs-item{background:#fff;border-radius:var(--r-pill);padding:9px 16px;font-size:12px;font-weight:700;color:var(--ink-2);box-shadow:var(--sh-sm);display:flex;align-items:center;gap:6px}
+
+/* TRUST STRIP */
+.trust{padding:22px 0;background:var(--cream);border-bottom:1px solid var(--border)}
+.trust-flow{display:flex;flex-wrap:wrap;justify-content:center;gap:8px}
+.t-chip{display:flex;align-items:center;gap:8px;padding:10px 20px;background:var(--white);border-radius:var(--r-pill);border:1.5px solid var(--border);font-size:13px;font-weight:600;color:var(--ink-2);transition:var(--t)}
+.t-chip:hover{border-color:var(--red);color:var(--red);transform:translateY(-2px);box-shadow:var(--sh-sm)}
+
+/* DUAL PATH SECTION  Shop vs Distributor */
+.dual-path{padding:90px 0;background:var(--white)}
+.dp-grid{display:grid;grid-template-columns:1fr 1fr;gap:28px;margin-top:48px}
+.dp-card{
+  border-radius:28px;padding:44px 38px;position:relative;overflow:hidden;
+  transition:var(--t);display:flex;flex-direction:column;min-height:340px;
+}
+.dp-card:hover{transform:translateY(-8px)}
+.dp-shop{background:linear-gradient(150deg,#FFF4D6 0%,var(--yellow-lt) 100%);border:2px solid var(--yellow-dk)}
+.dp-dist{background:linear-gradient(150deg,#3A1206 0%,#240A02 100%);border:2px solid var(--red-deep)}
+.dp-icon{width:64px;height:64px;border-radius:18px;display:flex;align-items:center;justify-content:center;font-size:30px;margin-bottom:22px}
+.dp-shop .dp-icon{background:var(--white);box-shadow:var(--sh-sm)}
+.dp-dist .dp-icon{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.15)}
+.dp-card h3{font-family:var(--font-display);font-size:30px;font-weight:800;margin-bottom:10px}
+.dp-shop h3{color:var(--red-deep)}
+.dp-dist h3{color:#fff}
+.dp-card p{font-size:14.5px;line-height:1.75;margin-bottom:28px;flex:1}
+.dp-shop p{color:var(--ink-2)}
+.dp-dist p{color:rgba(255,255,255,.65)}
+.dp-list{display:flex;flex-direction:column;gap:9px;margin-bottom:28px}
+.dp-list-item{display:flex;align-items:center;gap:9px;font-size:13.5px;font-weight:600}
+.dp-shop .dp-list-item{color:var(--ink)}
+.dp-dist .dp-list-item{color:rgba(255,255,255,.85)}
+.dp-list-icon{width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;flex-shrink:0}
+.dp-shop .dp-list-icon{background:var(--red);color:#fff}
+.dp-dist .dp-list-icon{background:var(--yellow);color:var(--red-deep)}
+.dp-deco{position:absolute;font-size:120px;opacity:.08;bottom:-20px;right:-10px;pointer-events:none}
+
+/* PRICE PROMISE */
+.price-banner{background:linear-gradient(125deg,var(--red-deep) 0%,var(--red) 55%,var(--yellow-dk) 100%);padding:46px 0;position:relative;overflow:hidden}
+.price-banner::before{content:'SASTA';position:absolute;right:-30px;top:50%;transform:translateY(-50%);font-family:var(--font-display);font-size:170px;font-weight:800;color:rgba(255,255,255,.05);line-height:1;white-space:nowrap}
+.pb-inner{display:flex;align-items:center;justify-content:space-between;gap:32px;flex-wrap:wrap;position:relative;z-index:2}
+.pb-left h3{font-family:var(--font-display);font-size:clamp(22px,3.4vw,36px);font-weight:800;color:#fff;margin-bottom:8px}
+.pb-left p{font-size:15px;color:rgba(255,255,255,.85);max-width:500px;line-height:1.75}
+.pb-right{display:flex;gap:16px;flex-shrink:0}
+.pb-pill{background:rgba(255,255,255,.16);border:2px solid rgba(255,255,255,.32);border-radius:20px;padding:18px 26px;text-align:center;min-width:104px;backdrop-filter:blur(8px)}
+.pb-pill-num{font-family:var(--font-display);font-size:42px;font-weight:800;color:#fff;line-height:1}
+.pb-pill-lbl{font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,.78);margin-top:3px}
+
+/* PRODUCTS PREVIEW */
+.products-preview{padding:96px 0;background:var(--cream)}
+.pp-head{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:44px;gap:20px;flex-wrap:wrap}
+.prod-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(258px,1fr));gap:22px}
+.pcard{background:var(--white);border-radius:22px;border:1.5px solid var(--border-lt);overflow:hidden;transition:var(--t);display:flex;flex-direction:column;box-shadow:var(--sh-card)}
+.pcard:hover{transform:translateY(-7px);box-shadow:var(--sh-lg);border-color:rgba(216,30,30,.18)}
+.pcard-img-wrap{position:relative;height:185px;overflow:hidden;background:linear-gradient(135deg,var(--yellow-pale),var(--cream))}
+.pcard-img-wrap img{width:100%;height:100%;object-fit:cover;transition:transform .5s var(--ease)}
+.pcard:hover .pcard-img-wrap img{transform:scale(1.07)}
+.pcard-badge{position:absolute;top:12px;left:12px;font-size:9px;font-weight:800;letter-spacing:1.4px;padding:4px 11px;border-radius:var(--r-pill);text-transform:uppercase;color:#fff}
+.bdg-best{background:var(--red)}
+.bdg-hot{background:var(--yellow-dk);color:var(--red-deep)}
+.bdg-pure{background:var(--green)}
+.bdg-new{background:var(--gold-dk)}
+.pcard-body{padding:19px;flex:1;display:flex;flex-direction:column}
+.pcard-name{font-family:var(--font-display);font-size:18px;font-weight:700;color:var(--ink);margin-bottom:3px}
+.pcard-sub{font-size:11.5px;color:var(--ink-3);font-weight:600;margin-bottom:10px}
+.pcard-price-row{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:13px}
+.ppv{font-family:var(--font-display);font-size:22px;font-weight:800;color:var(--red)}
+.ppu{font-size:11px;color:var(--ink-3)}
+.pcard-rating{display:flex;align-items:center;gap:4px;font-size:11.5px;color:var(--ink-3);margin-bottom:13px}
+.add-btn{padding:11px 14px;background:var(--red);color:#fff;border:none;border-radius:11px;font-weight:700;font-size:13px;cursor:pointer;transition:var(--t);width:100%;letter-spacing:.2px}
+.add-btn:hover{background:var(--red-dk);transform:scale(1.02)}
+.pp-cta{text-align:center;margin-top:48px}
+
+/* WHY */
+.why{padding:96px 0;background:var(--white)}
+.why-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(232px,1fr));gap:18px;margin-top:48px}
+.why-card{padding:28px 22px;border-radius:20px;border:1.5px solid var(--border);transition:var(--t)}
+.why-card:hover{border-color:var(--red);background:#FFF7E8;transform:translateY(-4px);box-shadow:var(--sh-md)}
+.why-icon{font-size:32px;margin-bottom:12px}
+.why-card h4{font-size:14.5px;font-weight:700;margin-bottom:7px;color:var(--ink)}
+.why-card p{font-size:13px;color:var(--ink-2);line-height:1.6}
+
+/* TESTIMONIALS */
+.reviews{padding:96px 0;background:var(--cream);overflow:hidden}
+.rev-slider{overflow:hidden;margin-top:48px}
+.rev-track{display:flex;gap:20px;transition:transform .5s var(--ease)}
+.rev-card{min-width:340px;background:var(--white);border-radius:22px;padding:28px;border:1.5px solid var(--border);flex-shrink:0;box-shadow:var(--sh-card)}
+.rev-stars{color:var(--gold-dk);font-size:16px;margin-bottom:12px;letter-spacing:2px}
+.rev-text{color:var(--ink-2);font-size:14.5px;line-height:1.8;margin-bottom:20px;font-style:italic}
+.rev-author{display:flex;align-items:center;gap:12px}
+.rev-av{width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,var(--red),var(--red-dk));color:#fff;font-weight:800;font-size:17px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.rev-name{font-weight:700;font-size:14px}
+.rev-role{font-size:12px;color:var(--ink-3);margin-top:2px}
+.slider-dots{display:flex;justify-content:center;gap:7px;margin-top:30px}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--border);cursor:pointer;transition:var(--t)}
+.dot.on{background:var(--red);width:24px;border-radius:4px}
+
+/* CTA STRIP */
+.cta-strip{padding:80px 0;background:linear-gradient(135deg,var(--red-deep),var(--red));text-align:center}
+.cta-strip h2{font-family:var(--font-display);font-size:clamp(26px,3.6vw,42px);font-weight:800;color:#fff;margin-bottom:14px}
+.cta-strip p{color:rgba(255,255,255,.78);font-size:15.5px;margin-bottom:32px;max-width:520px;margin-left:auto;margin-right:auto}
+.cta-strip-btns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+
+@media(max-width:1024px){
+  .hero-body{grid-template-columns:1fr;gap:36px;text-align:center}
+  .hero-desc,.hero-saving{margin:0 auto 18px}
+  .hero-btns,.hero-badge-strip{justify-content:center}
+  .hero-stats-row{max-width:380px;margin:0 auto}
+  .hero-h1 .accent-line{-webkit-text-stroke:1px var(--red-deep)}
+  .dp-grid{grid-template-columns:1fr}
+  .pp-head{flex-direction:column;align-items:flex-start}
+}
+@media(max-width:480px){
+  .hero-btns{flex-direction:column;align-items:center;width:100%}
+  .hero-btns .btn{width:100%;justify-content:center}
+  .prod-grid{grid-template-columns:1fr 1fr}
+  .why-grid{grid-template-columns:1fr 1fr}
+  .brand-disc{width:260px;height:260px}
+  .brand-oval{width:210px;height:128px}
+  .brand-oval-name{font-size:28px}
+}
+</style>
+</head>
+<body>
+
+<!-- ออออออออ HEADER ออออออออ -->
+<header class="hdr" id="hdr">
+  <div class="wrap hdr-inner">
+    <a href="index.html" class="logo">
+      <div class="logo-badge"></div>
+      <div class="logo-words">
+        <span class="logo-primary">Surina</span>
+        <span class="logo-secondary">Masala</span>
+      </div>
+    </a>
+    <nav class="hdr-nav" id="nav">
+      <ul class="nav-ul">
+        <li><a href="index.html" class="nav-a active"> Home</a></li>
+        <li><a href="shop.html" class="nav-a"> Shop</a></li>
+        <li><a href="distributor.html" class="nav-a"> Distributor</a></li>
+        <li><a href="index.html#about" class="nav-a">About</a></li>
+        <li><a href="index.html#contact" class="nav-a">Contact</a></li>
+      </ul>
+    </nav>
+    <button class="hdr-cart-btn" onclick="toggleCart()" aria-label="Cart">
+      <span class="hdr-cart-count" data-cart-count>0</span>
+    </button>
+    <a href="https://wa.me/916201986597?text=Hello%20Surina%20Masala%2C%20order%20karna%20hai." target="_blank" class="btn btn-wa hdr-wa">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+      Order
+    </a>
+    <button class="burger" id="burger"><span></span><span></span><span></span></button>
+  </div>
+</header>
+
+<!-- ออออออออ HERO ออออออออ -->
+<section class="hero" id="home">
+  <div class="hero-pattern"></div>
+  <div class="hero-swirl sw1"></div>
+  <div class="hero-swirl sw2"></div>
+  <div class="hero-body">
+    <div class="hero-left">
+      <div class="hero-tag reveal"><span class="hero-dot"></span> Bharose ka Naam</div>
+      <h1 class="hero-h1 reveal">Surina<br/><span class="accent-line">Masala</span></h1>
+      <p class="hero-tagline reveal">"Maa ki Rasoi Se...!"</p>
+      <p class="hero-desc reveal">100% shuddh, lab-tested masale  seedha factory se, bina kisi beechiye ke. Tier 2 & 3 cities ke har ghar ke liye banaya gaya.</p>
+      <div class="hero-saving reveal"> &nbsp;Market se 35% Sasta ๚ Factory Direct</div>
+      <div class="hero-btns reveal">
+        <a href="shop.html" class="btn btn-red"> Shop Karein</a>
+        <a href="distributor.html" class="btn btn-yellow"> Distributor Banen</a>
+      </div>
+      <div class="hero-stats-row reveal">
+        <div class="hs"><div class="hs-num"><span class="ctr" data-n="500">0</span><sup>+</sup></div><div class="hs-lbl">Dealers</div></div>
+        <div class="hs"><div class="hs-num"><span class="ctr" data-n="10">0</span><sup>+</sup></div><div class="hs-lbl">Saal Tajurba</div></div>
+        <div class="hs"><div class="hs-num"><span class="ctr" data-n="20">0</span><sup>+</sup></div><div class="hs-lbl">Products</div></div>
+      </div>
+    </div>
+    <div class="hero-right">
+      <div class="brand-disc reveal">
+        <span class="float-spice fs1"></span>
+        <span class="float-spice fs2"></span>
+        <span class="float-spice fs3"></span>
+        <div class="brand-disc-tag">   ...!</div>
+        <div class="brand-oval">
+          <div class="brand-oval-name">Surina</div>
+          <div class="brand-oval-sub">Masala</div>
+        </div>
+      </div>
+      <div class="hero-badge-strip reveal">
+        <div class="hbs-item"> 100% Pure</div>
+        <div class="hbs-item"> Factory Direct</div>
+        <div class="hbs-item"> Lab Tested</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ออออออออ TRUST STRIP ออออออออ -->
+<section class="trust">
+  <div class="wrap trust-flow">
+    <div class="t-chip reveal"><span></span>100% Shuddh Ingredients</div>
+    <div class="t-chip reveal"><span></span>Lab Tested Quality</div>
+    <div class="t-chip reveal"><span></span>Hygienic Manufacturing</div>
+    <div class="t-chip reveal"><span></span>Premium Packaging</div>
+    <div class="t-chip reveal"><span></span>Fast Delivery</div>
+    <div class="t-chip reveal"><span></span>Best Price Guaranteed</div>
+  </div>
+</section>
+
+<!-- ออออออออ DUAL PATH: SHOP vs DISTRIBUTOR ออออออออ -->
+<section class="dual-path">
+  <div class="wrap">
+    <span class="eyebrow center">Aapko Kya Chahiye?</span>
+    <h2 class="title center">Apna Raasta <span class="accent em-text">Chunein</span></h2>
+    <p class="sub center">Chahe aap apne ghar ke liye masala kharidna chahte hain, ya apne business ke liye Surina ka distributor banna chahte hain  hum dono ke liye taiyaar hain.</p>
+    <div class="dp-grid">
+      <a href="shop.html" class="dp-card dp-shop reveal">
+        <span class="dp-deco"></span>
+        <div class="dp-icon"></div>
+        <h3>Online Shop Karein</h3>
+        <p>Apne ghar ke liye seedha shuddh masale order karein. Search karein, pack size chunein, cart mein daalein, aur WhatsApp par order confirm karein.</p>
+        <div class="dp-list">
+          <div class="dp-list-item"><span class="dp-list-icon"></span> 12+ premium products available</div>
+          <div class="dp-list-item"><span class="dp-list-icon"></span> Search & filter karke products dhundhein</div>
+          <div class="dp-list-item"><span class="dp-list-icon"></span> Multiple pack sizes  100g se 1kg tak</div>
+        </div>
+        <span class="btn btn-red fw">Shop Page Kholein </span>
+      </a>
+      <a href="distributor.html" class="dp-card dp-dist reveal">
+        <span class="dp-deco"></span>
+        <div class="dp-icon"></div>
+        <h3>Distributor Banen</h3>
+        <p>Apna business shuru karein ya expand karein. Surina ke growing network ka hissa banen  attractive margins ke saath, full support ke saath.</p>
+        <div class="dp-list">
+          <div class="dp-list-item"><span class="dp-list-icon"></span> High profit margins</div>
+          <div class="dp-list-item"><span class="dp-list-icon"></span> Marketing & branding support</div>
+          <div class="dp-list-item"><span class="dp-list-icon"></span> Koi bada minimum order nahi</div>
+        </div>
+        <span class="btn btn-yellow fw">Distributor Page Kholein </span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ออออออออ PRICE BANNER ออออออออ -->
+<section class="price-banner">
+  <div class="wrap pb-inner">
+    <div class="pb-left reveal">
+      <h3>Market se 35% Sasta  Guaranteed!</h3>
+      <p>Hum seedha factory se deliver karte hain. Koi middleman nahi, koi extra charge nahi. Wahi savings aapko milti hai  same premium quality ke saath.</p>
+    </div>
+    <div class="pb-right reveal">
+      <div class="pb-pill"><div class="pb-pill-num">35</div><div class="pb-pill-lbl">% Sasta</div></div>
+      <div class="pb-pill"><div class="pb-pill-num">100</div><div class="pb-pill-lbl">% Shuddh</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ออออออออ PRODUCTS PREVIEW ออออออออ -->
+<section class="products-preview" id="products">
+  <div class="wrap">
+    <div class="pp-head">
+      <div>
+        <span class="eyebrow">Hamara Range</span>
+        <h2 class="title">Bestselling <span class="accent em-text">Masale</span></h2>
+      </div>
+      <a href="shop.html" class="btn btn-outline-r">Pura Shop Dekhein </a>
+    </div>
+    <div class="prod-grid" id="previewGrid"></div>
+  </div>
+</section>
+
+<!-- ออออออออ WHY SURINA ออออออออ -->
+<section class="why" id="about">
+  <div class="wrap">
+    <span class="eyebrow center">Kyun Surina?</span>
+    <h2 class="title center">The Surina <span class="accent em-text">Difference</span></h2>
+    <div class="why-grid">
+      <div class="why-card reveal"><div class="why-icon"></div><h4>100% Shuddh Masale</h4><p>Koi artificial color nahi, koi milawat nahi. Sirf nature ki shuddh shan.</p></div>
+      <div class="why-card reveal"><div class="why-icon"></div><h4>35% Sasta  Always</h4><p>Factory-direct pricing  beechiye ka kharcha zero. Savings direct aapko.</p></div>
+      <div class="why-card reveal"><div class="why-icon"></div><h4>Asli Khushboo</h4><p>Cold grinding se essential oils protect  aroma itna strong, pehli baar mein hi pehchaan aaye.</p></div>
+      <div class="why-card reveal"><div class="why-icon"></div><h4>Farm-Fresh Ingredients</h4><p>Seedha certified farms se. Strict freshness aur purity standards.</p></div>
+      <div class="why-card reveal"><div class="why-icon"></div><h4>500+ Dealers ka Bharosa</h4><p>Hazaron satisfied customers aur 500+ dealers  numbers jhooth nahi bolte.</p></div>
+      <div class="why-card reveal"><div class="why-icon"></div><h4>Direct Factory Supply</h4><p>No middleman. Seedha hamari factory se  aapke ghar ya dukaan tak.</p></div>
+      <div class="why-card reveal"><div class="why-icon"></div><h4>Dealer Support System</h4><p>Dedicated support, margin schemes, marketing materials  sab included.</p></div>
+      <div class="why-card reveal"><div class="why-icon"></div><h4>Bulk Supply Available</h4><p>Retail se lekar bulk wholesale tak  har size ka order accept karte hain.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ออออออออ REVIEWS ออออออออ -->
+<section class="reviews" id="reviews">
+  <div class="wrap">
+    <span class="eyebrow center">Customers Ki Zubaani</span>
+    <h2 class="title center">Hamare <span class="accent em-text">Khush Customers</span></h2>
+    <div class="rev-slider"><div class="rev-track" id="revTrack"></div></div>
+    <div class="slider-dots" id="revDots"></div>
+  </div>
+</section>
+
+<!-- ออออออออ CTA STRIP ออออออออ -->
+<section class="cta-strip" id="contact">
+  <div class="wrap">
+    <h2>Surina Family ka Hissa Banen</h2>
+    <p>Chahe aapko apne ghar ke liye masale chahiye ya business ke liye distributorship  hum aapke liye taiyaar hain.</p>
+    <div class="cta-strip-btns">
+      <a href="shop.html" class="btn btn-yellow"> Shop Karein</a>
+      <a href="distributor.html" class="btn btn-outline-w"> Distributor Banen</a>
+      <a href="https://wa.me/916201986597" target="_blank" class="btn btn-wa"> WhatsApp</a>
+    </div>
+  </div>
+</section>
+
+<!-- ออออออออ FOOTER ออออออออ -->
+<footer class="footer">
+  <div class="wrap footer-grid">
+    <div>
+      <div class="f-logo-name">Surina</div>
+      <div class="f-logo-sub">Masala</div>
+      <p class="f-desc">Jharkhand ki apni company. Premium quality masale, factory-direct prices par. "Maa ki Rasoi Se"  yahi Surina ka waada.</p>
+      <div class="f-socials">
+        <a href="#" title="Facebook">f</a>
+        <a href="#" title="Instagram"></a>
+        <a href="#" title="YouTube"></a>
+        <a href="https://wa.me/916201986597" title="WhatsApp"></a>
+      </div>
+    </div>
+    <div class="f-col">
+      <h4>Quick Links</h4>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="shop.html">Shop</a></li>
+        <li><a href="distributor.html">Distributor</a></li>
+        <li><a href="index.html#about">About Us</a></li>
+        <li><a href="index.html#contact">Contact</a></li>
+      </ul>
+    </div>
+    <div class="f-col">
+      <h4>Products</h4>
+      <ul>
+        <li><a href="shop.html">Turmeric Powder</a></li>
+        <li><a href="shop.html">Red Chilli Powder</a></li>
+        <li><a href="shop.html">Garam Masala</a></li>
+        <li><a href="shop.html">Kitchen King</a></li>
+        <li><a href="shop.html">Biryani Masala</a></li>
+      </ul>
+    </div>
+    <div class="f-col f-contact">
+      <h4>Contact Us</h4>
+      <p> Jamtara, Jharkhand  815354</p>
+      <p> +91 62019 86597</p>
+      <p> info@surinamasala.com</p>
+      <a href="https://wa.me/916201986597?text=Hello%20Surina%20Masala" target="_blank" class="btn btn-wa btn-sm" style="margin-top:16px;display:inline-flex">Order Karein</a>
+    </div>
+  </div>
+  <div class="footer-bottom"><p> 2024 Surina Enterprises ๚ All Rights Reserved ๚ "Maa ki Rasoi Se...!"</p></div>
+</footer>
+
+<!-- CART DRAWER -->
+<div class="cart-overlay" id="cartOverlay" onclick="closeCart()"></div>
+<div class="cart-drawer" id="cartDrawer">
+  <div class="cart-hdr">
+    <h3> Your Cart <span class="c-badge" data-cart-count>0</span></h3>
+    <button class="cart-x" onclick="closeCart()"></button>
+  </div>
+  <div class="cart-items" id="cartItems"></div>
+  <div class="cart-foot">
+    <div class="cart-tot">Total: <strong data-cart-total>0</strong></div>
+    <button class="btn btn-wa fw" onclick="waCheckout()">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+      WhatsApp par Order Karein
+    </button>
+  </div>
+</div>
+
+<a href="https://wa.me/916201986597?text=Hello%20Surina%20Masala." target="_blank" class="wa-float">
+  <svg width="28" height="28" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+</a>
+
+<script src="app.js"></script>
+<script>
+const reviews=[
+  {name:"Rajesh Kumar",role:"Grocery Store Owner, Dhanbad",stars:5,text:"Surina Masala 3 saal se mera top-selling brand hai. Quality bilkul consistent hai aur customers naam lekar maangte hain."},
+  {name:"Anita Devi",role:"Home Customer, Jamtara",stars:5,text:"Surina ka haldi aur garam masala kisi bhi brand se behtar hai  pure aroma, sundar color, koi artificial smell nahi."},
+  {name:"Mohammed Imran",role:"Hotel Owner, Bokaro",stars:5,text:"2 saal pehle hotel kitchen ke liye Surina switch kiya. Guests ne khane ki quality mein seedha fark notice kiya."},
+  {name:"Priya Agarwal",role:"Caterer, Giridih",stars:5,text:"Bulk orders ke liye Surina unbeatable hai. Fresh product, timely delivery, wholesale pricing ekdum competitive."},
+  {name:"Santosh Sharma",role:"Distributor, Deoghar",stars:5,text:"Dealer support amazing hai  marketing help, display materials provide karte hain. Products khud bikta hai."},
+];
+
+function buildPreviewProducts(){
+  const top=PRODUCTS.slice(0,4);
+  document.getElementById('previewGrid').innerHTML=top.map(p=>{
+    const ws=Object.keys(p.prices),dw=ws[1];
+    return `
+    <div class="pcard reveal">
+      <div class="pcard-img-wrap">
+        <img src="${p.img}" alt="${p.name}" loading="lazy"/>
+        <div class="pcard-badge bdg-${p.bdg}">${p.badge}</div>
+      </div>
+      <div class="pcard-body">
+        <h3 class="pcard-name">${p.name}</h3>
+        <p class="pcard-sub">${p.sub}</p>
+        <div class="pcard-rating"> ${p.rating} <span style="opacity:.6">(${p.reviews} reviews)</span></div>
+        <div class="pcard-price-row"><span class="ppv">${p.prices[dw]}</span><span class="ppu">/ ${dw}</span></div>
+        <button class="add-btn" onclick="addToCart(${p.id},'${dw}',1);this.textContent=' Added!';this.style.background='#15803d';setTimeout(()=>{this.textContent='Cart mein Daalein';this.style.background='';},1300)">Cart mein Daalein</button>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function buildReviews(){
+  const track=document.getElementById('revTrack'),dots=document.getElementById('revDots');
+  track.innerHTML=reviews.map(r=>`
+    <div class="rev-card">
+      <div class="rev-stars">${''.repeat(r.stars)}</div>
+      <p class="rev-text">"${r.text}"</p>
+      <div class="rev-author"><div class="rev-av">${r.name[0]}</div><div><div class="rev-name">${r.name}</div><div class="rev-role">${r.role}</div></div></div>
+    </div>`).join('');
+  dots.innerHTML=reviews.map((_,i)=>`<div class="dot${i===0?' on':''}" onclick="goSlide(${i})"></div>`).join('');
+}
+let slideIdx=0;
+function goSlide(idx){
+  slideIdx=idx;
+  const card=document.querySelector('.rev-card');
+  const cw=card?card.offsetWidth+20:360;
+  document.getElementById('revTrack').style.transform=`translateX(-${idx*cw}px)`;
+  document.querySelectorAll('.dot').forEach((d,i)=>d.classList.toggle('on',i===idx));
+}
+setInterval(()=>{slideIdx=(slideIdx+1)%reviews.length;goSlide(slideIdx)},4500);
+
+document.addEventListener('DOMContentLoaded',()=>{
+  buildPreviewProducts();
+  buildReviews();
+  setTimeout(()=>document.querySelectorAll('.reveal').forEach(el=>{
+    const obs=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('vis')}),{threshold:.1});
+    obs.observe(el);
+  }),50);
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Surina Masala | Factory Direct Pure Spices</title>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="style.css"/>
+<style>
+  .hero{min-height:90vh;display:flex;align-items:center;padding-top:80px;background:linear-gradient(135deg, #FFFBEF 0%, #FFF4D6 100%);position:relative;overflow:hidden;}
+  .hero-glass{background:rgba(255,255,255,0.6);backdrop-filter:blur(20px);padding:60px;border-radius:32px;border:1px solid rgba(255,255,255,0.8);box-shadow:var(--sh-lg);max-width:800px;margin:0 auto;text-align:center;position:relative;z-index:2;}
+  
+  /* The "Surina Story" Deep Dive */
+  .about-section{padding:120px 0;background:#fff;}
+  .story-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;margin-top:40px;}
+  .story-img{border-radius:32px;overflow:hidden;box-shadow:var(--sh-lg);}
+  
+  /* Soft colored blur orbs for background depth instead of dots */
+  .orb{position:absolute;border-radius:50%;filter:blur(80px);z-index:1;}
+  .orb-1{background:rgba(216,30,30,0.15);width:600px;height:600px;top:-100px;right:-100px;}
+  .orb-2{background:rgba(242,169,0,0.2);width:500px;height:500px;bottom:-50px;left:-100px;}
+</style>
+</head>
+<body>
+
+<header class="hdr" id="hdr">
+  <!-- Same Header HTML as shop.html -->
+  <div class="wrap hdr-inner">
+    <a href="index.html" class="logo">
+      <div class="logo-badge">🌶️</div>
+      <div class="logo-words"><span class="logo-primary">Surina</span><span class="logo-secondary">Masala</span></div>
+    </a>
+    <nav class="hdr-nav" id="nav">
+      <ul class="nav-ul">
+        <li><a href="index.html" class="nav-a active">🏠 Home</a></li>
+        <li><a href="shop.html" class="nav-a">🛍️ Shop</a></li>
+        <li><a href="distributor.html" class="nav-a">🤝 Distributor</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="orb orb-1"></div><div class="orb orb-2"></div>
+  <div class="wrap">
+    <div class="hero-glass reveal">
+      <span class="eyebrow center" style="margin-bottom:24px">Maa Ki Rasoi Se</span>
+      <h1 style="font-family:var(--font-display);font-size:clamp(40px,6vw,72px);font-weight:800;line-height:1.05;color:var(--ink);margin-bottom:20px;letter-spacing:-1px;">
+        Asli Shuddhata.<br><span style="color:var(--red)">Seedha Factory Se.</span>
+      </h1>
+      <p style="font-size:18px;color:var(--ink-2);margin-bottom:40px;line-height:1.7">100% Pure, lab-tested spices at unbeatable prices. Hum middle-men ko hatate hain, taaki aapko mile behtareen quality 10% - 50% discount par.</p>
+      <div style="display:flex;gap:16px;justify-content:center">
+        <a href="shop.html" class="btn btn-red" style="padding:18px 36px;font-size:16px">🛍️ Shop Now</a>
+        <a href="distributor.html" class="btn btn-outline-r" style="padding:18px 36px;font-size:16px;background:#fff">🤝 Become a Dealer</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="about-section">
+  <div class="wrap">
+    <div class="story-grid">
+      <div class="reveal">
+        <span class="eyebrow">Our Story</span>
+        <h2 class="title">Surina Masala Kya Hai?</h2>
+        <p style="font-size:16px;color:var(--ink-2);line-height:1.8;margin-bottom:20px">Surina Masala sirf ek brand nahi, ek bharosa hai. Jamtara (Jharkhand) se shuru hui yeh journey ek hi lakshya ke saath aage badh rahi hai: <strong>Har ghar mein asli, bina milawat wala masala pahunchana.</strong></p>
+        <p style="font-size:16px;color:var(--ink-2);line-height:1.8;margin-bottom:30px">Market mein milne wale masalo mein synthetic colors aur sawdust ki milawat aam baat hai. Humne decide kiya ki hum apna production khud karenge. Cold-grinding technology use karke, hum masalo ke natural oils aur aroma ko protect karte hain.</p>
+        
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;background:var(--yellow-pale);padding:24px;border-radius:24px;">
+          <div><h4 style="font-size:24px;font-family:var(--font-display);color:var(--red);font-weight:800">10-50%</h4><p style="font-size:13px;font-weight:600">Discount via Factory-Direct Pricing</p></div>
+          <div><h4 style="font-size:24px;font-family:var(--font-display);color:var(--red);font-weight:800">100%</h4><p style="font-size:13px;font-weight:600">Lab Tested Shuddhata</p></div>
+        </div>
+      </div>
+      <div class="story-img reveal">
+        <img src="https://images.unsplash.com/photo-1596040033229-a9821ebd058d?w=800&auto=format&fit=crop&q=80" alt="Fresh Spices"/>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script src="app.js"></script>
+</body>
+</html>
